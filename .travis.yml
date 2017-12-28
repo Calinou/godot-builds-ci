@@ -24,7 +24,7 @@ before_script:
   - export BUILD_COMMIT="$(git rev-parse --short=9 HEAD)"
   - export BUILD_DATE="$(git log -1 --format=%cd --date=short)"
   - export BUILD_VERSION="$BUILD_DATE.$BUILD_COMMIT"
-  - mkdir -p "godot/$BUILD_VERSION"
+  - mkdir -p "$BUILD_VERSION"
 
 # For macOS, pretend 64-bit templates to be fat binaries, just in case
 # macOS editor and templates are built in separate jobs to avoid exceeding time limits
@@ -54,9 +54,8 @@ script:
         echo "3.0-beta" > bin/templates/version.txt;
         zip -r9 bin/templates/osx.zip osx_template.app/;
         cd bin/;
-        zip -9 "Godot-Templates-macOS-$BUILD_VERSION.tpz" templates/*;
+        zip -9 "../$BUILD_VERSION/Godot-Templates-macOS-$BUILD_VERSION.tpz" templates/*;
         cd ../;
-        cp "bin/Godot-Templates-macOS-$BUILD_VERSION.tpz" "$BUILD_VERSION";
       fi;
     fi;
   - if [ "$PLATFORM" = "iphone" ]; then
@@ -71,12 +70,12 @@ script:
       echo "3.0-beta" > bin/templates/version.txt;
       zip -r9 bin/templates/GodotiOSXCode.zip godot_ios_xcode/;
       cd bin/;
-      zip -9 Godot-Templates-iOS-$BUILD_VERSION.tpz templates/*;
+      zip -9 "../$BUILD_VERSION/Godot-Templates-iOS-$BUILD_VERSION.tpz" templates/*;
       cd ../;
-      cp "bin/Godot-Templates-iOS-$BUILD_VERSION.tpz" "$BUILD_VERSION";
     fi;
 
 after_success:
+  - ls -lh "$BUILD_VERSION/"
   - mkdir -p "$HOME/.ssh/"
   - openssl aes-256-cbc -K $encrypted_b98964ef663e_key -iv $encrypted_b98964ef663e_iv -in "../resources/id_rsa.enc" -out "$HOME/.ssh/id_rsa" -d
   - cp "../resources/known_hosts" "$HOME/.ssh/known_hosts"

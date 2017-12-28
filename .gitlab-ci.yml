@@ -1,0 +1,81 @@
+# The GitHub repository is mirrored to GitLab.com, where continuous builds
+# are performed and can be downloaded.
+#
+# https://gitlab.com/Calinou/godot-builds-ci
+#
+# This build script is licensed under CC0 1.0 Universal:
+# https://creativecommons.org/publicdomain/zero/1.0/
+
+# Use only one stage for simplicity's sake
+stages:
+  - build
+
+# Install dependencies and prepare stuff before building
+before_script:
+  - apt-get update -y
+  - apt-get install -y git cmake wget build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev yasm
+  - git clone --depth=1 https://github.com/godotengine/godot.git
+  - cd godot/
+  - mkdir -p "$BUILD_VERSION/editor" "$BUILD_VERSION/templates"
+
+# Deploy to server using SCP
+# `$SSH_PRIVATE_KEY` is a secret variable defined in the GitLab CI settings
+after_script:
+  - mkdir -p "$HOME/.ssh"
+  - echo "$SSH_PRIVATE_KEY" > "$HOME/.ssh/id_rsa"
+  - cp "resources/known_hosts" "$HOME/.ssh/"
+  - scp -r "$BUILD_VERSION" hugo@hugo.pro:/var/www/godot.hugo.pro/builds
+
+# Linux editor
+# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+# TODO: Build 32-bit Linux editor
+
+build:linux_editor:
+  stage: build
+  image: ubuntu:trusty
+  script:
+    - scons platform=x11 tools=yes target=release_debug progress=no -j$(nproc)
+    - strip bin/godot.x11.opt.tools.64
+    - mkdir -p appdir/usr/bin/ appdir/usr/share/icons
+    - cp bin/godot.x11.opt.tools.64 appdir/usr/bin/godot
+    - cp misc/dist/appimage/godot.desktop appdir/godot.desktop
+    - cp icon.svg appdir/usr/share/icons/godot.svg
+    - wget https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
+    - chmod +x linuxdeployqt-continuous-x86_64.AppImage
+    - ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
+    - ./squashfs-root/AppRun appdir/godot.desktop -appimage
+    - mv Godot_Engine-x86_64.AppImage "$BUILD_VERSION/editor/Godot-Linux-x86_64-$BUILD_VERSION.AppImage"
+
+# Linux export templates
+# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+# TODO: Build 32-bit Linux export templates. For now, the 64-bit templates are copied to 32-bit templates,
+# to prevent errors from appearing in the export dialog.
+
+build:linux_templates:
+  stage: build
+  image: ubuntu:trusty
+  script:
+    - scons platform=x11 tools=no target=release_debug progress=no -j$(nproc)
+    - scons platform=x11 tools=no target=release progress=no -j$(nproc)
+    - strip bin/godot.*.64
+    - mv bin/godot.x11.opt.debug.64 "$BUILD_VERSION/templates/linux_x11_64_debug"
+    - mv bin/godot.x11.opt.debug.64 "$BUILD_VERSION/templates/linux_x11_32_debug"
+    - mv bin/godot.x11.opt.64 "$BUILD_VERSION/templates/linux_x11_64_release"
+    - mv bin/godot.x11.opt.64 "$BUILD_VERSION/templates/linux_x11_32_release"
+
+# HTML5 (WebAssembly)
+
+build:html5:
+  stage: build
+  image: ubuntu:artful
+  script:
+    - wget https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz
+    - tar xf emsdk-portable.tar.gz
+    - cd emsdk-portable/; ./emsdk update; ./emsdk install latest; ./emsdk activate latest
+    - source ./emsdk_env.sh
+    - export EMSCRIPTEN_ROOT=$(em-config EMSCRIPTEN_ROOT)
+    - cd ../
+    - scons platform=javascript tools=no target=release_debug progress=no -j$(nproc)
+    - scons platform=javascript tools=no target=release progress=no -j$(nproc)
+    - mv "bin/godot.javascript.opt.debug.webassembly.zip" "$BUILD_VERSION/templates/webassembly_debug.zip"
+    - mv "bin/godot.javascript.opt.webassembly.zip" "$BUILD_VERSION/templates/webassembly_release.zip"

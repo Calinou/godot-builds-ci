@@ -19,12 +19,12 @@ env:
 before_script:
   - brew update
   - brew install scons yasm
-  - git clone --depth=1 https://github.com/godotengine/godot.git;
+  - git clone --depth=1 https://github.com/godotengine/godot.git
   - cd godot/
   - export BUILD_COMMIT="$(git rev-parse --short=9 HEAD)"
   - export BUILD_DATE="$(git log -1 --format=%cd --date=short)"
   - export BUILD_VERSION="$BUILD_DATE.$BUILD_COMMIT"
-  - mkdir -p "$BUILD_VERSION"
+  - mkdir -p "$BUILD_VERSION/editor" "$BUILD_VERSION/templates"
 
 # For macOS, pretend 64-bit templates to be fat binaries, just in case
 # macOS editor and templates are built in separate jobs to avoid exceeding time limits
@@ -40,7 +40,7 @@ script:
         cp bin/godot.osx.opt.tools.64 godot_dmg/Godot.app/Contents/MacOS/Godot;
         git clone https://github.com/andreyvit/create-dmg.git --depth=1;
         cd create-dmg/;
-        ./create-dmg --volname "Godot" --volicon "../godot_dmg/Godot.app/Contents/Resources/Godot.icns" --hide-extension "Godot.app" "../$BUILD_VERSION/Godot-macOS-x86_64.dmg" "../godot_dmg/";
+        ./create-dmg --volname "Godot" --volicon "../godot_dmg/Godot.app/Contents/Resources/Godot.icns" --hide-extension "Godot.app" "../$BUILD_VERSION/editor/Godot-macOS-x86_64-$BUILD_VERSION.dmg" "../godot_dmg/";
         cd ../;
       fi;
       if [ "$TARGET" = "templates" ]; then
@@ -50,12 +50,7 @@ script:
         mkdir -p osx_template.app/Contents/MacOS/;
         mv bin/godot.osx.opt.debug.64 osx_template.app/Contents/MacOS/godot_osx_debug.fat;
         mv bin/godot.osx.opt.64 osx_template.app/Contents/MacOS/godot_osx_release.fat;
-        mkdir -p bin/templates/;
-        echo "3.0-beta" > bin/templates/version.txt;
-        zip -r9 bin/templates/osx.zip osx_template.app/;
-        cd bin/;
-        zip -9 "../$BUILD_VERSION/Godot-Templates-macOS-$BUILD_VERSION.tpz" templates/*;
-        cd ../;
+        zip -r9 "$BUILD_VERSION/templates/osx.zip" "osx_template.app/";
       fi;
     fi;
   - if [ "$PLATFORM" = "iphone" ]; then
@@ -63,15 +58,8 @@ script:
       scons platform=iphone arch=arm64 tools=no target=release $OPTIONS;
       mv misc/dist/ios_xcode/ godot_ios_xcode/;
       lipo -create -arch armv7 bin/godot.iphone.opt.arm -arch arm64 bin/godot.iphone.opt.arm64 -output godot_ios_xcode/godot_opt.iphone;
-      cd godot_ios_xcode/;
-      cp godot_opt.iphone godot_debug.iphone;
-      cd ../;
-      mkdir -p bin/templates/;
-      echo "3.0-beta" > bin/templates/version.txt;
-      zip -r9 bin/templates/GodotiOSXCode.zip godot_ios_xcode/;
-      cd bin/;
-      zip -9 "../$BUILD_VERSION/Godot-Templates-iOS-$BUILD_VERSION.tpz" templates/*;
-      cd ../;
+      cp "godot_ios_xcode/godot_opt.iphone" "godot_ios_xcode/godot_debug.iphone";
+      zip -r9 "$BUILD_VERSION/templates/GodotiOSXCode.zip" "godot_ios_xcode/";
     fi;
 
 after_success:
@@ -79,5 +67,5 @@ after_success:
   - mkdir -p "$HOME/.ssh/"
   - openssl aes-256-cbc -K $encrypted_b98964ef663e_key -iv $encrypted_b98964ef663e_iv -in "../resources/id_rsa.enc" -out "$HOME/.ssh/id_rsa" -d
   - chmod 600 "$HOME/.ssh/id_rsa"
-  - cp "../resources/known_hosts" "$HOME/.ssh/known_hosts"
+  - cp "../resources/known_hosts" "$HOME/.ssh/"
   - scp -r "$BUILD_VERSION/" hugo@hugo.pro:/var/www/godot.hugo.pro/builds

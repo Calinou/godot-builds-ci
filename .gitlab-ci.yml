@@ -59,9 +59,9 @@ build:linux_templates:
     - scons platform=x11 tools=no target=release_debug progress=no -j$(nproc)
     - scons platform=x11 tools=no target=release progress=no -j$(nproc)
     - strip bin/godot.*.64
-    - mv bin/godot.x11.opt.debug.64 "$BUILD_VERSION/templates/linux_x11_64_debug"
+    - cp bin/godot.x11.opt.debug.64 "$BUILD_VERSION/templates/linux_x11_64_debug"
     - mv bin/godot.x11.opt.debug.64 "$BUILD_VERSION/templates/linux_x11_32_debug"
-    - mv bin/godot.x11.opt.64 "$BUILD_VERSION/templates/linux_x11_64_release"
+    - cp bin/godot.x11.opt.64 "$BUILD_VERSION/templates/linux_x11_64_release"
     - mv bin/godot.x11.opt.64 "$BUILD_VERSION/templates/linux_x11_32_release"
 
 # HTML5 (WebAssembly)

@@ -13,7 +13,7 @@ stages:
 # Install dependencies and prepare stuff before building
 before_script:
   - apt-get update -y
-  - apt-get install -y git cmake wget build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev yasm
+  - apt-get install -y git cmake wget build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev libxi-dev yasm
   - git clone --depth=1 https://github.com/godotengine/godot.git
   - cd godot/
   - mkdir -p "$BUILD_VERSION/editor" "$BUILD_VERSION/templates"

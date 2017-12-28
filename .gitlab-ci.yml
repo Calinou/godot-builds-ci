@@ -23,6 +23,7 @@ before_script:
 after_script:
   - mkdir -p "$HOME/.ssh"
   - echo "$SSH_PRIVATE_KEY" > "$HOME/.ssh/id_rsa"
+  - chmod 600 "$HOME/.ssh/id_rsa"
   - cp "resources/known_hosts" "$HOME/.ssh/"
   - scp -r "$BUILD_VERSION" hugo@hugo.pro:/var/www/godot.hugo.pro/builds
 

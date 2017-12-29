@@ -86,5 +86,5 @@ build:html5:
     - cd ../
     - scons platform=javascript tools=no target=release_debug progress=no -j$(nproc)
     - scons platform=javascript tools=no target=release progress=no -j$(nproc)
-    - mv "bin/godot.javascript.opt.debug.webassembly.zip" "$BUILD_VERSION/templates/webassembly_debug.zip"
-    - mv "bin/godot.javascript.opt.webassembly.zip" "$BUILD_VERSION/templates/webassembly_release.zip"
+    - mv "bin/godot.javascript.opt.debug.zip" "$BUILD_VERSION/templates/webassembly_debug.zip"
+    - mv "bin/godot.javascript.opt.zip" "$BUILD_VERSION/templates/webassembly_release.zip"

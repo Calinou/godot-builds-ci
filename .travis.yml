@@ -29,8 +29,10 @@ before_script:
 
 # For macOS, pretend 64-bit templates to be fat binaries, just in case
 # macOS editor and templates are built in separate jobs to avoid exceeding time limits
-# For iOS, compile only release templates (to avoid exceeding time limits on Travis CI),
-# and copy them as debug templates as well (to avoid errors in the export dialog of the editor)
+#
+# For iOS, compile only 64-bit ARM binaries, as all Apple devices supporting
+# OpenGL ES 3.0 have 64-bit ARM processors anyway
+# An empty `data.pck` file must be included in the export template ZIP as well
 script:
   - if [ "$PLATFORM" = "osx" ]; then
       if [ "$TARGET" = "editor" ]; then
@@ -55,12 +57,12 @@ script:
       fi;
     fi;
   - if [ "$PLATFORM" = "iphone" ]; then
-      scons platform=iphone arch=arm tools=no target=release $OPTIONS;
+      scons platform=iphone arch=arm64 tools=no target=release_debug $OPTIONS;
       scons platform=iphone arch=arm64 tools=no target=release $OPTIONS;
-      mv misc/dist/ios_xcode/ godot_ios_xcode/;
-      lipo -create -arch armv7 bin/godot.iphone.opt.arm -arch arm64 bin/godot.iphone.opt.arm64 -output godot_ios_xcode/godot_opt.iphone;
-      cp "godot_ios_xcode/godot_opt.iphone" "godot_ios_xcode/godot_debug.iphone";
-      zip -r9 "$BUILD_VERSION/templates/GodotiOSXCode.zip" "godot_ios_xcode/";
+      mv "bin/libgodot.iphone.opt.debug.arm64.a" "libgodot.iphone.debug.fat.a";
+      mv "bin/libgodot.iphone.opt.arm64.a" "libgodot.iphone.release.fat.a";
+      touch "data.pck";
+      zip -9 "$BUILD_VERSION/templates/iphone.zip" "libgodot.iphone.debug.fat.a" "libgodot.iphone.release.fat.a" "data.pck";
     fi;
 
 after_success:

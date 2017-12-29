@@ -24,6 +24,13 @@ before_script:
 # Deploy to server using SCP
 # `$SSH_PRIVATE_KEY` is a secret variable defined in the GitLab CI settings
 after_script:
+  - pwd
+  - cd godot/
+  - export BUILD_COMMIT="$(git rev-parse --short=9 HEAD)"
+  - export BUILD_DATE="$(git log -1 --format=%cd --date=short)"
+  - export BUILD_VERSION="$BUILD_DATE.$BUILD_COMMIT"
+  - cd ../
+  - ls
   - mkdir -p "$HOME/.ssh"
   - echo "$SSH_PRIVATE_KEY" > "$HOME/.ssh/id_rsa"
   - chmod 600 "$HOME/.ssh/id_rsa"

@@ -10,10 +10,16 @@
 stages:
   - build
 
+variables:
+  # The number of CPU threads to use for compiling Godot
+  BUILD_THREADS: 3
+  # SCons build flags to use for all platforms
+  OPTIONS: "debug_symbols=no progress=no -j$BUILD_THREADS"
+
 # Install dependencies and prepare stuff before building
 before_script:
   - apt-get update -y
-  - apt-get install -y git cmake wget build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev libxi-dev yasm
+  - apt-get install -y git cmake wget unzip build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libfreetype6-dev libssl-dev libudev-dev libxrandr-dev libxi-dev yasm
   - git clone --depth=1 https://github.com/godotengine/godot.git
   - cd godot/
   - patch methods.py ../resources/always_tty.patch
@@ -43,7 +49,7 @@ build:linux_editor:
   stage: build
   image: ubuntu:trusty
   script:
-    - scons platform=x11 tools=yes target=release_debug progress=no -j$(nproc)
+    - scons platform=x11 tools=yes target=release_debug $OPTIONS
     - strip bin/godot.x11.opt.tools.64
     - mkdir -p appdir/usr/bin/ appdir/usr/share/icons
     - cp bin/godot.x11.opt.tools.64 appdir/usr/bin/godot
@@ -64,8 +70,8 @@ build:linux_templates:
   stage: build
   image: ubuntu:trusty
   script:
-    - scons platform=x11 tools=no target=release_debug progress=no -j$(nproc)
-    - scons platform=x11 tools=no target=release progress=no -j$(nproc)
+    - scons platform=x11 tools=no target=release_debug $OPTIONS
+    - scons platform=x11 tools=no target=release $OPTIONS
     - strip bin/godot.*.64
     - cp bin/godot.x11.opt.debug.64 "$BUILD_VERSION/templates/linux_x11_64_debug"
     - mv bin/godot.x11.opt.debug.64 "$BUILD_VERSION/templates/linux_x11_32_debug"
@@ -84,7 +90,29 @@ build:html5:
     - source ./emsdk_env.sh
     - export EMSCRIPTEN_ROOT=$(em-config EMSCRIPTEN_ROOT)
     - cd ../
-    - scons platform=javascript tools=no target=release_debug progress=no -j$(nproc)
-    - scons platform=javascript tools=no target=release progress=no -j$(nproc)
+    - scons platform=javascript tools=no target=release_debug $OPTIONS
+    - scons platform=javascript tools=no target=release $OPTIONS
     - mv "bin/godot.javascript.opt.debug.zip" "$BUILD_VERSION/templates/webassembly_debug.zip"
     - mv "bin/godot.javascript.opt.zip" "$BUILD_VERSION/templates/webassembly_release.zip"
+
+# Android
+
+build:android:
+  stage: build
+  image: ubuntu:artful
+  script:
+    - apt-get install -y openjdk-8-jdk
+    - mkdir -p "$CI_PROJECT_DIR/android"
+    - cd "$CI_PROJECT_DIR/android"
+    - wget -o "tools.zip" "https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip"
+    - unzip "tools.zip"
+    - rm "tools.zip"
+    - export ANDROID_HOME="$CI_PROJECT_DIR/android"
+    - export ANDROID_NDK_ROOT="$ANDROID_HOME/ndk-bundle"
+    - cd "$CI_PROJECT_DIR/godot"
+    - scons platform=android tools=no target=release_debug $OPTIONS
+    - scons platform=android tools=no target=release $OPTIONS
+    - cd "platform/android/java"
+    - ./gradlew build
+    - mv "bin/android_debug.apk" "$BUILD_VERSION/templates/"
+    - mv "bin/android_release.apk" "$BUILD_VERSION/templates/"

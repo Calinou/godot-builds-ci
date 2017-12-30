@@ -119,5 +119,6 @@ build:android:
     - scons platform=android tools=no target=release $OPTIONS
     - cd "platform/android/java"
     - ./gradlew build
+    - cd "$CI_PROJECT_DIR/godot"
     - mv "bin/android_debug.apk" "$BUILD_VERSION/templates/"
     - mv "bin/android_release.apk" "$BUILD_VERSION/templates/"

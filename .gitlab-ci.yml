@@ -55,7 +55,7 @@ build:linux_editor:
     - cp bin/godot.x11.opt.tools.64 appdir/usr/bin/godot
     - cp misc/dist/appimage/godot.desktop appdir/godot.desktop
     - cp icon.svg appdir/usr/share/icons/godot.svg
-    - wget "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+    - wget -q "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
     - chmod +x linuxdeployqt-continuous-x86_64.AppImage
     - ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
     - ./squashfs-root/AppRun appdir/godot.desktop -appimage
@@ -84,7 +84,7 @@ build:html5:
   stage: build
   image: ubuntu:artful
   script:
-    - wget "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
+    - wget -q "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
     - tar xf emsdk-portable.tar.gz
     - cd emsdk-portable/; ./emsdk update; ./emsdk install latest; ./emsdk activate latest
     - source ./emsdk_env.sh
@@ -104,11 +104,13 @@ build:android:
     - apt-get install -y openjdk-8-jdk
     - mkdir -p "$CI_PROJECT_DIR/android"
     - cd "$CI_PROJECT_DIR/android"
-    - wget "https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip"
+    - wget -q "https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip"
     - unzip -q "sdk-tools-linux-3859397.zip"
     - rm "sdk-tools-linux-3859397.zip"
+    - mkdir -p "licenses/"
+    - cp "$CI_PROJECT_DIR/resources/android-sdk-license" "licenses/"
     - export ANDROID_HOME="$CI_PROJECT_DIR/android"
-    - wget "https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip"
+    - wget -q "https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip"
     - unzip -q "android-ndk-r16b-linux-x86_64.zip"
     - rm "android-ndk-r16b-linux-x86_64.zip"
     - export ANDROID_NDK_ROOT="$ANDROID_HOME/android-ndk-r16b"

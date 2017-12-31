@@ -28,11 +28,13 @@ environment:
 
 install:
   - pip install --egg scons # `--egg` is required for use with AppVeyor
+  - pip install patch
   - curl -O https://the.earth.li/~sgtatham/putty/latest/w64/pscp.exe
   - nuget install secure-file -ExcludeVersion
   - secure-file\tools\secure-file -decrypt resources\id_rsa_appveyor.enc -secret %SSH_KEYFILE_PASSPHRASE% -out resources\id_rsa
   - git clone --depth=1 https://github.com/godotengine/godot.git
   - cd godot\
+  - patch methods.py ..\resources\always_tty.patch
 
 build_script:
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -arch=x64

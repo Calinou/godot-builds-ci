@@ -14,7 +14,7 @@ variables:
   # The number of CPU threads to use for compiling Godot
   BUILD_THREADS: 3
   # SCons build flags to use for all platforms
-  OPTIONS: "debug_symbols=no progress=no -j$BUILD_THREADS"
+  SCONS_FLAGS: debug_symbols=no progress=no -j$BUILD_THREADS
 
 # Install dependencies and prepare stuff before building
 before_script:
@@ -39,7 +39,7 @@ after_script:
   - echo "$SSH_PRIVATE_KEY" > "$HOME/.ssh/id_rsa"
   - chmod 600 "$HOME/.ssh/id_rsa"
   - cp "../resources/known_hosts" "$HOME/.ssh/"
-  - scp -r "$BUILD_VERSION" hugo@hugo.pro:/var/www/godot.hugo.pro/builds
+  - scp -r "$BUILD_VERSION/" hugo@hugo.pro:/var/www/godot.hugo.pro/builds
 
 # Linux editor
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
@@ -49,7 +49,7 @@ build:linux_editor:
   stage: build
   image: ubuntu:trusty
   script:
-    - scons platform=x11 tools=yes target=release_debug $OPTIONS
+    - scons platform=x11 tools=yes target=release_debug $SCONS_FLAGS
     - strip bin/godot.x11.opt.tools.64
     - mkdir -p appdir/usr/bin/ appdir/usr/share/icons
     - cp bin/godot.x11.opt.tools.64 appdir/usr/bin/godot
@@ -70,8 +70,8 @@ build:linux_templates:
   stage: build
   image: ubuntu:trusty
   script:
-    - scons platform=x11 tools=no target=release_debug $OPTIONS
-    - scons platform=x11 tools=no target=release $OPTIONS
+    - scons platform=x11 tools=no target=release_debug $SCONS_FLAGS
+    - scons platform=x11 tools=no target=release $SCONS_FLAGS
     - strip bin/godot.*.64
     - cp bin/godot.x11.opt.debug.64 "$BUILD_VERSION/templates/linux_x11_64_debug"
     - mv bin/godot.x11.opt.debug.64 "$BUILD_VERSION/templates/linux_x11_32_debug"
@@ -90,8 +90,8 @@ build:html5:
     - source ./emsdk_env.sh
     - export EMSCRIPTEN_ROOT=$(em-config EMSCRIPTEN_ROOT)
     - cd ../
-    - scons platform=javascript tools=no target=release_debug $OPTIONS
-    - scons platform=javascript tools=no target=release $OPTIONS
+    - scons platform=javascript tools=no target=release_debug $SCONS_FLAGS
+    - scons platform=javascript tools=no target=release $SCONS_FLAGS
     - mv "bin/godot.javascript.opt.debug.zip" "$BUILD_VERSION/templates/webassembly_debug.zip"
     - mv "bin/godot.javascript.opt.zip" "$BUILD_VERSION/templates/webassembly_release.zip"
 
@@ -115,8 +115,8 @@ build:android:
     - rm "android-ndk-r16b-linux-x86_64.zip"
     - export ANDROID_NDK_ROOT="$ANDROID_HOME/android-ndk-r16b"
     - cd "$CI_PROJECT_DIR/godot"
-    - scons platform=android tools=no target=release_debug $OPTIONS
-    - scons platform=android tools=no target=release $OPTIONS
+    - scons platform=android tools=no target=release_debug $SCONS_FLAGS
+    - scons platform=android tools=no target=release $SCONS_FLAGS
     - cd "platform/android/java"
     - ./gradlew build
     - cd "$CI_PROJECT_DIR/godot"

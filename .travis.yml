@@ -68,7 +68,7 @@ script:
 after_success:
   - ls -lh "$BUILD_VERSION/"
   - mkdir -p "$HOME/.ssh/"
-  - openssl aes-256-cbc -K $encrypted_b98964ef663e_key -iv $encrypted_b98964ef663e_iv -in "../resources/id_rsa.enc" -out "$HOME/.ssh/id_rsa" -d
+  - openssl aes-256-cbc -K $encrypted_b98964ef663e_key -iv $encrypted_b98964ef663e_iv -in "../resources/id_rsa_travis.enc" -out "$HOME/.ssh/id_rsa" -d
   - chmod 600 "$HOME/.ssh/id_rsa"
   - cp "../resources/known_hosts" "$HOME/.ssh/"
   - scp -r "$BUILD_VERSION/" hugo@hugo.pro:/var/www/godot.hugo.pro/builds

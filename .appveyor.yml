@@ -6,7 +6,7 @@ shallow_clone: true
 
 environment:
   # Compile with link-time optimization enabled for faster binaries
-  SCONS_FLAGS: debug_symbols=no progress=no use_lto=yes
+  SCONS_FLAGS: debug_symbols=no progress=no
   # Path to the Inno Setup compiler
   INNOSETUP: "C:\\Program Files (x86)\\Inno Setup 5\\ISCC.exe"
   # Encrypted passphrase used for decrypting the SSH private key
@@ -38,7 +38,7 @@ install:
 
 build_script:
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -arch=x64
-  - scons platform=windows tools=%TOOLS% target=%TARGET% %SCONS_FLAGS%
+  - scons platform=windows tools=%TOOLS% target=%TARGET% %SCONS_FLAGS% use_lto=yes
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -arch=x86
   - scons platform=windows tools=%TOOLS% target=%TARGET% %SCONS_FLAGS%
 

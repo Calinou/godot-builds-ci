@@ -31,7 +31,6 @@ install:
   - curl -O https://the.earth.li/~sgtatham/putty/latest/w64/pscp.exe
   - nuget install secure-file -ExcludeVersion
   - secure-file\tools\secure-file -decrypt resources\id_rsa_appveyor.enc -secret %SSH_KEYFILE_PASSPHRASE% -out resources\id_rsa
-  - copy resources\sshhostkeys %USERPROFILE%\.putty\
   - git clone --depth=1 https://github.com/godotengine/godot.git
   - cd godot\
 
@@ -56,4 +55,4 @@ after_build:
   - if %TOOLS%==no if %TARGET%==release_debug copy bin\godot.windows.opt.debug.32.exe %BUILD_VERSION%\templates\windows_32_debug.exe
   - if %TOOLS%==no if %TARGET%==release copy bin\godot.windows.opt.64.exe %BUILD_VERSION%\templates\windows_64_release.exe
   - if %TOOLS%==no if %TARGET%==release copy bin\godot.windows.opt.32.exe %BUILD_VERSION%\templates\windows_32_release.exe
-  - ..\pscp.exe -r %BUILD_VERSION% hugo@hugo.pro:/var/www/godot.hugo.pro/builds -i ..\resources\id_rsa
+  - ..\pscp.exe -hostkey e0:d9:49:6a:d6:4a:ff:23:b4:92:81:e2:90:9b:00:50 -r %BUILD_VERSION% hugo@hugo.pro:/var/www/godot.hugo.pro/builds -i ..\resources\id_rsa

@@ -36,8 +36,7 @@ install:
   - cd godot\
   - git rev-parse --short=9 HEAD > BUILD_COMMIT
   - set /p BUILD_COMMIT=<BUILD_COMMIT
-  - git log -1 --format=%^cd --date=short > BUILD_DATE
-  - set /p BUILD_DATE=<BUILD_DATE
+  - set BUILD_DATE=2017-01-01
   - set BUILD_VERSION=%BUILD_DATE%.%BUILD_COMMIT%
   - patch methods.py ..\resources\always_tty.patch
 

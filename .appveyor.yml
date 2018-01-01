@@ -34,6 +34,9 @@ install:
   - secure-file\tools\secure-file -decrypt resources\id_rsa_appveyor.enc -secret %SSH_KEYFILE_PASSPHRASE% -out resources\id_rsa
   - git clone --depth=1 https://github.com/godotengine/godot.git
   - cd godot\
+  - set BUILD_COMMIT=('git rev-parse --short=9 HEAD')
+  - set BUILD_DATE=('git log -1 --format=%cd --date=short')
+  - set BUILD_VERSION=%BUILD_DATE%.%BUILD_COMMIT%
   - patch methods.py ..\resources\always_tty.patch
 
 build_script:
@@ -47,11 +50,11 @@ after_build:
   - if %TOOLS%==yes 7z a %BUILD_VERSION%\editor\Godot-Windows-x86_64-%BUILD_VERSION%.zip bin\godot.windows.opt.tools.64.exe
   - if %TOOLS%==yes 7z a %BUILD_VERSION%\editor\Godot-Windows-x86-%BUILD_VERSION%.zip bin\godot.windows.opt.tools.32.exe
   - if %TOOLS%==yes move bin\godot.windows.opt.tools.64.exe godot.exe
-  - if %TOOLS%==yes %INNOSETUP% %APPVEYOR_BUILD_FOLDER%\resources\godot.iss
+  - if %TOOLS%==yes "%INNOSETUP%" %APPVEYOR_BUILD_FOLDER%\resources\godot.iss
   - if %TOOLS%==yes move Output\Godot-Windows-Installer-x86_64.exe %APPVEYOR_BUILD_FOLDER\editor\Godot-Windows-Installer-x86_64-%BUILD_VERSION%.exe
   - if %TOOLS%==yes del godot.exe
   - if %TOOLS%==yes move bin\godot.windows.opt.tools.32.exe godot.exe
-  - if %TOOLS%==yes %INNOSETUP% %APPVEYOR_BUILD_FOLDER%\resources\godot.iss /DApp32Bit
+  - if %TOOLS%==yes "%INNOSETUP%" %APPVEYOR_BUILD_FOLDER%\resources\godot.iss /DApp32Bit
   - if %TOOLS%==yes move Output\Godot-Windows-Installer-x86.exe %APPVEYOR_BUILD_FOLDER\editor\Godot-Windows-Installer-x86-%BUILD_VERSION%.exe
   - if %TOOLS%==no if %TARGET%==release_debug copy bin\godot.windows.opt.debug.64.exe %BUILD_VERSION%\templates\windows_64_debug.exe
   - if %TOOLS%==no if %TARGET%==release_debug copy bin\godot.windows.opt.debug.32.exe %BUILD_VERSION%\templates\windows_32_debug.exe

@@ -27,11 +27,20 @@ environment:
       TARGET: "release"
 
 install:
-  - pip install --egg scons # `--egg` is required for use with AppVeyor
+  # Install SCons and the `patch` utility
+  # `--egg` is required for use with AppVeyor
+  - pip install --egg scons
   - pip install patch
-  - curl -O https://the.earth.li/~sgtatham/putty/latest/w64/pscp.exe
+  # Install OpenSSH using Scoop
+  - ps: iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+  - scoop install openssh
+  # Decrypt the SSH private key
   - nuget install secure-file -ExcludeVersion
-  - secure-file\tools\secure-file -decrypt resources\id_rsa_appveyor.enc -secret %SSH_KEYFILE_PASSPHRASE% -out resources\id_rsa
+  - echo %USERPROFILE%
+  - secure-file\tools\secure-file -decrypt resources\id_rsa_appveyor.enc -secret %SSH_KEYFILE_PASSPHRASE% -out %USERPROFILE%\scoop\apps\openssh\current\.ssh\id_rsa
+  # Copy the `known_hosts` file over so that it's used by the SCP client
+  - copy resources/known_hosts %USERPROFILE%\scoop\apps\openssh\current\.ssh\known_hosts
+  # Clone Godot Git repository and set build variables
   - git clone --depth=1 https://github.com/godotengine/godot.git
   - cd godot\
   - git rev-parse --short=9 HEAD > BUILD_COMMIT
@@ -53,12 +62,13 @@ after_build:
   - if %TOOLS%==yes 7z a %BUILD_VERSION%\editor\Godot-Windows-x86_64-%BUILD_VERSION%.zip bin\godot.windows.opt.tools.64.exe
   - if %TOOLS%==yes 7z a %BUILD_VERSION%\editor\Godot-Windows-x86-%BUILD_VERSION%.zip bin\godot.windows.opt.tools.32.exe
   # Generate Windows installers
+  - if %TOOLS%==yes copy %APPVEYOR_BUILD_FOLDER%\resources\godot.iss godot.iss
   - if %TOOLS%==yes move bin\godot.windows.opt.tools.64.exe godot.exe
-  - if %TOOLS%==yes "%INNOSETUP%" %APPVEYOR_BUILD_FOLDER%\resources\godot.iss
+  - if %TOOLS%==yes "%INNOSETUP%" godot.iss
   - if %TOOLS%==yes move Output\Godot-Windows-Installer-x86_64.exe %APPVEYOR_BUILD_FOLDER\editor\Godot-Windows-Installer-x86_64-%BUILD_VERSION%.exe
   - if %TOOLS%==yes del godot.exe
   - if %TOOLS%==yes move bin\godot.windows.opt.tools.32.exe godot.exe
-  - if %TOOLS%==yes "%INNOSETUP%" %APPVEYOR_BUILD_FOLDER%\resources\godot.iss /DApp32Bit
+  - if %TOOLS%==yes "%INNOSETUP%" godot.iss /DApp32Bit
   - if %TOOLS%==yes move Output\Godot-Windows-Installer-x86.exe %APPVEYOR_BUILD_FOLDER\editor\Godot-Windows-Installer-x86-%BUILD_VERSION%.exe
   # Move export templates to the build artifacts directory
   - if %TOOLS%==no if %TARGET%==release_debug copy bin\godot.windows.opt.debug.64.exe %BUILD_VERSION%\templates\windows_64_debug.exe
@@ -66,4 +76,4 @@ after_build:
   - if %TOOLS%==no if %TARGET%==release copy bin\godot.windows.opt.64.exe %BUILD_VERSION%\templates\windows_64_release.exe
   - if %TOOLS%==no if %TARGET%==release copy bin\godot.windows.opt.32.exe %BUILD_VERSION%\templates\windows_32_release.exe
   # Deploy to server using SCP
-  - ..\pscp.exe -hostkey e0:d9:49:6a:d6:4a:ff:23:b4:92:81:e2:90:9b:00:50 -r %BUILD_VERSION% hugo@hugo.pro:/var/www/godot.hugo.pro/builds -i ..\resources\id_rsa
+  - scp -r %BUILD_VERSION% hugo@hugo.pro:/var/www/godot.hugo.pro/builds

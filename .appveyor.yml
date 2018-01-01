@@ -31,15 +31,13 @@ install:
   # `--egg` is required for use with AppVeyor
   - pip install --egg scons
   - pip install patch
-  # Install OpenSSH using Scoop
-  - ps: iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
-  - scoop install openssh
   # Decrypt the SSH private key
   - nuget install secure-file -ExcludeVersion
-  - echo %USERPROFILE%
-  - secure-file\tools\secure-file -decrypt resources\id_rsa_appveyor.enc -secret %SSH_KEYFILE_PASSPHRASE% -out %USERPROFILE%\scoop\apps\openssh\current\.ssh\id_rsa
+  - dir "%PROGRAMFILES%\Git"
+  - mkdir "%PROGRAMFILES%\Git\.ssh"
+  - secure-file\tools\secure-file -decrypt "resources\id_rsa_appveyor.enc" -secret %SSH_KEYFILE_PASSPHRASE% -out "%PROGRAMFILES%\Git\.ssh\id_rsa"
   # Copy the `known_hosts` file over so that it's used by the SCP client
-  - copy resources/known_hosts %USERPROFILE%\scoop\apps\openssh\current\.ssh\known_hosts
+  - copy "resources\known_hosts" "%PROGRAMFILES%\Git\.ssh\known_hosts"
   # Clone Godot Git repository and set build variables
   - git clone --depth=1 https://github.com/godotengine/godot.git
   - cd godot\

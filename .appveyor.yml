@@ -94,4 +94,4 @@ after_build:
   - if %TOOLS%==no if %TARGET%==release if %ARCH%==x64 move bin\godot.windows.opt.64.exe "%BUILD_VERSION%\templates\windows_64_release.exe"
   - if %TOOLS%==no if %TARGET%==release if %ARCH%==x86 move bin\godot.windows.opt.32.exe "%BUILD_VERSION%\templates\windows_32_release.exe"
   # Deploy to server using SCP
-  - scp -r "%BUILD_VERSION%" hugo@hugo.pro:/var/www/godot.hugo.pro/builds
+  - scp -Br "%BUILD_VERSION%" hugo@hugo.pro:/var/www/godot.hugo.pro/builds

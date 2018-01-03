@@ -53,7 +53,6 @@ install:
   - ps: scoop install win32-openssh
   # Decrypt the SSH private key
   - nuget install secure-file -ExcludeVersion
-  - mkdir "%USERPROFILE%\.ssh"
   - secure-file\tools\secure-file -decrypt "resources\id_rsa_appveyor.enc" -secret %SSH_KEYFILE_PASSPHRASE% -out "%USERPROFILE%\.ssh\id_rsa"
   # Copy the `known_hosts` file over so that it's used by the SCP client
   - copy "resources\known_hosts" "%USERPROFILE%\.ssh\known_hosts"

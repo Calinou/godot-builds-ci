@@ -50,13 +50,13 @@ install:
   - pip install --egg scons
   - pip install patch
   - ps: iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
-  - ps: scoop install openssh
+  - ps: scoop install win32-openssh
   # Decrypt the SSH private key
   - nuget install secure-file -ExcludeVersion
-  - mkdir "%USERPROFILE%\scoop\apps\openssh\current\.ssh"
-  - secure-file\tools\secure-file -decrypt "resources\id_rsa_appveyor.enc" -secret %SSH_KEYFILE_PASSPHRASE% -out "resources\id_rsa"
+  - mkdir "%USERPROFILE%\.ssh"
+  - secure-file\tools\secure-file -decrypt "resources\id_rsa_appveyor.enc" -secret %SSH_KEYFILE_PASSPHRASE% -out "%USERPROFILE%\.ssh\id_rsa"
   # Copy the `known_hosts` file over so that it's used by the SCP client
-  - copy "resources\known_hosts" "%USERPROFILE%\scoop\apps\openssh\current\.ssh\known_hosts"
+  - copy "resources\known_hosts" "%USERPROFILE%\.ssh\known_hosts"
   # Clone Godot Git repository and set build variables
   - git clone --depth=1 https://github.com/godotengine/godot.git
   - cd godot\
@@ -94,4 +94,4 @@ after_build:
   - if %TOOLS%==no if %TARGET%==release if %ARCH%==x64 move bin\godot.windows.opt.64.exe "%BUILD_VERSION%\templates\windows_64_release.exe"
   - if %TOOLS%==no if %TARGET%==release if %ARCH%==x86 move bin\godot.windows.opt.32.exe "%BUILD_VERSION%\templates\windows_32_release.exe"
   # Deploy to server using SCP
-  - scp -Bri "%APPVEYOR_BUILD_FOLDER%\resources\id_rsa" "%BUILD_VERSION%" hugo@hugo.pro:/var/www/godot.hugo.pro/builds
+  - scp -Br "%BUILD_VERSION%" hugo@hugo.pro:/var/www/godot.hugo.pro/builds

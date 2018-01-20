@@ -45,10 +45,9 @@ environment:
       ARCH: "x86"
 
 install:
-  # Install SCons, the `patch` utility and OpenSSH
+  # Install SCons and OpenSSH
   # `--egg` is required for use with AppVeyor
   - pip install --egg scons
-  - pip install patch
   - ps: iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
   - ps: scoop install win32-openssh
   # Decrypt the SSH private key
@@ -63,7 +62,6 @@ install:
   - set /p BUILD_COMMIT=<BUILD_COMMIT
   - set BUILD_DATE=2018-01-02
   - set BUILD_VERSION=%BUILD_DATE%.%BUILD_COMMIT%
-  - patch methods.py ..\resources\always_tty.patch
 
 build_script:
   # LTO is enabled only for 64-bit targets, as 32-bit doesn't offer enough available RAM for linking

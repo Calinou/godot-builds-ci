@@ -21,7 +21,6 @@ before_script:
   - brew install scons yasm
   - git clone --depth=1 https://github.com/godotengine/godot.git
   - cd godot/
-  - patch methods.py ../resources/always_tty.patch
   - export BUILD_COMMIT="$(git rev-parse --short=9 HEAD)"
   - export BUILD_DATE="$(git log -1 --format=%cd --date=short)"
   - export BUILD_VERSION="$BUILD_DATE.$BUILD_COMMIT"

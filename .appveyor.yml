@@ -5,90 +5,47 @@ image: Visual Studio 2017
 shallow_clone: true
 
 environment:
-  # Compile with link-time optimization enabled for faster binaries
-  SCONS_FLAGS: debug_symbols=no progress=no
-  # Path to the Inno Setup compiler
-  INNOSETUP: "C:\\Program Files (x86)\\Inno Setup 5\\ISCC.exe"
   # Encrypted passphrase used for decrypting the SSH private key
   # (which is used for deployment using SCP)
-  SSH_KEYFILE_PASSPHRASE: "PF+BTT4Pj/J55cG2ySQKadCN7zHQSxFyFDmjvA9Brig="
+  SSHKeyfilePassphrase: "PF+BTT4Pj/J55cG2ySQKadCN7zHQSxFyFDmjvA9Brig="
 
   matrix:
     # 64-bit editor
-    - TOOLS: "yes"
-      TARGET: "release_debug"
-      ARCH: "x64"
+    - Tools: "yes"
+      Target: "release_debug"
+      Arch: "x64"
 
     # 32-bit editor
-    - TOOLS: "yes"
-      TARGET: "release_debug"
-      ARCH: "x86"
+    - Tools: "yes"
+      Target: "release_debug"
+      Arch: "x86"
 
     # 64-bit debug export templates
-    - TOOLS: "no"
-      TARGET: "release_debug"
-      ARCH: "x64"
+    - Tools: "no"
+      Target: "release_debug"
+      Arch: "x64"
 
     # 32-bit debug export templates
-    - TOOLS: "no"
-      TARGET: "release_debug"
-      ARCH: "x86"
+    - Tools: "no"
+      Target: "release_debug"
+      Arch: "x86"
 
     # 64-bit release export templates
-    - TOOLS: "no"
-      TARGET: "release"
-      ARCH: "x64"
+    - Tools: "no"
+      Target: "release"
+      Arch: "x64"
 
     # 32-bit release export templates
-    - TOOLS: "no"
-      TARGET: "release"
-      ARCH: "x86"
+    - Tools: "no"
+      Target: "release"
+      Arch: "x86"
 
 install:
-  # Install SCons and OpenSSH
-  # `--egg` is required for use with AppVeyor
-  - pip install --egg scons
-  - ps: iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
-  - ps: scoop install win32-openssh
-  # Decrypt the SSH private key
-  - nuget install secure-file -ExcludeVersion
-  - secure-file\tools\secure-file -decrypt "resources\id_rsa_appveyor.enc" -secret %SSH_KEYFILE_PASSPHRASE% -out "%USERPROFILE%\.ssh\id_rsa"
-  # Copy the `known_hosts` file over so that it's used by the SCP client
-  - copy "resources\known_hosts" "%USERPROFILE%\.ssh\known_hosts"
-  # Clone Godot Git repository and set build variables
-  - git clone --depth=1 https://github.com/godotengine/godot.git
-  - cd godot\
-  - git rev-parse --short=9 HEAD > BUILD_COMMIT
-  - set /p BUILD_COMMIT=<BUILD_COMMIT
-  - set BUILD_DATE=2018-01-02
-  - set BUILD_VERSION=%BUILD_DATE%.%BUILD_COMMIT%
+  - ps: $env:BuildDate = (Get-Date).ToUniversalTime().ToString("yyyy-MM-dd")
+  - ps: scripts\appveyor\install.ps1
 
 build_script:
-  # LTO is enabled only for 64-bit targets, as 32-bit doesn't offer enough available RAM for linking
-  - if %ARCH%==x64 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -arch=x64
-  - if %ARCH%==x64 scons platform=windows tools=%TOOLS% target=%TARGET% %SCONS_FLAGS% use_lto=yes
-  - if %ARCH%==x86 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat" -arch=x86
-  - if %ARCH%==x86 scons platform=windows tools=%TOOLS% target=%TARGET% %SCONS_FLAGS%
+  - ps: scripts\appveyor\build_script.ps1
 
 after_build:
-  - mkdir "%BUILD_VERSION%\editor" "%BUILD_VERSION%\templates"
-  # Create editor ZIP archives
-  - if %TOOLS%==yes if %ARCH%==x64 7z a "%BUILD_VERSION%\editor\Godot-Windows-x86_64-%BUILD_VERSION%.zip" "bin\godot.windows.opt.tools.64.exe"
-  - if %TOOLS%==yes if %ARCH%==x86 7z a "%BUILD_VERSION%\editor\Godot-Windows-x86-%BUILD_VERSION%.zip" "bin\godot.windows.opt.tools.32.exe"
-  # Generate Windows installers
-  - if %TOOLS%==yes copy "%APPVEYOR_BUILD_FOLDER%\resources\godot.iss" "godot.iss"
-  # 64-bit installer
-  - if %TOOLS%==yes if %ARCH%==x64 move "bin\godot.windows.opt.tools.64.exe" "godot.exe"
-  - if %TOOLS%==yes if %ARCH%==x64 "%INNOSETUP%" "godot.iss"
-  - if %TOOLS%==yes if %ARCH%==x64 move "Output\Godot-Windows-Installer-x86_64.exe" "%BUILD_VERSION%\editor\Godot-Windows-Installer-x86_64-%BUILD_VERSION%.exe"
-  # 32-bit installer
-  - if %TOOLS%==yes if %ARCH%==x86 move "bin\godot.windows.opt.tools.32.exe" "godot.exe"
-  - if %TOOLS%==yes if %ARCH%==x86 "%INNOSETUP%" "godot.iss" /DApp32Bit
-  - if %TOOLS%==yes if %ARCH%==x86 move "Output\Godot-Windows-Installer-x86.exe" "%BUILD_VERSION%\editor\Godot-Windows-Installer-x86-%BUILD_VERSION%.exe"
-  # Move export templates to the build artifacts directory
-  - if %TOOLS%==no if %TARGET%==release_debug if %ARCH%==x64 move bin\godot.windows.opt.debug.64.exe "%BUILD_VERSION%\templates\windows_64_debug.exe"
-  - if %TOOLS%==no if %TARGET%==release_debug if %ARCH%==x86 move bin\godot.windows.opt.debug.32.exe "%BUILD_VERSION%\templates\windows_32_debug.exe"
-  - if %TOOLS%==no if %TARGET%==release if %ARCH%==x64 move bin\godot.windows.opt.64.exe "%BUILD_VERSION%\templates\windows_64_release.exe"
-  - if %TOOLS%==no if %TARGET%==release if %ARCH%==x86 move bin\godot.windows.opt.32.exe "%BUILD_VERSION%\templates\windows_32_release.exe"
-  # Deploy to server using SCP
-  - scp -Br "%BUILD_VERSION%" hugo@hugo.pro:/var/www/godot.hugo.pro/builds
+  - ps: scripts\appveyor\after_build.ps1

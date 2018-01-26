@@ -10,64 +10,27 @@ os:
 
 env:
   global:
-    - OPTIONS="progress=no debug_symbols=no builtin_openssl=yes -j$(sysctl -n hw.logicalcpu)"
+    - OPTIONS="progress=no debug_symbols=no builtin_openssl=yes -j3"
+    - GODOT_DIR="$TRAVIS_BUILD_DIR/godot"
   matrix:
     - PLATFORM=osx    TARGET=editor
     - PLATFORM=osx    TARGET=templates
     - PLATFORM=iphone TARGET=templates
 
 before_script:
-  - brew update
-  - brew install scons yasm
-  - git clone --depth=1 https://github.com/godotengine/godot.git
-  - cd godot/
-  - export BUILD_COMMIT="$(git rev-parse --short=9 HEAD)"
-  - export BUILD_DATE="$(git log -1 --format=%cd --date=short)"
-  - export BUILD_VERSION="$BUILD_DATE.$BUILD_COMMIT"
-  - mkdir -p "$BUILD_VERSION/editor" "$BUILD_VERSION/templates"
+  - "$TRAVIS_BUILD_DIR/scripts/travis/before_script.sh"
+  - cd "godot/"
 
-# For macOS, pretend 64-bit templates to be fat binaries, just in case
-# macOS editor and templates are built in separate jobs to avoid exceeding time limits
-#
-# For iOS, compile only 64-bit ARM binaries, as all Apple devices supporting
-# OpenGL ES 3.0 have 64-bit ARM processors anyway
-# An empty `data.pck` file must be included in the export template ZIP as well
 script:
-  - if [ "$PLATFORM" = "osx" ]; then
-      if [ "$TARGET" = "editor" ]; then
-        scons platform=osx bits=64 tools=yes target=release_debug $OPTIONS;
-        mkdir -p godot_dmg/;
-        cp -r misc/dist/osx_tools.app/ godot_dmg/Godot.app/;
-        mkdir -p godot_dmg/Godot.app/Contents/MacOS/;
-        cp bin/godot.osx.opt.tools.64 godot_dmg/Godot.app/Contents/MacOS/Godot;
-        git clone https://github.com/andreyvit/create-dmg.git --depth=1;
-        cd create-dmg/;
-        ./create-dmg --volname "Godot" --volicon "../godot_dmg/Godot.app/Contents/Resources/Godot.icns" --hide-extension "Godot.app" "../$BUILD_VERSION/editor/Godot-macOS-x86_64-$BUILD_VERSION.dmg" "../godot_dmg/";
-        cd ../;
-      fi;
-      if [ "$TARGET" = "templates" ]; then
-        scons platform=osx bits=64 tools=no target=release_debug $OPTIONS;
-        scons platform=osx bits=64 tools=no target=release $OPTIONS;
-        mv misc/dist/osx_template.app/ osx_template.app/;
-        mkdir -p osx_template.app/Contents/MacOS/;
-        mv bin/godot.osx.opt.debug.64 osx_template.app/Contents/MacOS/godot_osx_debug.fat;
-        mv bin/godot.osx.opt.64 osx_template.app/Contents/MacOS/godot_osx_release.fat;
-        zip -r9 "$BUILD_VERSION/templates/osx.zip" "osx_template.app/";
-      fi;
+  - if [[ "$PLATFORM" = "osx" ]] && [[ "$TARGET" = "editor" ]]; then
+      "$TRAVIS_BUILD_DIR/scripts/travis/build/osx_editor.sh";
     fi;
-  - if [ "$PLATFORM" = "iphone" ]; then
-      scons platform=iphone arch=arm64 tools=no target=release_debug $OPTIONS;
-      scons platform=iphone arch=arm64 tools=no target=release $OPTIONS;
-      mv "bin/libgodot.iphone.opt.debug.arm64.a" "libgodot.iphone.debug.fat.a";
-      mv "bin/libgodot.iphone.opt.arm64.a" "libgodot.iphone.release.fat.a";
-      touch "data.pck";
-      zip -9 "$BUILD_VERSION/templates/iphone.zip" "libgodot.iphone.debug.fat.a" "libgodot.iphone.release.fat.a" "data.pck";
+  - if [[ "$PLATFORM" = "osx" ]] && [[ "$TARGET" = "templates" ]]; then
+      "$TRAVIS_BUILD_DIR/scripts/travis/build/osx_templates.sh";
+    fi;
+  - if [[ "$PLATFORM" = "iphone" ]]; then
+      "$TRAVIS_BUILD_DIR/scripts/travis/build/iphone.sh";
     fi;
 
 after_success:
-  - ls -lh "$BUILD_VERSION/"
-  - mkdir -p "$HOME/.ssh/"
-  - openssl aes-256-cbc -K $encrypted_b98964ef663e_key -iv $encrypted_b98964ef663e_iv -in "../resources/id_rsa_travis.enc" -out "$HOME/.ssh/id_rsa" -d
-  - chmod 600 "$HOME/.ssh/id_rsa"
-  - cp "../resources/known_hosts" "$HOME/.ssh/"
-  - scp -r "$BUILD_VERSION/" hugo@hugo.pro:/var/www/godot.hugo.pro/builds
+  - "$TRAVIS_BUILD_DIR/scripts/travis/after_success.sh"

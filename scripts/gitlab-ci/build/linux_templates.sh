@@ -10,8 +10,10 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
 # Build Linux export templates
-scons platform=x11 tools=no target=release_debug $SCONS_FLAGS
-scons platform=x11 tools=no target=release $SCONS_FLAGS
+# Link OpenSSL and libpng statically to avoid dependency issues
+# (especially when running on Fedora)
+scons platform=x11 tools=no target=release_debug builtin_openssl=yes builtin_libpng=yes $SCONS_FLAGS
+scons platform=x11 tools=no target=release builtin_openssl=yes builtin_libpng=yes $SCONS_FLAGS
 
 # Create Linux export templates ZIP archive
 # Pretend 64-bit binaries are 32-bit binaries for now, to avoid errors

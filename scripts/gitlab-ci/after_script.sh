@@ -15,5 +15,4 @@ mkdir -p "$HOME/.ssh"
 echo "$SSH_PRIVATE_KEY" > "$HOME/.ssh/id_rsa"
 chmod 600 "$HOME/.ssh/id_rsa"
 cp "$CI_PROJECT_DIR/resources/known_hosts" "$HOME/.ssh/"
-ls -lh "$ARTIFACTS_DIR/editor/" "$ARTIFACTS_DIR/templates/"
 scp -r "$ARTIFACTS_DIR/" hugo@hugo.pro:/var/www/godot.hugo.pro/builds

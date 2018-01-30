@@ -12,3 +12,6 @@ BUILD_DATE="$(date -u +%Y-%m-%d)"
 # The directory where build artifacts are stored
 export ARTIFACTS_DIR
 ARTIFACTS_DIR="$GODOT_DIR/$BUILD_DATE"
+
+# Disable WINE debugging for better performance and more concise output
+export WINEDEBUG="-all"

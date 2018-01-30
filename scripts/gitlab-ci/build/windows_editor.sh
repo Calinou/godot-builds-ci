@@ -37,6 +37,6 @@ rm "godot.exe"
 mv \
     "godot-windows-x86_64.zip" \
     "godot-windows-x86.zip" \
-    "Output/godot-windows-x86_64.exe" \
-    "Output/godot-windows-x86.exe" \
+    "Output/godot-setup-x86_64.exe" \
+    "Output/godot-setup-x86.exe" \
     "$ARTIFACTS_DIR/editor/"

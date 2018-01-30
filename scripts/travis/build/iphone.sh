@@ -17,7 +17,9 @@ scons platform=iphone arch=arm64 tools=no target=release_debug $OPTIONS
 scons platform=iphone arch=arm64 tools=no target=release $OPTIONS
 
 # Create iOS export templates ZIP archive
+mkdir -p "templates/"
 mv "bin/libgodot.iphone.opt.debug.arm64.a" "libgodot.iphone.debug.fat.a"
 mv "bin/libgodot.iphone.opt.arm64.a" "libgodot.iphone.release.fat.a"
 touch "data.pck"
-zip -9 "$ARTIFACTS_DIR/templates/iphone.zip" "libgodot.iphone.debug.fat.a" "libgodot.iphone.release.fat.a" "data.pck"
+zip -9 "templates/iphone.zip" "libgodot.iphone.debug.fat.a" "libgodot.iphone.release.fat.a" "data.pck"
+zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-ios.tpz" "templates/"

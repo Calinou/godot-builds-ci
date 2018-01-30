@@ -15,8 +15,10 @@ scons platform=osx bits=64 tools=no target=release_debug $OPTIONS
 scons platform=osx bits=64 tools=no target=release $OPTIONS
 
 # Create macOS export templates ZIP archive
+mkdir -p "templates/"
 mv "misc/dist/osx_template.app/" "osx_template.app/"
 mkdir -p "osx_template.app/Contents/MacOS/"
 mv "bin/godot.osx.opt.debug.64" "osx_template.app/Contents/MacOS/godot_osx_debug.fat"
 mv "bin/godot.osx.opt.64" "osx_template.app/Contents/MacOS/godot_osx_release.fat"
-zip -r9 "$ARTIFACTS_DIR/templates/osx.zip" "osx_template.app/"
+zip -r9 "templates/osx.zip" "osx_template.app/"
+zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-macos.tpz" "templates/"

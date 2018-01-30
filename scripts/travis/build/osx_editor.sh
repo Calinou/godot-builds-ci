@@ -12,7 +12,16 @@ source "$DIR/../_common.sh"
 # Build macOS editor
 scons platform=osx bits=64 tools=yes target=release_debug $OPTIONS
 
-# Create macOS editor ZIP archive
-cd "bin/"
-mv "godot.osx.opt.tools.64" "godot"
-zip -r9 "$ARTIFACTS_DIR/editor/godot-osx-x86_64.zip" "godot"
+# Create macOS editor DMG image
+mkdir -p "godot_dmg/"
+cp -r "misc/dist/osx_tools.app/" "godot_dmg/Godot.app/"
+mkdir -p "godot_dmg/Godot.app/Contents/MacOS/"
+cp "bin/godot.osx.opt.tools.64" "godot_dmg/Godot.app/Contents/MacOS/Godot"
+git clone "https://github.com/andreyvit/create-dmg.git" --depth=1
+cd "create-dmg/";
+./create-dmg \
+    --volname "Godot" \
+    --volicon "../godot_dmg/Godot.app/Contents/Resources/Godot.icns" \
+    --hide-extension "Godot.app" \
+    "$ARTIFACTS_DIR/editor/godot-macos-x86_64.dmg" \
+    "../godot_dmg/"

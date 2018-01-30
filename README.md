@@ -1,6 +1,8 @@
 ## Godot Builds (using CI services)
 
-This repository contains files for usage by AppVeyor, GitLab CI and Travis CI.
+This repository contains files for usage by GitLab CI and Travis CI.
+
+## [Download builds](https://godot.hugo.pro/)
 
 ## License
 

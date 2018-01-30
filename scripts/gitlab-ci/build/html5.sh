@@ -26,7 +26,7 @@ scons platform=javascript tools=no target=release_debug $SCONS_FLAGS
 scons platform=javascript tools=no target=release $SCONS_FLAGS
 
 # Create HTML5 export templates ZIP archive
-cd "$GODOT_DIR/bin/"
-zip -r9 "$ARTIFACTS_DIR/templates/html5.zip" \
-    "godot.javascript.opt.debug.zip" \
-    "godot.javascript.opt.zip"
+mkdir -p "templates/"
+mv "bin/godot.javascript.opt.debug.zip" "templates/webassembly_debug.zip"
+mv "bin/godot.javascript.opt.zip" "templates/webassembly_release.zip"
+zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-html5.tpz" "templates/"

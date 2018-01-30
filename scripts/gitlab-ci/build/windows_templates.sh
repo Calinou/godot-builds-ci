@@ -13,19 +13,14 @@ source "$DIR/../_common.sh"
 scons platform=windows bits=64 tools=no target=release_debug $SCONS_FLAGS
 scons platform=windows bits=64 tools=no target=release $SCONS_FLAGS
 
-# Create Windows export templates ZIP archive
+# Create Windows export templates TPZ
 # We're short on build times, so pretend 64-bit binaries are 32-bit binaries
 # for now, to avoid errors in the editor's Export dialog
-cd "$GODOT_DIR/bin/"
-strip godot.*.exe
-cp "godot.windows.opt.debug.64.exe" "windows_64_debug.exe"
-mv "godot.windows.opt.debug.64.exe" "windows_32_debug.exe"
-cp "godot.windows.opt.64.exe" "windows_64_release.exe"
-mv "godot.windows.opt.64.exe" "windows_32_release.exe"
+mkdir -p "templates/"
+strip bin/godot.windows.*.exe
+cp "bin/godot.windows.opt.debug.64.exe" "templates/windows_64_debug.exe"
+mv "bin/godot.windows.opt.debug.64.exe" "templates/windows_32_debug.exe"
+cp "bin/godot.windows.opt.64.exe" "templates/windows_64_release.exe"
+mv "bin/godot.windows.opt.64.exe" "templates/windows_32_release.exe"
 
-zip -r9 \
-    "$ARTIFACTS_DIR/templates/windows.zip" \
-    "windows_64_debug.exe" \
-    "windows_32_debug.exe" \
-    "windows_64_release.exe" \
-    "windows_32_release.exe"
+zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-windows.tpz" "templates/"

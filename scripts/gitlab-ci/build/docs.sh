@@ -12,4 +12,4 @@ source "$DIR/../_common.sh"
 # Build documentation in HTML format
 make html SPHINXBUILD="$HOME/.local/bin/sphinx-build"
 mv "_build/html/" "docs/"
-zip -r9 "$ARTIFACTS_DIR/docs/html.zip" "docs/"
+zip -r9 "$ARTIFACTS_DIR/docs/godot-docs-html.zip" "docs/"

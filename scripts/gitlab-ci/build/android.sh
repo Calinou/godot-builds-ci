@@ -38,9 +38,8 @@ cd "$GODOT_DIR/platform/android/java/"
 ./gradlew build
 cd "$GODOT_DIR/"
 
-# Create Android export templates ZIP archive
-cd "$GODOT_DIR/bin/"
-zip -r9 \
-    "$ARTIFACTS_DIR/templates/android.zip" \
-    "android_debug.apk" \
-    "android_release.apk"
+# Create Android export templates TPZ
+mkdir -p "templates/"
+mv "bin/android_debug.apk" "bin/android_release.apk" \
+    "templates/"
+zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-android.tpz" "templates/"

@@ -10,7 +10,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
 # Build Linux editor
-scons platform=x11 tools=yes target=release_debug $SCONS_FLAGS
+# Link OpenSSL statically to avoid a build error
+scons platform=x11 tools=yes target=release_debug builtin_openssl=yes $SCONS_FLAGS
 
 # Create Linux editor AppImage
 strip "bin/godot.x11.opt.tools.64"

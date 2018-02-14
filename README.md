@@ -1,4 +1,4 @@
-## Godot Builds (using CI services)
+# Godot Builds (using CI services)
 
 This repository contains files for usage by GitLab CI and Travis CI.
 

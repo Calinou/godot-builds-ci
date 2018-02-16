@@ -11,7 +11,8 @@ source "$DIR/../_common.sh"
 
 # Build Windows export templates
 for target in "release_debug" "release"; do
-  scons platform=windows bits=64 tools=no target=$target $SCONS_FLAGS
+  scons platform=windows bits=64 tools=no target=$target \
+        $SCONS_FLAGS
 done
 
 # Create Windows export templates TPZ

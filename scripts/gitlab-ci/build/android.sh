@@ -31,7 +31,8 @@ cd "$GODOT_DIR/"
 
 # Build Android export templates
 for target in "release_debug" "release"; do
-  scons platform=android tools=no target=$target $SCONS_FLAGS
+  scons platform=android tools=no target=$target \
+        $SCONS_FLAGS
 done
 
 # Create Android APKs

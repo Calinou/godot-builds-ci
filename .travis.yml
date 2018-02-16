@@ -10,7 +10,7 @@ os:
 
 env:
   global:
-    - OPTIONS="progress=no debug_symbols=no builtin_openssl=yes -j3"
+    - SCONS_FLAGS="progress=no debug_symbols=no builtin_openssl=yes -j3"
     - GODOT_DIR="$TRAVIS_BUILD_DIR/godot"
   matrix:
     - PLATFORM=osx    TARGET=editor

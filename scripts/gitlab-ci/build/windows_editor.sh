@@ -11,7 +11,8 @@ source "$DIR/../_common.sh"
 
 # Build Windows editor
 for bits in "64" "32"; do
-  scons platform=windows bits=$bits tools=yes target=release_debug $SCONS_FLAGS
+  scons platform=windows bits=$bits tools=yes target=release_debug \
+        $SCONS_FLAGS
 done
 
 # Install InnoSetup

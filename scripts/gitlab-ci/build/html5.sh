@@ -23,7 +23,8 @@ cd "$GODOT_DIR/"
 
 # Build HTML5 export templates
 for target in "release_debug" "release"; do
-  scons platform=javascript tools=no target=$target $SCONS_FLAGS
+  scons platform=javascript tools=no target=$target \
+        $SCONS_FLAGS
 done
 
 # Create HTML5 export templates ZIP archive

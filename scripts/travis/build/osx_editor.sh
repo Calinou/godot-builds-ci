@@ -10,7 +10,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
 # Build macOS editor
-scons platform=osx bits=64 tools=yes target=release_debug $OPTIONS
+scons platform=osx bits=64 tools=yes target=release_debug \
+      $SCONS_FLAGS
 
 # Create macOS editor DMG image
 mkdir -p "godot_dmg/"

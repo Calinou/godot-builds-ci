@@ -22,8 +22,9 @@ EMSCRIPTEN_ROOT="$(em-config EMSCRIPTEN_ROOT)"
 cd "$GODOT_DIR/"
 
 # Build HTML5 export templates
-scons platform=javascript tools=no target=release_debug $SCONS_FLAGS
-scons platform=javascript tools=no target=release $SCONS_FLAGS
+for target in "release_debug" "release"; do
+  scons platform=javascript tools=no target=$target $SCONS_FLAGS
+done
 
 # Create HTML5 export templates ZIP archive
 mkdir -p "templates/"

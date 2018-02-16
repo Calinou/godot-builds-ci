@@ -21,11 +21,15 @@ if [[ -f "/etc/redhat-release" ]]; then
                       wget zip unzip ncurses-compat-libs wine
 else
   # Ubuntu
-  apt-get update -y
+  apt-get update -yqq
+  apt-get install -yqq software-properties-common
+  add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  apt-get update -yqq
   apt-get install -y git cmake wget zip unzip build-essential scons pkg-config \
                      libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev \
                      libglu-dev libasound2-dev libpulse-dev libfreetype6-dev \
-                     libssl-dev libudev-dev libxrandr-dev libxi-dev yasm
+                     libssl-dev libudev-dev libxrandr-dev libxi-dev yasm \
+                     gcc-7 g++-7
 fi
 
 git clone --depth=1 "https://github.com/godotengine/godot.git"

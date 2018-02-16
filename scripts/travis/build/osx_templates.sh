@@ -11,8 +11,9 @@ source "$DIR/../_common.sh"
 
 # Build macOS export templates
 # Pretend 64-bit templates to be fat binaries, just in case
-scons platform=osx bits=64 tools=no target=release_debug $OPTIONS
-scons platform=osx bits=64 tools=no target=release $OPTIONS
+for target in "release_debug" "release"; do
+  scons platform=osx bits=64 tools=no target=$target $OPTIONS
+done
 
 # Create macOS export templates ZIP archive
 mkdir -p "templates/"

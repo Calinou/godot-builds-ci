@@ -9,9 +9,13 @@ export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
+# Use recent GCC provided by the Ubuntu Toolchain PPA
+export CC="gcc-7"
+export CXX="g++-7"
+
 # Build Linux editor
 # Link OpenSSL statically to avoid a build error
-scons platform=x11 tools=yes target=release_debug builtin_openssl=yes $SCONS_FLAGS
+scons platform=x11 tools=yes target=release_debug builtin_openssl=yes use_static_cpp=yes $SCONS_FLAGS
 
 # Create Linux editor AppImage
 strip "bin/godot.x11.opt.tools.64"

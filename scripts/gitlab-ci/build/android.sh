@@ -30,8 +30,9 @@ export ANDROID_NDK_ROOT="$ANDROID_HOME/android-ndk-r16b"
 cd "$GODOT_DIR/"
 
 # Build Android export templates
-scons platform=android tools=no target=release_debug $SCONS_FLAGS
-scons platform=android tools=no target=release $SCONS_FLAGS
+for target in "release_debug" "release"; do
+  scons platform=android tools=no target=$target $SCONS_FLAGS
+done
 
 # Create Android APKs
 cd "$GODOT_DIR/platform/android/java/"

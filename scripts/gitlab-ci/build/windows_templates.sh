@@ -10,8 +10,9 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
 # Build Windows export templates
-scons platform=windows bits=64 tools=no target=release_debug $SCONS_FLAGS
-scons platform=windows bits=64 tools=no target=release $SCONS_FLAGS
+for target in "release_debug" "release"; do
+  scons platform=windows bits=64 tools=no target=$target $SCONS_FLAGS
+done
 
 # Create Windows export templates TPZ
 # We're short on build times, so pretend 64-bit binaries are 32-bit binaries

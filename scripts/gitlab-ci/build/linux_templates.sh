@@ -9,11 +9,16 @@ export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
+# Use recent GCC provided by the Ubuntu Toolchain PPA
+export CC="gcc-7"
+export CXX="g++-7"
+
 # Build Linux export templates
 # Link OpenSSL and libpng statically to avoid dependency issues
 # (especially when running on Fedora)
-scons platform=x11 tools=no target=release_debug builtin_openssl=yes builtin_libpng=yes $SCONS_FLAGS
-scons platform=x11 tools=no target=release builtin_openssl=yes builtin_libpng=yes $SCONS_FLAGS
+for target in "release_debug" "release"; do
+  scons platform=x11 tools=no target=$target builtin_openssl=yes builtin_libpng=yes use_static_cpp=yes $SCONS_FLAGS
+done
 
 # Create Linux export templates TPZ
 # Pretend 64-bit binaries are 32-bit binaries for now, to avoid errors

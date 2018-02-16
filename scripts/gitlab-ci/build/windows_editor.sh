@@ -10,8 +10,9 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
 # Build Windows editor
-scons platform=windows bits=64 tools=yes target=release_debug $SCONS_FLAGS
-scons platform=windows bits=32 tools=yes target=release_debug $SCONS_FLAGS
+for bits in "64" "32"; do
+  scons platform=windows bits=$bits tools=yes target=release_debug $SCONS_FLAGS
+done
 
 # Install InnoSetup
 curl -o "$CI_PROJECT_DIR/innosetup.zip" "https://archive.hugo.pro/.public/godot-builds/innosetup-5.5.9-unicode.zip"

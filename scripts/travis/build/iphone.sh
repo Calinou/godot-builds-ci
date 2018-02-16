@@ -13,8 +13,9 @@ source "$DIR/../_common.sh"
 # Compile only 64-bit ARM binaries, as all Apple devices supporting
 # OpenGL ES 3.0 have 64-bit ARM processors anyway
 # An empty `data.pck` file must be included in the export template ZIP as well
-scons platform=iphone arch=arm64 tools=no target=release_debug $OPTIONS
-scons platform=iphone arch=arm64 tools=no target=release $OPTIONS
+for target in "release_debug" "release"; do
+  scons platform=iphone arch=arm64 tools=no target=$target $OPTIONS
+done
 
 # Create iOS export templates ZIP archive
 mkdir -p "templates/"

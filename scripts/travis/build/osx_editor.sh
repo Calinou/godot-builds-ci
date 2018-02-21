@@ -10,14 +10,14 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
 # Build macOS editor
-scons platform=osx bits=64 tools=yes target=release_debug \
+scons platform=osx tools=yes target=release_debug \
       $SCONS_FLAGS
 
 # Create macOS editor DMG image
 mkdir -p "godot_dmg/"
 cp -r "misc/dist/osx_tools.app/" "godot_dmg/Godot.app/"
 mkdir -p "godot_dmg/Godot.app/Contents/MacOS/"
-cp "bin/godot.osx.opt.tools.64" "godot_dmg/Godot.app/Contents/MacOS/Godot"
+cp "bin/godot.osx.opt.tools" "godot_dmg/Godot.app/Contents/MacOS/Godot"
 git clone "https://github.com/andreyvit/create-dmg.git" --depth=1
 cd "create-dmg/";
 ./create-dmg \

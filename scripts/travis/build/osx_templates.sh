@@ -10,9 +10,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
 # Build macOS export templates
-# Pretend 64-bit templates to be fat binaries, just in case
 for target in "release_debug" "release"; do
-  scons platform=osx bits=64 tools=no target=$target \
+  scons platform=osx tools=no target=$target \
         $SCONS_FLAGS
 done
 
@@ -20,7 +19,7 @@ done
 mkdir -p "templates/"
 mv "misc/dist/osx_template.app/" "osx_template.app/"
 mkdir -p "osx_template.app/Contents/MacOS/"
-mv "bin/godot.osx.opt.debug.64" "osx_template.app/Contents/MacOS/godot_osx_debug.fat"
-mv "bin/godot.osx.opt.64" "osx_template.app/Contents/MacOS/godot_osx_release.fat"
+mv "bin/godot.osx.opt.debug" "osx_template.app/Contents/MacOS/godot_osx_debug"
+mv "bin/godot.osx.opt" "osx_template.app/Contents/MacOS/godot_osx_release"
 zip -r9 "templates/osx.zip" "osx_template.app/"
 zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-macos.tpz" "templates/"

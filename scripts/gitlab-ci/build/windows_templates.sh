@@ -25,4 +25,4 @@ mv "bin/godot.windows.opt.debug.64.exe" "templates/windows_32_debug.exe"
 cp "bin/godot.windows.opt.64.exe" "templates/windows_64_release.exe"
 mv "bin/godot.windows.opt.64.exe" "templates/windows_32_release.exe"
 
-zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-windows.tpz" "templates/"
+zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-windows-nightly.tpz" "templates/"

@@ -5,13 +5,9 @@
 
 # This script is always sourced before any other script
 
-# The build date in YYYY-MM-DD format (UTC)
-export BUILD_DATE
-BUILD_DATE="$(date -u +%Y-%m-%d)"
-
 # The directory where build artifacts are stored
 export ARTIFACTS_DIR
-ARTIFACTS_DIR="$GODOT_DIR/$BUILD_DATE"
+ARTIFACTS_DIR="$CI_PROJECT_DIR/artifacts"
 
 # Disable WINE debugging for better performance and more concise output
 export WINEDEBUG="-all"

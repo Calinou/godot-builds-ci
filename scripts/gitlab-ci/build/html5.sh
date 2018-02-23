@@ -31,4 +31,4 @@ done
 mkdir -p "templates/"
 mv "bin/godot.javascript.opt.debug.zip" "templates/webassembly_debug.zip"
 mv "bin/godot.javascript.opt.zip" "templates/webassembly_release.zip"
-zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-html5.tpz" "templates/"
+zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-html5-nightly.tpz" "templates/"

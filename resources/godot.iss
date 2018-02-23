@@ -20,9 +20,9 @@ DefaultGroupName=Godot Engine
 AllowNoIcons=yes
 UninstallDisplayIcon={app}\godot.exe
 #ifdef App32Bit
-  OutputBaseFilename=godot-setup-x86
+  OutputBaseFilename=godot-setup-nightly-x86
 #else
-  OutputBaseFilename=godot-setup-x86_64
+  OutputBaseFilename=godot-setup-nightly-x86_64
 #endif
 Compression=lzma
 SolidCompression=yes

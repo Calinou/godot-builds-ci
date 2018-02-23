@@ -24,5 +24,5 @@ cd "create-dmg/";
     --volname "Godot" \
     --volicon "../godot_dmg/Godot.app/Contents/Resources/Godot.icns" \
     --hide-extension "Godot.app" \
-    "$ARTIFACTS_DIR/editor/godot-macos-x86_64.dmg" \
+    "$ARTIFACTS_DIR/editor/godot-macos-nightly-x86_64.dmg" \
     "../godot_dmg/"

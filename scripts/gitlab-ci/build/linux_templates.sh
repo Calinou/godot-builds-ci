@@ -33,4 +33,4 @@ mv "bin/godot.x11.opt.debug.64" "templates/linux_x11_32_debug"
 cp "bin/godot.x11.opt.64" "templates/linux_x11_64_release"
 mv "bin/godot.x11.opt.64" "templates/linux_x11_32_release"
 
-zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-linux.tpz" "templates/"
+zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-linux-nightly.tpz" "templates/"

@@ -27,18 +27,18 @@ cp "$CI_PROJECT_DIR/resources/godot.iss" "godot.iss"
 strip "godot.windows.opt.tools.64.exe" "godot.windows.opt.tools.32.exe"
 
 mv "godot.windows.opt.tools.64.exe" "godot.exe"
-zip -r9 "godot-windows-x86_64.zip" "godot.exe"
+zip -r9 "godot-windows-nightly-x86_64.zip" "godot.exe"
 wine "$ISCC" "godot.iss"
 rm "godot.exe"
 
 mv "godot.windows.opt.tools.32.exe" "godot.exe"
-zip -r9 "godot-windows-x86.zip" "godot.exe"
+zip -r9 "godot-windows-nightly-x86.zip" "godot.exe"
 wine "$ISCC" "godot.iss" /DApp32Bit
 rm "godot.exe"
 
 mv \
-    "godot-windows-x86_64.zip" \
-    "godot-windows-x86.zip" \
-    "Output/godot-setup-x86_64.exe" \
-    "Output/godot-setup-x86.exe" \
+    "godot-windows-nightly-x86_64.zip" \
+    "godot-windows-nightly-x86.zip" \
+    "Output/godot-setup-nightly-x86_64.exe" \
+    "Output/godot-setup-nightly-x86.exe" \
     "$ARTIFACTS_DIR/editor/"

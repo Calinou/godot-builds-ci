@@ -44,4 +44,4 @@ cd "$GODOT_DIR/"
 mkdir -p "templates/"
 mv "bin/android_debug.apk" "bin/android_release.apk" \
     "templates/"
-zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-android.tpz" "templates/"
+zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-android-nightly.tpz" "templates/"

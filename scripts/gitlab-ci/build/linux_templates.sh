@@ -27,6 +27,7 @@ done
 # Pretend 64-bit binaries are 32-bit binaries for now, to avoid errors
 # in the editor's Export dialog
 mkdir -p "templates/"
+cp "$CI_PROJECT_DIR/resources/version.txt" "templates/version.txt"
 strip bin/godot.x11.*.64
 cp "bin/godot.x11.opt.debug.64" "templates/linux_x11_64_debug"
 mv "bin/godot.x11.opt.debug.64" "templates/linux_x11_32_debug"

@@ -20,6 +20,7 @@ done
 
 # Create iOS export templates ZIP archive
 mkdir -p "templates/"
+cp "$TRAVIS_BUILD_DIR/resources/version.txt" "templates/version.txt"
 mv "bin/libgodot.iphone.opt.debug.arm64.a" "libgodot.iphone.debug.fat.a"
 mv "bin/libgodot.iphone.opt.arm64.a" "libgodot.iphone.release.fat.a"
 touch "data.pck"

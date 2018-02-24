@@ -17,6 +17,7 @@ done
 
 # Create macOS export templates ZIP archive
 mkdir -p "templates/"
+cp "$TRAVIS_BUILD_DIR/resources/version.txt" "templates/version.txt"
 mv "misc/dist/osx_template.app/" "osx_template.app/"
 mkdir -p "osx_template.app/Contents/MacOS/"
 mv "bin/godot.osx.opt.debug" "osx_template.app/Contents/MacOS/godot_osx_debug"

@@ -42,6 +42,7 @@ cd "$GODOT_DIR/"
 
 # Create Android export templates TPZ
 mkdir -p "templates/"
+cp "$CI_PROJECT_DIR/resources/version.txt" "templates/version.txt"
 mv "bin/android_debug.apk" "bin/android_release.apk" \
     "templates/"
 zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-android-nightly.tpz" "templates/"

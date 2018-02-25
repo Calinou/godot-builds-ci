@@ -19,4 +19,4 @@ openssl aes-256-cbc \
     -d
 chmod 600 "$HOME/.ssh/id_rsa"
 cp "$TRAVIS_BUILD_DIR/resources/known_hosts" "$HOME/.ssh/"
-scp -r "$ARTIFACTS_DIR"/* hugo@hugo.pro:/var/www/hugo.pro_godot-builds_files/
+scp -r "$ARTIFACTS_DIR"/* hugo@hugo.pro:/var/www/archive.hugo.pro/builds/godot/

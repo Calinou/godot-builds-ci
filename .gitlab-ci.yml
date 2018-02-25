@@ -18,16 +18,9 @@ variables:
   # The Godot Git clone directory
   GODOT_DIR: $CI_PROJECT_DIR/godot
 
-# Building documentation has a different set of dependencies,
-# so it has its own "before" script
 before_script:
-  - if [[ "$CI_JOB_NAME" = "build:docs" ]]; then
-      "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script_docs.sh";
-      cd "godot-docs/";
-    else
-      "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script.sh";
-      cd "godot/";
-    fi;
+  - "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script.sh"
+  - cd "godot/"
 
 after_script:
   - "$CI_PROJECT_DIR/scripts/gitlab-ci/after_script.sh"
@@ -75,10 +68,3 @@ build:windows_templates:
   image: fedora:27
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh"
-
-# Documentation in HTML format
-build:docs:
-  stage: build
-  image: fedora:27
-  script:
-    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/docs.sh"

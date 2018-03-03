@@ -13,8 +13,7 @@ source "$DIR/_common.sh"
 
 if [[ -f "/etc/redhat-release" ]]; then
   # Fedora
-  dnf install -y \
-      git cmake scons pkgconfig gcc-c++ curl libxml2-devel libX11-devel \
+  dnf install -y git cmake scons pkgconfig gcc-c++ curl libxml2-devel libX11-devel \
       libXcursor-devel libXrandr-devel libXinerama-devel mesa-libGL-devel \
       alsa-lib-devel pulseaudio-libs-devel freetype-devel \
       openssl-devel libudev-devel mesa-libGLU-devel mingw32-gcc-c++ mingw64-gcc-c++ \
@@ -27,8 +26,7 @@ else
   add-apt-repository -y ppa:ubuntu-toolchain-r/test
   apt-get update -yqq
 
-  apt-get install -y \
-      git cmake wget zip unzip build-essential scons pkg-config \
+  apt-get install -y git cmake wget zip unzip build-essential scons pkg-config \
       libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev \
       libglu-dev libasound2-dev libpulse-dev libfreetype6-dev \
       libssl-dev libudev-dev libxrandr-dev libxi-dev yasm \

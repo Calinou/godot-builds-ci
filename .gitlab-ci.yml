@@ -17,6 +17,9 @@ variables:
   SCONS_FLAGS: debug_symbols=no progress=no -j$BUILD_THREADS
   # The Godot Git clone directory
   GODOT_DIR: $CI_PROJECT_DIR/godot
+  # The build name to use instead of "custom_build"
+  # This helps people identify where the build comes from
+  BUILD_NAME: calinou
 
 before_script:
   - "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script.sh"

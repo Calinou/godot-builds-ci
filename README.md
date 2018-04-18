@@ -2,7 +2,7 @@
 
 This repository contains files for usage by GitLab CI and Travis CI.
 
-## [Download builds](https://godot.hugo.pro/)
+## [Download builds](https://hugo.pro/projects/godot-builds/)
 
 ## License
 

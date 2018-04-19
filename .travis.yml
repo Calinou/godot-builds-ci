@@ -12,8 +12,16 @@ osx_image: xcode9.3
 
 env:
   global:
+    # The build name to use instead of "custom_build"
+    # This helps people identify where the build comes from
+    - BUILD_NAME="calinou"
+    # The number of CPU threads to use for compiling Godot
+    - BUILD_THREADS="3"
+    # SCons build flags to use for all platforms
     - SCONS_FLAGS="progress=no debug_symbols=no builtin_openssl=yes -j3"
-    - GODOT_DIR="$TRAVIS_BUILD_DIR/godot"
+    # The Godot Git repository clone URL
+    - GODOT_REPO_URL="https://github.com/godotengine/godot"
+
   matrix:
     - PLATFORM=osx    TARGET=editor
     - PLATFORM=osx    TARGET=templates

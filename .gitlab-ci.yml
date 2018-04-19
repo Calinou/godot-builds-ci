@@ -11,15 +11,15 @@ stages:
   - build
 
 variables:
+  # The build name to use instead of "custom_build"
+  # This helps people identify where the build comes from
+  BUILD_NAME: calinou
   # The number of CPU threads to use for compiling Godot
   BUILD_THREADS: 3
   # SCons build flags to use for all platforms
   SCONS_FLAGS: debug_symbols=no progress=no -j$BUILD_THREADS
-  # The Godot Git clone directory
-  GODOT_DIR: $CI_PROJECT_DIR/godot
-  # The build name to use instead of "custom_build"
-  # This helps people identify where the build comes from
-  BUILD_NAME: calinou
+  # The Godot Git repository clone URL
+  GODOT_REPO_URL: https://github.com/godotengine/godot.git
 
 before_script:
   - "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script.sh"

@@ -13,5 +13,8 @@ source "$DIR/_common.sh"
 brew update
 brew install scons yasm
 
-git clone --depth=1 https://github.com/godotengine/godot.git
+git clone --depth=1 "$GODOT_REPO_URL"
 mkdir -p "$ARTIFACTS_DIR/editor" "$ARTIFACTS_DIR/templates"
+
+# Copy user-supplied modules into the Godot directory
+cp $TRAVIS_BUILD_DIR/modules/* "$GODOT_DIR/modules/"

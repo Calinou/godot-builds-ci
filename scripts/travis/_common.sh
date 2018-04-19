@@ -8,3 +8,7 @@
 # The directory where build artifacts are stored
 export ARTIFACTS_DIR
 ARTIFACTS_DIR="$TRAVIS_BUILD_DIR/artifacts"
+
+# The directory the Godot Git repository will be cloned into
+export GODOT_DIR
+GODOT_DIR="$TRAVIS_BUILD_DIR/godot"

@@ -14,9 +14,8 @@ export CC="gcc-7"
 export CXX="g++-7"
 
 # Build Linux editor
-# Link OpenSSL statically to avoid a build error
 scons platform=x11 tools=yes target=release_debug \
-      builtin_openssl=yes use_static_cpp=yes \
+      use_static_cpp=yes \
       LINKFLAGS="-fuse-ld=gold" \
       $SCONS_FLAGS
 

@@ -16,7 +16,7 @@ if [[ -f "/etc/redhat-release" ]]; then
   dnf install -y git cmake scons pkgconfig gcc-c++ curl libxml2-devel libX11-devel \
       libXcursor-devel libXrandr-devel libXinerama-devel mesa-libGL-devel \
       alsa-lib-devel pulseaudio-libs-devel freetype-devel \
-      openssl-devel libudev-devel mesa-libGLU-devel mingw32-gcc-c++ mingw64-gcc-c++ \
+      libudev-devel mesa-libGLU-devel mingw32-gcc-c++ mingw64-gcc-c++ \
       mingw32-winpthreads-static mingw64-winpthreads-static yasm openssh-clients \
       wget zip unzip ncurses-compat-libs wine xz
 else

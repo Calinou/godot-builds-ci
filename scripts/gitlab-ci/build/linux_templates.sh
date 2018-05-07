@@ -14,11 +14,10 @@ export CC="gcc-7"
 export CXX="g++-7"
 
 # Build Linux export templates
-# Link OpenSSL and libpng statically to avoid dependency issues
-# (especially when running on Fedora)
+# Link libpng statically to avoid dependency issues
 for target in "release_debug" "release"; do
   scons platform=x11 tools=no target=$target \
-        builtin_openssl=yes builtin_libpng=yes use_static_cpp=yes \
+        builtin_libpng=yes use_static_cpp=yes \
         LINKFLAGS="-fuse-ld=gold" \
         $SCONS_FLAGS
 done

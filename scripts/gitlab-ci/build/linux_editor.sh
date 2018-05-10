@@ -10,8 +10,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
 # Use recent GCC provided by the Ubuntu Toolchain PPA
-export CC="gcc-7"
-export CXX="g++-7"
+export CC="gcc-8"
+export CXX="g++-8"
 
 # Build Linux editor
 scons platform=x11 tools=yes target=release_debug \

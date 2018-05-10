@@ -30,7 +30,7 @@ else
       libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev \
       libglu-dev libasound2-dev libpulse-dev libfreetype6-dev \
       libssl-dev libudev-dev libxrandr-dev libxi-dev yasm \
-      gcc-7 g++-7
+      gcc-8 g++-8
 fi
 
 git clone --depth=1 "$GODOT_REPO_URL"

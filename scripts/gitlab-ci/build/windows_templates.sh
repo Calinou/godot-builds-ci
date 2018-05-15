@@ -11,7 +11,7 @@ source "$DIR/../_common.sh"
 
 # Build Windows export templates
 for target in "release_debug" "release"; do
-  scons platform=windows bits=64 tools=no target=$target \
+  scons platform=windows bits=64 tools=no target=$target use_lto=yes \
         $SCONS_FLAGS
 done
 

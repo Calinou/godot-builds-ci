@@ -17,7 +17,7 @@ export CXX="g++-8"
 # Link libpng statically to avoid dependency issues
 for target in "release_debug" "release"; do
   scons platform=x11 tools=no target=$target \
-        builtin_libpng=yes use_static_cpp=yes use_lto=yes \
+        builtin_libpng=yes use_static_cpp=yes \
         LINKFLAGS="-fuse-ld=gold" \
         $SCONS_FLAGS
 done

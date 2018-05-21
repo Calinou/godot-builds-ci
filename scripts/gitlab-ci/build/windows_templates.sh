@@ -17,7 +17,7 @@ done
 
 # Create Windows export templates TPZ
 # We're short on build times, so pretend 64-bit binaries are 32-bit binaries
-# for now, to avoid errors in the editor's Export dialog
+# to avoid errors in the editor's Export dialog
 mkdir -p "templates/"
 cp "$CI_PROJECT_DIR/resources/version.txt" "templates/version.txt"
 strip bin/godot.windows.*.exe

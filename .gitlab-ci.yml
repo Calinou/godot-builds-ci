@@ -15,7 +15,7 @@ variables:
   # This helps people identify where the build comes from
   BUILD_NAME: calinou
   # The number of CPU threads to use for compiling Godot
-  BUILD_THREADS: 1
+  BUILD_THREADS: 3
   # SCons build flags to use for all platforms
   SCONS_FLAGS: debug_symbols=no progress=no -j$BUILD_THREADS
   # The Godot Git repository clone URL

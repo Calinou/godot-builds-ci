@@ -62,6 +62,10 @@ build:android:
 build:windows_editor:
   stage: build
   image: fedora:28
+  variables:
+    # Use only 1 thread for building
+    # (required to compile LTO-enabled builds successfully)
+    BUILD_THREADS: 1
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_editor.sh"
 
@@ -69,5 +73,9 @@ build:windows_editor:
 build:windows_templates:
   stage: build
   image: fedora:28
+  variables:
+    # Use only 1 thread for building
+    # (required to compile LTO-enabled builds successfully)
+    BUILD_THREADS: 1
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh"

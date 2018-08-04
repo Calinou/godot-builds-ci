@@ -15,11 +15,10 @@ for bits in "64" "32"; do
         $SCONS_FLAGS
 done
 
-# Install InnoSetup
-curl -o "$CI_PROJECT_DIR/innosetup.zip" "https://archive.hugo.pro/.public/godot-builds/innosetup-5.5.9-unicode.zip"
-unzip -q "$CI_PROJECT_DIR/innosetup.zip" -d "$CI_PROJECT_DIR/"
-rm "$CI_PROJECT_DIR/innosetup.zip"
-export ISCC="$CI_PROJECT_DIR/innosetup/ISCC.exe"
+# Install Inno Setup and set the path to the Inno Setup compiler
+curl -O "http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe"
+wine "innosetup-5.6.1-unicode.exe" "/VERYSILENT"
+export ISCC="$HOME/.wine/drive_c/Program Files (x86)/Inno Setup 5/ISCC.exe"
 
 # Create Windows editor installers and ZIP archives
 cd "$GODOT_DIR/bin/"

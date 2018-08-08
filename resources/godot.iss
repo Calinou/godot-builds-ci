@@ -18,7 +18,7 @@ AppComments=Unofficial Godot Engine editor build
 DefaultDirName={localappdata}\Godot
 DefaultGroupName=Godot Engine
 AllowNoIcons=yes
-UninstallDisplayIcon={app}\godot.exe
+UninstallDisplayIcon={app}\{#MyAppExeName}
 #ifdef App32Bit
   OutputBaseFilename=godot-setup-nightly-x86
 #else
@@ -39,7 +39,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "godot.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

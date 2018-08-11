@@ -30,4 +30,6 @@ chmod +x "linuxdeployqt-continuous-x86_64.AppImage"
 ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
 ./squashfs-root/AppRun "appdir/godot.desktop" -appimage
 
-mv "Godot_Engine-x86_64.AppImage" "$ARTIFACTS_DIR/editor/godot-linux-nightly-x86_64.AppImage"
+mv \
+    "Godot_Engine-x86_64.AppImage" \
+    "$ARTIFACTS_DIR/editor/godot-linux-nightly-x86_64.AppImage"

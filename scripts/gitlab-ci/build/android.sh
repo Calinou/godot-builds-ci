@@ -35,14 +35,8 @@ for target in "release_debug" "release"; do
         $SCONS_FLAGS
 done
 
-# Create Android APKs
+# Create Android APKs and move them to the artifacts directory
 cd "$GODOT_DIR/platform/android/java/"
 ./gradlew build
-cd "$GODOT_DIR/"
-
-# Create Android export templates TPZ
-mkdir -p "templates/"
-cp "$CI_PROJECT_DIR/resources/version.txt" "templates/version.txt"
-mv "bin/android_debug.apk" "bin/android_release.apk" \
-    "templates/"
-zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-android-nightly.tpz" "templates/"
+mv "$GODOT_DIR/bin/android_debug.apk" "$GODOT_DIR/bin/android_release.apk" \
+    "$ARTIFACTS_DIR/templates/"

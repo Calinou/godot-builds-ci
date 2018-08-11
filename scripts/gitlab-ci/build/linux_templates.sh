@@ -22,15 +22,12 @@ for target in "release_debug" "release"; do
         $SCONS_FLAGS
 done
 
-# Create Linux export templates TPZ
+strip bin/godot.x11.*.64
+
+# Move Linux export templates to the artifacts directory
 # Pretend 64-bit binaries are 32-bit binaries for now, to avoid errors
 # in the editor's Export dialog
-mkdir -p "templates/"
-cp "$CI_PROJECT_DIR/resources/version.txt" "templates/version.txt"
-strip bin/godot.x11.*.64
-cp "bin/godot.x11.opt.debug.64" "templates/linux_x11_64_debug"
-mv "bin/godot.x11.opt.debug.64" "templates/linux_x11_32_debug"
-cp "bin/godot.x11.opt.64" "templates/linux_x11_64_release"
-mv "bin/godot.x11.opt.64" "templates/linux_x11_32_release"
-
-zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-linux-nightly.tpz" "templates/"
+cp "$GODOT_DIR/bin/godot.x11.opt.debug.64" "$ARTIFACTS_DIR/templates/linux_x11_64_debug"
+mv "$GODOT_DIR/bin/godot.x11.opt.debug.64" "$ARTIFACTS_DIR/templates/linux_x11_32_debug"
+cp "$GODOT_DIR/bin/godot.x11.opt.64" "$ARTIFACTS_DIR/templates/linux_x11_64_release"
+mv "$GODOT_DIR/bin/godot.x11.opt.64" "$ARTIFACTS_DIR/templates/linux_x11_32_release"

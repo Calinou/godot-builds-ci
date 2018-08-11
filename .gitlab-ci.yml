@@ -6,9 +6,9 @@
 # This build script is licensed under CC0 1.0 Universal:
 # https://creativecommons.org/publicdomain/zero/1.0/
 
-# Use only one stage for simplicity's sake
 stages:
   - build
+  - deploy
 
 variables:
   # The build name to use instead of "custom_build"
@@ -25,8 +25,10 @@ before_script:
   - "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script.sh"
   - cd "godot/"
 
-after_script:
-  - "$CI_PROJECT_DIR/scripts/gitlab-ci/after_script.sh"
+.artifacts: &artifacts
+  paths:
+    - artifacts/
+  expire_in: 1 week
 
 # Linux editor
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
@@ -35,6 +37,7 @@ build:linux_editor:
   image: ubuntu:trusty
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_editor.sh"
+  artifacts: *artifacts
 
 # Linux export templates
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
@@ -43,6 +46,7 @@ build:linux_templates:
   image: ubuntu:trusty
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_templates.sh"
+  artifacts: *artifacts
 
 # HTML5 (WebAssembly)
 build:html5:
@@ -50,6 +54,7 @@ build:html5:
   image: fedora:28
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh"
+  artifacts: *artifacts
 
 # Android
 build:android:
@@ -57,6 +62,7 @@ build:android:
   image: fedora:28
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh"
+  artifacts: *artifacts
 
 # Windows editor
 build:windows_editor:
@@ -68,6 +74,7 @@ build:windows_editor:
     BUILD_THREADS: 1
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_editor.sh"
+  artifacts: *artifacts
 
 # Windows export templates
 build:windows_templates:
@@ -79,3 +86,13 @@ build:windows_templates:
     BUILD_THREADS: 1
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh"
+  artifacts: *artifacts
+
+# Deploys all artifacts (currently via SFTP)
+deploy:
+  stage: deploy
+  image: fedora:28
+  before_script:
+    - dnf install -y openssh-clients zip
+  script:
+    - "$CI_PROJECT_DIR/scripts/gitlab-ci/deploy.sh"

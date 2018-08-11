@@ -27,9 +27,6 @@ for target in "release_debug" "release"; do
         $SCONS_FLAGS
 done
 
-# Create HTML5 export templates ZIP archive
-mkdir -p "templates/"
-cp "$CI_PROJECT_DIR/resources/version.txt" "templates/version.txt"
-mv "bin/godot.javascript.opt.debug.zip" "templates/webassembly_debug.zip"
-mv "bin/godot.javascript.opt.zip" "templates/webassembly_release.zip"
-zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-html5-nightly.tpz" "templates/"
+# Move HTML5 export templates to the artifacts directory
+mv "$GODOT_DIR/bin/godot.javascript.opt.debug.zip" "$ARTIFACTS_DIR/templates/webassembly_debug.zip"
+mv "$GODOT_DIR/bin/godot.javascript.opt.zip" "$ARTIFACTS_DIR/templates/webassembly_release.zip"

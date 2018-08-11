@@ -15,3 +15,6 @@ GODOT_DIR="$CI_PROJECT_DIR/godot"
 
 # Disable WINE debugging for better performance and more concise output
 export WINEDEBUG="-all"
+
+# Ensure there is an artifacts directory on every job
+mkdir -p "$ARTIFACTS_DIR/"

@@ -16,11 +16,8 @@ for target in "release_debug" "release"; do
 done
 
 # Create macOS export templates ZIP archive
-mkdir -p "templates/"
-cp "$TRAVIS_BUILD_DIR/resources/version.txt" "templates/version.txt"
 mv "misc/dist/osx_template.app/" "osx_template.app/"
 mkdir -p "osx_template.app/Contents/MacOS/"
 mv "bin/godot.osx.opt.debug.64" "osx_template.app/Contents/MacOS/godot_osx_debug.64"
 mv "bin/godot.osx.opt.64" "osx_template.app/Contents/MacOS/godot_osx_release.64"
-zip -r9 "templates/osx.zip" "osx_template.app/"
-zip -r9 "$ARTIFACTS_DIR/templates/godot-templates-macos-nightly.tpz" "templates/"
+zip -r9 "$ARTIFACTS_DIR/templates/osx.zip" "osx_template.app/"

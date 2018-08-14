@@ -25,6 +25,11 @@ env:
     - PLATFORM=osx    TARGET=templates
     - PLATFORM=iphone TARGET=templates
 
+stages:
+  - test
+  - name: deploy
+    if: branch = master
+
 before_script:
   - "$TRAVIS_BUILD_DIR/scripts/travis/before_script.sh"
   - cd "godot/"
@@ -42,3 +47,8 @@ script:
 
 after_success:
   - "$TRAVIS_BUILD_DIR/scripts/travis/after_success.sh"
+
+jobs:
+  include:
+    - stage: deploy
+      script: "$TRAVIS_BUILD_DIR/scripts/travis/deploy.sh"

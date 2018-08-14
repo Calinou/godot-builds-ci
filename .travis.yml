@@ -31,8 +31,10 @@ stages:
     if: branch = master
 
 before_script:
-  - "$TRAVIS_BUILD_DIR/scripts/travis/before_script.sh"
-  - cd "godot/"
+  - if [[ "$TRAVIS_BUILD_STAGE_NAME" != "Deploy" ]]; then
+      "$TRAVIS_BUILD_DIR/scripts/travis/before_script.sh";
+      cd "godot/";
+    fi;
 
 script:
   - if [[ "$PLATFORM" = "osx" ]] && [[ "$TARGET" = "editor" ]]; then
@@ -46,7 +48,9 @@ script:
     fi;
 
 after_success:
-  - "$TRAVIS_BUILD_DIR/scripts/travis/after_success.sh"
+  - if [[ "$TRAVIS_BUILD_STAGE_NAME" != "Deploy" ]]; then
+      "$TRAVIS_BUILD_DIR/scripts/travis/after_success.sh";
+    fi;
 
 jobs:
   include:

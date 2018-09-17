@@ -20,7 +20,7 @@ if [[ "$bits" == "64" ]]; then
 fi
 
 # Build Windows editor
-scons platform=windows bits=$bits tools=yes target=release_debug use_lto=yes \
+scons platform=windows bits="$bits" tools=yes target=release_debug use_lto=yes \
       $SCONS_FLAGS
 
 # Install Inno Setup and set the path to the Inno Setup compiler

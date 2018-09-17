@@ -18,4 +18,4 @@ mkdir -p "$ARTIFACTS_DIR/editor" "$ARTIFACTS_DIR/templates"
 
 # Copy user-supplied modules into the Godot directory
 # (don't fail in case no modules are present)
-cp $TRAVIS_BUILD_DIR/modules/* "$GODOT_DIR/modules/" || true
+cp "$TRAVIS_BUILD_DIR/modules"/* "$GODOT_DIR/modules/" || true

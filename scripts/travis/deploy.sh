@@ -18,6 +18,7 @@ scp -r hugo@hugo.pro:"$REMOTE_TMP_DIR" "$ARTIFACTS_DIR"
 cp "$TRAVIS_BUILD_DIR/resources/version.txt" "$ARTIFACTS_DIR/templates/version.txt"
 cd "$ARTIFACTS_DIR/"
 advzip --add --shrink-insane "$ARTIFACTS_DIR/templates/godot-templates-ios-macos-nightly.tpz" "templates/"
+rm "templates/iphone.zip" "templates/osx.zip" "templates/version.txt"
 cd "$TRAVIS_BUILD_DIR/"
 
 # Deploy to server using SCP

@@ -36,7 +36,7 @@ cp "$CI_PROJECT_DIR/resources/godot.iss" "godot.iss"
 strip "godot.windows.opt.tools.$bits.exe"
 
 mv "godot.windows.opt.tools.$bits.exe" "godot.exe"
-zip -r9 "godot-windows-nightly-$suffix.zip" "godot.exe"
+advzip --add --shrink-insane "godot-windows-nightly-$suffix.zip" "godot.exe"
 
 if [[ "$bits" == "64" ]]; then
   wine "$ISCC" "godot.iss"

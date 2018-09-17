@@ -34,6 +34,9 @@ before_script:
   - if [[ "$TRAVIS_BUILD_STAGE_NAME" != "Deploy" ]]; then
       "$TRAVIS_BUILD_DIR/scripts/travis/before_script.sh";
       cd "godot/";
+    else
+      brew update;
+      brew install advancecomp;
     fi;
 
 script:

@@ -12,7 +12,7 @@ source "$DIR/_common.sh"
 # Create an export templates TPZ
 cp "$CI_PROJECT_DIR/resources/version.txt" "$ARTIFACTS_DIR/templates/version.txt"
 cd "$ARTIFACTS_DIR/"
-zip -mr9 "$ARTIFACTS_DIR/templates/godot-templates-android-html5-linux-windows-nightly.tpz" "templates/"
+advzip --add --shrink-insane "$ARTIFACTS_DIR/templates/godot-templates-android-html5-linux-windows-nightly.tpz" "templates/"
 cd "$CI_PROJECT_DIR/"
 
 # Deploy to server using SCP

@@ -17,7 +17,7 @@ scp -r hugo@hugo.pro:"$REMOTE_TMP_DIR" "$ARTIFACTS_DIR"
 # Create an export templates TPZ
 cp "$TRAVIS_BUILD_DIR/resources/version.txt" "$ARTIFACTS_DIR/templates/version.txt"
 cd "$ARTIFACTS_DIR/"
-zip -mr9 "$ARTIFACTS_DIR/templates/godot-templates-ios-macos-nightly.tpz" "templates/"
+advzip --add --shrink-insane "$ARTIFACTS_DIR/templates/godot-templates-ios-macos-nightly.tpz" "templates/"
 cd "$TRAVIS_BUILD_DIR/"
 
 # Deploy to server using SCP

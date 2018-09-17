@@ -9,11 +9,19 @@ export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
+# The target x86 architecture (can be "64" or "32")
+bits="$1"
+
+# The suffix to add to build products' file names
+suffix="x86"
+
+if [[ "$bits" == "64" ]]; then
+  suffix="${suffix}_64"
+fi
+
 # Build Windows editor
-for bits in "64" "32"; do
-  scons platform=windows bits=$bits tools=yes target=release_debug use_lto=yes \
-        $SCONS_FLAGS
-done
+scons platform=windows bits=$bits tools=yes target=release_debug use_lto=yes \
+      $SCONS_FLAGS
 
 # Install Inno Setup and set the path to the Inno Setup compiler
 curl -O "http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe"
@@ -25,21 +33,18 @@ export ISCC="$HOME/.wine/drive_c/Program Files (x86)/Inno Setup 5/ISCC.exe"
 # Create Windows editor installers and ZIP archives
 cd "$GODOT_DIR/bin/"
 cp "$CI_PROJECT_DIR/resources/godot.iss" "godot.iss"
-strip "godot.windows.opt.tools.64.exe" "godot.windows.opt.tools.32.exe"
+strip "godot.windows.opt.tools.$bits.exe"
 
-mv "godot.windows.opt.tools.64.exe" "godot.exe"
-zip -r9 "godot-windows-nightly-x86_64.zip" "godot.exe"
-wine "$ISCC" "godot.iss"
-rm "godot.exe"
+mv "godot.windows.opt.tools.$bits.exe" "godot.exe"
+zip -r9 "godot-windows-nightly-$suffix.zip" "godot.exe"
 
-mv "godot.windows.opt.tools.32.exe" "godot.exe"
-zip -r9 "godot-windows-nightly-x86.zip" "godot.exe"
-wine "$ISCC" "godot.iss" /DApp32Bit
-rm "godot.exe"
+if [[ "$bits" == "64" ]]; then
+  wine "$ISCC" "godot.iss"
+else
+  wine "$ISCC" "godot.iss" /DApp32Bit
+fi
 
 mv \
-    "godot-windows-nightly-x86_64.zip" \
-    "godot-windows-nightly-x86.zip" \
-    "Output/godot-setup-nightly-x86_64.exe" \
-    "Output/godot-setup-nightly-x86.exe" \
+    "godot-windows-nightly-$suffix.zip" \
+    "Output/godot-setup-nightly-suffix.exe" \
     "$ARTIFACTS_DIR/editor/"

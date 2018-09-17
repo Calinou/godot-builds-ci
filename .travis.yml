@@ -37,13 +37,13 @@ before_script:
     fi;
 
 script:
-  - if [[ "$PLATFORM" = "osx" ]] && [[ "$TARGET" = "editor" ]]; then
+  - if [[ "$PLATFORM" == "osx" ]] && [[ "$TARGET" == "editor" ]]; then
       "$TRAVIS_BUILD_DIR/scripts/travis/build/osx_editor.sh";
     fi;
-  - if [[ "$PLATFORM" = "osx" ]] && [[ "$TARGET" = "templates" ]]; then
+  - if [[ "$PLATFORM" == "osx" ]] && [[ "$TARGET" == "templates" ]]; then
       "$TRAVIS_BUILD_DIR/scripts/travis/build/osx_templates.sh";
     fi;
-  - if [[ "$PLATFORM" = "iphone" ]]; then
+  - if [[ "$PLATFORM" == "iphone" ]]; then
       "$TRAVIS_BUILD_DIR/scripts/travis/build/iphone.sh";
     fi;
 

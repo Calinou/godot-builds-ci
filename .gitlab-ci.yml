@@ -64,8 +64,8 @@ build:android:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh"
   artifacts: *artifacts
 
-# Windows editor
-build:windows_editor:
+# Windows editor (64-bit)
+build:windows_editor_64:
   stage: build
   image: fedora:28
   variables:
@@ -73,7 +73,19 @@ build:windows_editor:
     # (required to compile LTO-enabled builds successfully)
     BUILD_THREADS: 1
   script:
-    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_editor.sh"
+    - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_editor.sh" 64'
+  artifacts: *artifacts
+
+# Windows editor (32-bit)
+build:windows_editor_32:
+  stage: build
+  image: fedora:28
+  variables:
+    # Use only 1 thread for building
+    # (required to compile LTO-enabled builds successfully)
+    BUILD_THREADS: 1
+  script:
+    - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_editor.sh" 32'
   artifacts: *artifacts
 
 # Windows export templates (64-bit)

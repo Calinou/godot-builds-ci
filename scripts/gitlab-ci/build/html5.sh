@@ -12,6 +12,12 @@ source "$DIR/../_common.sh"
 # The target type ("debug" or "release")
 target="$1"
 
+if [[ "$target" == "debug" ]]; then
+  scons_target="release_debug"
+else
+  scons_target="release"
+fi
+
 # Install the Emscripten SDK
 wget -q "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
 tar xf "emsdk-portable.tar.gz"
@@ -25,7 +31,7 @@ EMSCRIPTEN_ROOT="$(em-config EMSCRIPTEN_ROOT)"
 cd "$GODOT_DIR/"
 
 # Build HTML5 export template
-scons platform=javascript tools=no target="$target" \
+scons platform=javascript tools=no target="$scons_target" \
       $SCONS_FLAGS
 
 # Move HTML5 export template to the artifacts directory

@@ -12,6 +12,12 @@ source "$DIR/../_common.sh"
 # The target type ("debug" or "release")
 target="$1"
 
+if [[ "$target" == "debug" ]]; then
+  scons_target="release_debug"
+else
+  scons_target="release"
+fi
+
 # Install OpenJDK
 dnf install -y java-1.8.0-openjdk-devel
 
@@ -33,7 +39,7 @@ export ANDROID_NDK_ROOT="$ANDROID_HOME/android-ndk-r16b"
 cd "$GODOT_DIR/"
 
 # Build Android export template
-scons platform=android tools=no target="$target" \
+scons platform=android tools=no target="$scons_target" \
       $SCONS_FLAGS
 
 # Create an APK and move it to the artifacts directory

@@ -12,11 +12,17 @@ source "$DIR/../_common.sh"
 # The target type ("debug" or "release")
 target="$1"
 
+if [[ "$target" == "debug" ]]; then
+  scons_target="release_debug"
+else
+  scons_target="release"
+fi
+
 # The target x86 architecture (can be "64" or "32")
 bits="$2"
 
 # Build Windows export templates
-scons platform=windows bits="$bits" tools=no target="$target" use_lto=yes \
+scons platform=windows bits="$bits" tools=no target="$scons_target" use_lto=yes \
       $SCONS_FLAGS
 
 strip bin/godot.windows.*.exe

@@ -46,5 +46,5 @@ fi
 
 mv \
     "godot-windows-nightly-$suffix.zip" \
-    "Output/godot-setup-nightly-suffix.exe" \
+    "Output/godot-setup-nightly-$suffix.exe" \
     "$ARTIFACTS_DIR/editor/"

@@ -48,20 +48,36 @@ build:linux_templates:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_templates.sh"
   artifacts: *artifacts
 
-# HTML5 (WebAssembly)
-build:html5:
+# HTML5/WebAssembly (debug)
+build:html5_debug:
   stage: build
   image: fedora:28
   script:
-    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh"
+    - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" debug'
   artifacts: *artifacts
 
-# Android
-build:android:
+# HTML5/WebAssembly (release)
+build:html5_release:
   stage: build
   image: fedora:28
   script:
-    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh"
+    - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" release'
+  artifacts: *artifacts
+
+# Android (debug)
+build:android_debug:
+  stage: build
+  image: fedora:28
+  script:
+    - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh" debug'
+  artifacts: *artifacts
+
+# Android (release)
+build:android_release:
+  stage: build
+  image: fedora:28
+  script:
+    - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh" release'
   artifacts: *artifacts
 
 # Windows editor (64-bit)

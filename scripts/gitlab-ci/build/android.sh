@@ -9,6 +9,9 @@ export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
+# The target type ("debug" or "release")
+target="$1"
+
 # Install OpenJDK
 dnf install -y java-1.8.0-openjdk-devel
 
@@ -29,14 +32,12 @@ rm "android-ndk-r16b-linux-x86_64.zip"
 export ANDROID_NDK_ROOT="$ANDROID_HOME/android-ndk-r16b"
 cd "$GODOT_DIR/"
 
-# Build Android export templates
-for target in "release_debug" "release"; do
-  scons platform=android tools=no target=$target \
-        $SCONS_FLAGS
-done
+# Build Android export template
+scons platform=android tools=no target="$target" \
+      $SCONS_FLAGS
 
-# Create Android APKs and move them to the artifacts directory
+# Create an APK and move it to the artifacts directory
 cd "$GODOT_DIR/platform/android/java/"
 ./gradlew build
-mv "$GODOT_DIR/bin/android_debug.apk" "$GODOT_DIR/bin/android_release.apk" \
+mv "$GODOT_DIR/bin/android_$target.apk" \
     "$ARTIFACTS_DIR/templates/"

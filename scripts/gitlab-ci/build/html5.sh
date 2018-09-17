@@ -9,6 +9,9 @@ export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
+# The target type ("debug" or "release")
+target="$1"
+
 # Install the Emscripten SDK
 wget -q "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
 tar xf "emsdk-portable.tar.gz"
@@ -21,12 +24,10 @@ export EMSCRIPTEN_ROOT
 EMSCRIPTEN_ROOT="$(em-config EMSCRIPTEN_ROOT)"
 cd "$GODOT_DIR/"
 
-# Build HTML5 export templates
-for target in "release_debug" "release"; do
-  scons platform=javascript tools=no target=$target \
-        $SCONS_FLAGS
-done
+# Build HTML5 export template
+scons platform=javascript tools=no target="$target" \
+      $SCONS_FLAGS
 
-# Move HTML5 export templates to the artifacts directory
-mv "$GODOT_DIR/bin/godot.javascript.opt.debug.zip" "$ARTIFACTS_DIR/templates/webassembly_debug.zip"
-mv "$GODOT_DIR/bin/godot.javascript.opt.zip" "$ARTIFACTS_DIR/templates/webassembly_release.zip"
+# Move HTML5 export template to the artifacts directory
+mv "$GODOT_DIR/bin"/godot.javascript.*.zip \
+    "$ARTIFACTS_DIR/templates/webassembly_$target.zip"

@@ -17,10 +17,13 @@ suffix="x86"
 
 if [[ "$bits" == "64" ]]; then
   suffix="${suffix}_64"
+  lto="yes"
+else
+  lto="no"
 fi
 
 # Build Windows editor
-scons platform=windows bits="$bits" tools=yes target=release_debug use_lto=yes \
+scons platform=windows bits="$bits" tools=yes target=release_debug use_lto="$lto" \
       $SCONS_FLAGS
 
 # Install Inno Setup and set the path to the Inno Setup compiler

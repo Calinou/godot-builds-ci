@@ -145,6 +145,6 @@ deploy:
   stage: deploy
   image: fedora:28
   before_script:
-    - dnf install -y advancecomp openssh-clients zip
+    - dnf install -yq advancecomp openssh-clients zip
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/deploy.sh"

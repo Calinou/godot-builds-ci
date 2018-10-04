@@ -19,7 +19,7 @@ else
 fi
 
 # Install OpenJDK
-dnf install -y java-1.8.0-openjdk-devel
+dnf install -yq java-1.8.0-openjdk-devel
 
 # Install the Android SDK
 mkdir -p "$CI_PROJECT_DIR/android/"

@@ -27,7 +27,7 @@ else
   apt-get update -qq
 
   apt-get install -qqq git cmake wget zip unzip build-essential scons pkg-config \
-      libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev \
+      libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libcairo2 \
       libglu-dev libasound2-dev libpulse-dev libfreetype6-dev \
       libssl-dev libudev-dev libxrandr-dev libxi-dev yasm \
       gcc-8 g++-8

@@ -15,7 +15,7 @@ variables:
   # This helps people identify where the build comes from
   BUILD_NAME: calinou
   # The number of CPU threads to use for compiling Godot
-  BUILD_THREADS: 1
+  BUILD_THREADS: "1"
   # SCons build flags to use for all platforms
   SCONS_FLAGS: debug_symbols=no progress=no -j$BUILD_THREADS
   # The Godot Git repository clone URL
@@ -35,6 +35,8 @@ before_script:
 build:linux_editor:
   stage: build
   image: ubuntu:trusty
+  variables:
+    DEBIAN_FRONTEND: noninteractive
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_editor.sh"
   artifacts: *artifacts
@@ -44,6 +46,8 @@ build:linux_editor:
 build:linux_templates:
   stage: build
   image: ubuntu:trusty
+  variables:
+    DEBIAN_FRONTEND: noninteractive
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_templates.sh"
   artifacts: *artifacts

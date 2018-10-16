@@ -148,6 +148,7 @@ build:windows_templates_release_32:
 deploy:
   stage: deploy
   image: fedora:28
+  when: always
   before_script:
     - dnf install -yq advancecomp openssh-clients zip
   script:

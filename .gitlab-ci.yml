@@ -91,7 +91,7 @@ build:windows_editor_64:
   variables:
     # Use only 1 thread for building
     # (required to compile LTO-enabled builds successfully)
-    BUILD_THREADS: 1
+    BUILD_THREADS: "1"
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_editor.sh" 64'
   artifacts: *artifacts
@@ -111,7 +111,7 @@ build:windows_templates_debug_64:
   variables:
     # Use only 1 thread for building
     # (required to compile LTO-enabled builds successfully)
-    BUILD_THREADS: 1
+    BUILD_THREADS: "1"
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh" debug 64'
   artifacts: *artifacts
@@ -131,7 +131,7 @@ build:windows_templates_release_64:
   variables:
     # Use only 1 thread for building
     # (required to compile LTO-enabled builds successfully)
-    BUILD_THREADS: 1
+    BUILD_THREADS: "1"
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh" release 64'
   artifacts: *artifacts

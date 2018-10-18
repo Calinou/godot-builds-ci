@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # This build script is licensed under CC0 1.0 Universal:
 # https://creativecommons.org/publicdomain/zero/1.0/
@@ -6,6 +6,7 @@
 # This script deploys intermediate artifacts to a SFTP server
 
 set -euo pipefail
+IFS=$'\n\t'
 
 export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

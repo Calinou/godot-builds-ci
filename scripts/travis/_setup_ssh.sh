@@ -1,9 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # This build script is licensed under CC0 1.0 Universal:
 # https://creativecommons.org/publicdomain/zero/1.0/
 
 # This script sets up SSH credentials for use in Travis CI
+
+set -euo pipefail
+IFS=$'\n\t'
 
 mkdir -p "$HOME/.ssh/"
 openssl aes-256-cbc \

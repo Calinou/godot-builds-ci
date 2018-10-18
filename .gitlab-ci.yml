@@ -17,7 +17,7 @@ variables:
   # The number of CPU threads to use for compiling Godot
   BUILD_THREADS: "1"
   # SCons build flags to use for all platforms
-  SCONS_FLAGS: debug_symbols=no progress=no -j$BUILD_THREADS
+  SCONS_FLAGS: '("debug_symbols=no" "progress=no" "-j$BUILD_THREADS")'
   # The Godot Git repository clone URL
   GODOT_REPO_URL: https://github.com/godotengine/godot.git
 

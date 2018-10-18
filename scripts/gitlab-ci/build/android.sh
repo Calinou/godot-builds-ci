@@ -42,7 +42,7 @@ cd "$GODOT_DIR/"
 
 # Build Android export template
 scons platform=android tools=no target="$scons_target" \
-      $SCONS_FLAGS
+      "${SCONS_FLAGS[@]}"
 
 # Create an APK and move it to the artifacts directory
 cd "$GODOT_DIR/platform/android/java/"

@@ -24,7 +24,7 @@ bits="$2"
 
 # Build Windows export templates
 scons platform=windows bits="$bits" tools=no target="$scons_target" use_lto=yes \
-      $SCONS_FLAGS
+      "${SCONS_FLAGS[@]}"
 
 strip bin/godot.windows.*.exe
 

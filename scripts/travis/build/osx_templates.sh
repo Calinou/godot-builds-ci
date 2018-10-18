@@ -13,7 +13,7 @@ source "$DIR/../_common.sh"
 # Build macOS export templates
 for target in "release_debug" "release"; do
   scons platform=osx tools=no target=$target \
-        $SCONS_FLAGS
+        "${SCONS_FLAGS[@]}"
 done
 
 # Create macOS export templates ZIP archive

@@ -33,7 +33,7 @@ cd "$GODOT_DIR/"
 
 # Build HTML5 export template
 scons platform=javascript tools=no target="$scons_target" \
-      $SCONS_FLAGS
+      "${SCONS_FLAGS[@]}"
 
 # Move HTML5 export template to the artifacts directory
 mv "$GODOT_DIR/bin"/godot.javascript.*.zip \

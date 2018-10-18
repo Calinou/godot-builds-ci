@@ -18,7 +18,7 @@ export CXX="g++-8"
 scons platform=x11 tools=yes target=release_debug \
       use_static_cpp=yes \
       LINKFLAGS="-fuse-ld=gold" \
-      $SCONS_FLAGS
+      "${SCONS_FLAGS[@]}"
 
 # Create Linux editor AppImage
 strip "bin/godot.x11.opt.tools.64"

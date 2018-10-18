@@ -12,7 +12,7 @@ source "$DIR/../_common.sh"
 
 # Build macOS editor
 scons platform=osx tools=yes target=release_debug \
-      $SCONS_FLAGS
+      "${SCONS_FLAGS[@]}"
 
 # Create macOS editor DMG image
 mkdir -p "godot_dmg/"

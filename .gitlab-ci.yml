@@ -41,15 +41,26 @@ build:linux_editor:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_editor.sh"
   artifacts: *artifacts
 
-# Linux export templates
+# Linux export templates (debug)
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
-build:linux_templates:
+build:linux_templates_debug:
   stage: build
   image: ubuntu:trusty
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:
-    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_templates.sh"
+    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_templates.sh debug"
+  artifacts: *artifacts
+
+# Linux export templates (release)
+# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+build:linux_templates_release:
+  stage: build
+  image: ubuntu:trusty
+  variables:
+    DEBIAN_FRONTEND: noninteractive
+  script:
+    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_templates.sh release"
   artifacts: *artifacts
 
 # HTML5/WebAssembly (debug)

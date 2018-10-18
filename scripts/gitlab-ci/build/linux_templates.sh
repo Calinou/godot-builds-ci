@@ -13,21 +13,26 @@ source "$DIR/../_common.sh"
 export CC="gcc-8"
 export CXX="g++-8"
 
+# The target type ("debug" or "release")
+target="$1"
+
+if [[ "$target" == "debug" ]]; then
+  scons_target="release_debug"
+else
+  scons_target="release"
+fi
+
 # Build Linux export templates
 # Link libpng statically to avoid dependency issues
-for target in "release_debug" "release"; do
-  scons platform=x11 tools=no target=$target \
+scons platform=x11 tools=no target="$scons_target" \
         builtin_libpng=yes use_static_cpp=yes \
         LINKFLAGS="-fuse-ld=gold" \
         $SCONS_FLAGS
-done
 
 strip bin/godot.x11.*.64
 
 # Move Linux export templates to the artifacts directory
 # Pretend 64-bit binaries are 32-bit binaries for now, to avoid errors
 # in the editor's Export dialog
-cp "$GODOT_DIR/bin/godot.x11.opt.debug.64" "$ARTIFACTS_DIR/templates/linux_x11_64_debug"
-mv "$GODOT_DIR/bin/godot.x11.opt.debug.64" "$ARTIFACTS_DIR/templates/linux_x11_32_debug"
-cp "$GODOT_DIR/bin/godot.x11.opt.64" "$ARTIFACTS_DIR/templates/linux_x11_64_release"
-mv "$GODOT_DIR/bin/godot.x11.opt.64" "$ARTIFACTS_DIR/templates/linux_x11_32_release"
+cp "$GODOT_DIR/bin"/godot.x11.* "$ARTIFACTS_DIR/templates/linux_x11_64_${target}"
+mv "$GODOT_DIR/bin"/godot.x11.* "$ARTIFACTS_DIR/templates/linux_x11_32_${target}"

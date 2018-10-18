@@ -28,4 +28,4 @@ scons platform=windows bits="$bits" tools=no target="$scons_target" use_lto=yes 
 strip bin/godot.windows.*.exe
 
 # Move Windows export templates to the artifacts directory
-cp "$GODOT_DIR/bin"/godot.windows.*.exe "$ARTIFACTS_DIR/templates/windows_${bits}_${target}.exe"
+mv "$GODOT_DIR/bin"/godot.windows.*.exe "$ARTIFACTS_DIR/templates/windows_${bits}_${target}.exe"

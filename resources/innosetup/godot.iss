@@ -15,6 +15,7 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL=https://godotengine.org/
 AppUpdatesURL={#MyAppURL}
 AppComments=Unofficial Godot Engine editor build
+ChangesEnvironment=yes
 DefaultDirName={localappdata}\Godot
 DefaultGroupName=Godot Engine
 AllowNoIcons=yes
@@ -37,6 +38,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "modifypath"; Description: "Add Godot to PATH environment variable"
 
 [Files]
 Source: "{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
@@ -47,3 +49,15 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+
+[Code]
+const
+    ModPathName = 'modifypath';
+
+function ModPathDir(): TArrayOfString;
+begin
+    setArrayLength(Result, 1)
+    Result[0] := ExpandConstant('{app}');
+end;
+
+#include "modpath.pas"

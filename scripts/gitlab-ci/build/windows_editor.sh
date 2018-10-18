@@ -33,7 +33,7 @@ export ISCC="$HOME/.wine/drive_c/Program Files (x86)/Inno Setup 5/ISCC.exe"
 
 # Create Windows editor installers and ZIP archives
 cd "$GODOT_DIR/bin/"
-cp "$CI_PROJECT_DIR/resources/godot.iss" "godot.iss"
+cp "$CI_PROJECT_DIR/resources/innosetup"/* "."
 strip "godot.windows.opt.tools.$bits.exe"
 
 mv "godot.windows.opt.tools.$bits.exe" "godot.exe"

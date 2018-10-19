@@ -3,8 +3,6 @@
 
 language: cpp
 
-sudo: false
-
 os:
   - osx
 

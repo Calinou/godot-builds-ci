@@ -10,9 +10,12 @@ export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/_common.sh"
 
-# Install dependencies
+# Install dependencies and upgrade to Bash 4
 brew update
-brew install scons yasm
+brew install bash scons yasm
+echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells
+sudo chsh -s "$(brew --prefix)/bin/bash"
+"$(brew --prefix)/bin/bash" -c "cd $TRAVIS_BUILD_DIR"
 
 git clone --depth=1 "$GODOT_REPO_URL"
 mkdir -p "$ARTIFACTS_DIR/editor" "$ARTIFACTS_DIR/templates"

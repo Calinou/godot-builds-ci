@@ -53,6 +53,7 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 [Code]
 const
     ModPathName = 'modifypath';
+    ModPathType = 'user';
 
 function ModPathDir(): TArrayOfString;
 begin

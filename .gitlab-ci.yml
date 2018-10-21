@@ -34,7 +34,7 @@ before_script:
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
 build:linux_editor:
   stage: build
-  image: ubuntu:trusty
+  image: ubuntu:14.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:
@@ -45,7 +45,7 @@ build:linux_editor:
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
 build:linux_templates_debug:
   stage: build
-  image: ubuntu:trusty
+  image: ubuntu:14.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:
@@ -56,11 +56,33 @@ build:linux_templates_debug:
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
 build:linux_templates_release:
   stage: build
-  image: ubuntu:trusty
+  image: ubuntu:14.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_templates.sh release"
+  artifacts: *artifacts
+
+# Linux headless editor (for exporting projects and automation)
+# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+build:linux_headless:
+  stage: build
+  image: ubuntu:14.04
+  variables:
+    DEBIAN_FRONTEND: noninteractive
+  script:
+    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_headless.sh"
+  artifacts: *artifacts
+
+# Linux dedicated server (for running projects)
+# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+build:linux_server:
+  stage: build
+  image: ubuntu:14.04
+  variables:
+    DEBIAN_FRONTEND: noninteractive
+  script:
+    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_server.sh"
   artifacts: *artifacts
 
 # HTML5/WebAssembly (debug)

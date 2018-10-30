@@ -22,6 +22,6 @@ scons platform=server tools=yes target=release_debug \
 
 # Create Linux headless editor .tar.xz archive
 cd "$GODOT_DIR/bin/"
-strip "godot_server.server.opt.tools.64"
-mv "godot_server.server.opt.tools.64" "godot-headless"
+strip "godot_server.x11.opt.tools.64"
+mv "godot_server.x11.opt.tools.64" "godot-headless"
 tar cfJ "$ARTIFACTS_DIR/server/godot-linux-headless-nightly-x86_64.tar.xz" "godot-headless"

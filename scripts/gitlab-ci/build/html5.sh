@@ -20,10 +20,8 @@ else
 fi
 
 # Install the Emscripten SDK
-wget -q "https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz"
-tar xf "emsdk-portable.tar.gz"
-cd "$GODOT_DIR/emsdk-portable/"
-./emsdk update
+git clone --depth=1 "https://github.com/juj/emsdk.git" "$GODOT_DIR/emsdk/"
+cd "$GODOT_DIR/emsdk/"
 ./emsdk install latest
 ./emsdk activate latest
 source ./emsdk_env.sh

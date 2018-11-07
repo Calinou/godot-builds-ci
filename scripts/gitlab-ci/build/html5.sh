@@ -26,7 +26,7 @@ cd "$GODOT_DIR/emsdk/"
 ./emsdk activate latest
 source ./emsdk_env.sh
 export EMSCRIPTEN_ROOT
-EMSCRIPTEN_ROOT="$(em-config EMSCRIPTEN_ROOT)"
+EMSCRIPTEN_ROOT="$(em-config EMSCRIPTEN_ROOT || true)"
 cd "$GODOT_DIR/"
 
 # Build HTML5 export template

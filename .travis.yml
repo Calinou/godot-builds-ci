@@ -2,9 +2,8 @@
 # https://creativecommons.org/publicdomain/zero/1.0/
 
 language: cpp
-
-os:
-  - osx
+os: osx
+osx_image: xcode10.1
 
 env:
   global:

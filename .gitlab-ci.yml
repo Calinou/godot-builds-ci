@@ -104,7 +104,7 @@ build:html5_release:
 # Android (debug)
 build:android_debug:
   stage: build
-  image: fedora:29
+  image: fedora:28
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh" debug'
   artifacts: *artifacts
@@ -112,7 +112,7 @@ build:android_debug:
 # Android (release)
 build:android_release:
   stage: build
-  image: fedora:29
+  image: fedora:28
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh" release'
   artifacts: *artifacts

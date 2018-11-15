@@ -6,6 +6,19 @@
 # This build script is licensed under CC0 1.0 Universal:
 # https://creativecommons.org/publicdomain/zero/1.0/
 
+.retry: &retry
+  max: 2
+  when:
+    - api_failure
+    - runner_system_failure
+    - stuck_or_timeout_failure
+    - unknown_failure
+
+.artifacts: &artifacts
+  paths:
+    - artifacts/
+  expire_in: 1 week
+
 stages:
   - build
   - deploy
@@ -21,22 +34,9 @@ variables:
   # The Godot Git repository clone URL
   GODOT_REPO_URL: https://github.com/godotengine/godot.git
 
-.retry: &retry
-  max: 2
-  when:
-    - api_failure
-    - runner_system_failure
-    - stuck_or_timeout_failure
-    - unknown_failure
-
 before_script:
   - "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script.sh"
   - cd "godot/"
-
-.artifacts: &artifacts
-  paths:
-    - artifacts/
-  expire_in: 1 week
 
 # Linux editor
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well

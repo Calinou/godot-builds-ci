@@ -21,7 +21,7 @@ variables:
   # The Godot Git repository clone URL
   GODOT_REPO_URL: https://github.com/godotengine/godot.git
 
-retry:
+.retry: &retry
   max: 2
   when:
     - api_failure
@@ -48,6 +48,7 @@ build:linux_editor:
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_editor.sh"
   artifacts: *artifacts
+  retry: *retry
 
 # Linux export templates (debug)
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
@@ -59,6 +60,7 @@ build:linux_templates_debug:
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_templates.sh debug"
   artifacts: *artifacts
+  retry: *retry
 
 # Linux export templates (release)
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
@@ -70,6 +72,7 @@ build:linux_templates_release:
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_templates.sh release"
   artifacts: *artifacts
+  retry: *retry
 
 # Linux headless editor (for exporting projects and automation)
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
@@ -81,6 +84,7 @@ build:linux_headless:
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_headless.sh"
   artifacts: *artifacts
+  retry: *retry
 
 # Linux dedicated server (for running projects)
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well
@@ -92,6 +96,7 @@ build:linux_server:
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_server.sh"
   artifacts: *artifacts
+  retry: *retry
 
 # HTML5/WebAssembly (debug)
 build:html5_debug:
@@ -100,6 +105,7 @@ build:html5_debug:
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" debug'
   artifacts: *artifacts
+  retry: *retry
 
 # HTML5/WebAssembly (release)
 build:html5_release:
@@ -108,6 +114,7 @@ build:html5_release:
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" release'
   artifacts: *artifacts
+  retry: *retry
 
 # Android (debug)
 build:android_debug:
@@ -116,6 +123,7 @@ build:android_debug:
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh" debug'
   artifacts: *artifacts
+  retry: *retry
 
 # Android (release)
 build:android_release:
@@ -124,6 +132,7 @@ build:android_release:
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh" release'
   artifacts: *artifacts
+  retry: *retry
 
 # Windows editor (64-bit)
 build:windows_editor_64:
@@ -136,6 +145,7 @@ build:windows_editor_64:
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_editor.sh" 64'
   artifacts: *artifacts
+  retry: *retry
 
 # Windows editor (32-bit)
 build:windows_editor_32:
@@ -144,6 +154,7 @@ build:windows_editor_32:
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_editor.sh" 32'
   artifacts: *artifacts
+  retry: *retry
 
 # Windows export templates (debug, 64-bit)
 build:windows_templates_debug_64:
@@ -156,6 +167,7 @@ build:windows_templates_debug_64:
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh" debug 64'
   artifacts: *artifacts
+  retry: *retry
 
 # Windows export templates (debug, 32-bit)
 build:windows_templates_debug_32:
@@ -164,6 +176,7 @@ build:windows_templates_debug_32:
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh" debug 32'
   artifacts: *artifacts
+  retry: *retry
 
 # Windows export templates (release, 64-bit)
 build:windows_templates_release_64:
@@ -176,6 +189,7 @@ build:windows_templates_release_64:
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh" release 64'
   artifacts: *artifacts
+  retry: *retry
 
 # Windows export templates (release, 32-bit)
 build:windows_templates_release_32:
@@ -184,6 +198,7 @@ build:windows_templates_release_32:
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh" release 32'
   artifacts: *artifacts
+  retry: *retry
 
 # Deploys all artifacts (currently via SFTP)
 deploy:
@@ -194,3 +209,4 @@ deploy:
     - dnf install -yq advancecomp openssh-clients zip
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/deploy.sh"
+  retry: *retry

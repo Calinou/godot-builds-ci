@@ -26,7 +26,7 @@ mkdir -p "appdir/usr/bin/" "appdir/usr/share/icons"
 cp "bin/godot.x11.opt.tools.64" "appdir/usr/bin/godot"
 cp "misc/dist/linux/org.godotengine.Godot.desktop" "appdir/godot.desktop"
 cp "icon.svg" "appdir/usr/share/icons/godot.svg"
-wget -q "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+curl -fsSLO "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod +x "linuxdeployqt-continuous-x86_64.AppImage"
 ./linuxdeployqt-continuous-x86_64.AppImage \
     --appimage-extract-and-run \

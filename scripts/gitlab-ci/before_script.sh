@@ -19,7 +19,7 @@ if [[ -f "/etc/redhat-release" ]]; then
       alsa-lib-devel pulseaudio-libs-devel freetype-devel \
       libudev-devel mesa-libGLU-devel mingw32-gcc-c++ mingw64-gcc-c++ \
       mingw32-winpthreads-static mingw64-winpthreads-static yasm openssh-clients \
-      wget unzip advancecomp ncurses-compat-libs wine xz Xvfb
+      unzip advancecomp ncurses-compat-libs wine xz Xvfb
 else
   # Ubuntu
   apt-get update -qq
@@ -27,10 +27,10 @@ else
   add-apt-repository -y ppa:ubuntu-toolchain-r/test
   apt-get update -qq
 
-  apt-get install -qqq git cmake wget zip unzip build-essential scons pkg-config \
+  apt-get install -qqq git cmake zip unzip build-essential scons pkg-config \
       libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libcairo2 \
       libglu-dev libasound2-dev libpulse-dev libfreetype6-dev \
-      libssl-dev libudev-dev libxrandr-dev libxi-dev yasm \
+      libssl-dev libudev-dev libxrandr-dev libxi-dev curl yasm \
       gcc-8 g++-8
 fi
 

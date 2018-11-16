@@ -25,7 +25,7 @@ dnf install -yq java-1.8.0-openjdk-devel
 # Install the Android SDK
 mkdir -p "$CI_PROJECT_DIR/android/"
 cd "$CI_PROJECT_DIR/android/"
-wget -q "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip"
+curl -fsSLO "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip"
 unzip -q ./*.zip
 rm ./*.zip
 mkdir -p "licenses/"
@@ -33,7 +33,7 @@ cp "$CI_PROJECT_DIR/resources/android-sdk-license" "licenses/"
 export ANDROID_HOME="$CI_PROJECT_DIR/android"
 
 # Install the Android NDK
-wget -q "https://dl.google.com/android/repository/android-ndk-r18-linux-x86_64.zip"
+curl -fsSLO "https://dl.google.com/android/repository/android-ndk-r18-linux-x86_64.zip"
 unzip -q ./*.zip
 rm ./*.zip
 mv ./*ndk* ndk/

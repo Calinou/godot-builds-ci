@@ -25,7 +25,7 @@ scons platform=windows bits="$bits" tools=yes target=release_debug use_lto=no \
       "${SCONS_FLAGS[@]}"
 
 # Install Inno Setup and set the path to the Inno Setup compiler
-curl -O "http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe"
+curl -fsSLO "http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe"
 # Create a virtual X display (required to install Inno Setup)
 Xvfb :0 & export DISPLAY=":0"
 wine "innosetup-5.6.1-unicode.exe" "/VERYSILENT"

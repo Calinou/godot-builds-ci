@@ -1,0 +1,55 @@
+# This build script is licensed under CC0 1.0 Universal:
+# https://creativecommons.org/publicdomain/zero/1.0/
+
+jobs:
+  - job: build
+    pool:
+      vmImage: "macOS-10.13"
+    timeoutInMinutes: 0
+    variables:
+        build_name: calinou
+        build_threads: "3"
+        scons_flags: '("progress=no" "debug_symbols=no" "-j$BUILD_THREADS")'
+        godot_repo_url: https://github.com/godotengine/godot
+    strategy:
+      matrix:
+        osx_editor:
+          platform: osx
+          target: editor
+        osx_templates:
+          platform: osx
+          target: templates
+        ios_templates:
+          platform: iphone
+          target: templates
+    steps:
+      - script: |
+          scripts/azure-pipelines/before_script.sh
+          cd "godot/"
+
+          if [[ "$PLATFORM" == "osx" ]] && [[ "$TARGET" == "editor" ]]; then
+            ../scripts/azure-pipelines/build/osx_editor.sh
+          fi
+          if [[ "$PLATFORM" == "osx" ]] && [[ "$TARGET" == "templates" ]]; then
+            ../scripts/azure-pipelines/build/osx_templates.sh
+          fi
+          if [[ "$PLATFORM" == "iphone" ]]; then
+            ../scripts/azure-pipelines/build/iphone.sh
+          fi
+
+  - job: deploy
+    dependsOn: build
+    pool:
+      vmImage: "macOS-10.13"
+    steps:
+      - task: DownloadSecureFile@1
+        inputs:
+          secureFile: id_rsa
+      - task: InstallSSHKey@0
+        inputs:
+          hostName: hugo.pro
+          sshPublicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC98AOGm25+HfBlXKyDMh+640Cbjng0/HuKsusNFastLz1MISgxLsXsKKE9VBE0XXd4aMI1wq5sGJUbYZRdXMz8AsLVRpXEWCpdCQsQCPUxhVqn0g0tlbzsQ9m1IwwdSav95d+afmzSK3qh3vvEggPsX/HMtDk2PuLAOHAFEi7JLRgwgZTEdrh6PYk5GrFaC8pzQyT67DcJwQ2u0cNZK7sbW1g1U3lI9rYpkJa8zmUbM0HZSIBn7bsaSzpV5bw9s+CMwgIYMR56qyfe3BLQBIkJdv4bVz/L3gEIWfJHw+Ttgbg4923uVsi4StP6KVOSTZ/Qn6QVUUWlcx8f/5kPmmMZ
+          sshKeySecureFile: id_rsa
+      - script: |
+          brew install p7zip
+          scripts/travis/deploy.sh

@@ -7,12 +7,8 @@
 
 # The directory where build artifacts are stored
 export ARTIFACTS_DIR
-ARTIFACTS_DIR="$TRAVIS_BUILD_DIR/artifacts"
+ARTIFACTS_DIR="$PWD/artifacts"
 
 # The directory the Godot Git repository will be cloned into
 export GODOT_DIR
-GODOT_DIR="$TRAVIS_BUILD_DIR/godot"
-
-# The remote directory where intermediate build artifacts are stored
-export REMOTE_TMP_DIR
-REMOTE_TMP_DIR="/tmp/travis/godot"
+GODOT_DIR="$PWD/godot"

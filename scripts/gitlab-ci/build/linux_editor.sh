@@ -28,8 +28,9 @@ cp "misc/dist/linux/org.godotengine.Godot.desktop" "appdir/godot.desktop"
 cp "icon.svg" "appdir/usr/share/icons/godot.svg"
 wget -q "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod +x "linuxdeployqt-continuous-x86_64.AppImage"
-./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
-./squashfs-root/AppRun "appdir/godot.desktop" -appimage
+./linuxdeployqt-continuous-x86_64.AppImage \
+    --appimage-extract-and-run \
+     -appimage "appdir/godot.desktop"
 
 mv \
     "Godot_Engine-x86_64.AppImage" \

@@ -13,8 +13,12 @@ cp "resources/version.txt" "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/version.t
 (
   cd "$SYSTEM_ARTIFACTSDIRECTORY/godot/"
   7z a -r -sdel -mx9 \
-      "templates/godot-templates-ios-macos-nightly.tpz" \
+      "godot-templates-ios-macos-nightly.tpz" \
       "templates/"
+  # Recreate the directory and move the templates TPZ there to work around
+  # an issue in 7-zip
+  mkdir -p "templates/"
+  mv "godot-templates-ios-macos-nightly.tpz" "templates/"
 )
 
 # Deploy to server using SCP

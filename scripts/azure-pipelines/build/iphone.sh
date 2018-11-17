@@ -6,10 +6,6 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-export DIR
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$DIR/../_common.sh"
-
 # Build iOS export templates
 # Compile only 64-bit ARM binaries, as all Apple devices supporting
 # OpenGL ES 3.0 have 64-bit ARM processors anyway
@@ -23,4 +19,8 @@ done
 mv "bin/libgodot.iphone.opt.debug.arm64.a" "libgodot.iphone.debug.fat.a"
 mv "bin/libgodot.iphone.opt.arm64.a" "libgodot.iphone.release.fat.a"
 touch "data.pck"
-zip -9 "$ARTIFACTS_DIR/templates/iphone.zip" "libgodot.iphone.debug.fat.a" "libgodot.iphone.release.fat.a" "data.pck"
+7z a -r -mx9 \
+    "$BUILD_ARTIFACTSTAGINGDIRECTORY/templates/iphone.zip" \
+    "libgodot.iphone.debug.fat.a" \
+    "libgodot.iphone.release.fat.a" \
+    "data.pck"

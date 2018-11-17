@@ -4,7 +4,7 @@
 jobs:
   - job: build
     pool:
-      vmImage: "macOS-10.13"
+      vmImage: macOS-10.13
     timeoutInMinutes: 0
     variables:
         build_name: calinou
@@ -36,12 +36,21 @@ jobs:
           if [[ "$PLATFORM" == "iphone" ]]; then
             ../scripts/azure-pipelines/build/iphone.sh
           fi
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: godot
 
   - job: deploy
     dependsOn: build
     pool:
-      vmImage: "macOS-10.13"
+      vmImage: macOS-10.13
     steps:
+      - task: DownloadBuildArtifacts@0
+        inputs:
+          downloadType: single
+          artifactName: godot
+          downloadPath: $(System.ArtifactsDirectory)
       - task: DownloadSecureFile@1
         inputs:
           secureFile: id_rsa

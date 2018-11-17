@@ -6,18 +6,14 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-export DIR
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$DIR/_common.sh"
-
 # Create an export templates TPZ
-cp "resources/version.txt" "$ARTIFACTS_DIR/templates/version.txt"
+cp "resources/version.txt" "$SYSTEM_ARTIFACTSDIRECTORY/templates/version.txt"
 (
-  cd "$ARTIFACTS_DIR/" &&
-  7z a -r -mx9 \
-      "$ARTIFACTS_DIR/templates/godot-templates-ios-macos-nightly.tpz"
-     "templates/"
+  cd "$SYSTEM_ARTIFACTSDIRECTORY" &&
+  7z a -r -sdel -mx9 \
+      "$SYSTEM_ARTIFACTSDIRECTORY/templates/godot-templates-ios-macos-nightly.tpz" \
+      "templates/"
 )
 
 # Deploy to server using SCP
-scp -r "$ARTIFACTS_DIR"/* hugo@hugo.pro:/var/www/archive.hugo.pro/builds/godot/
+scp -r "$SYSTEM_ARTIFACTSDIRECTORY"/* hugo@hugo.pro:/var/www/archive.hugo.pro/builds/godot/

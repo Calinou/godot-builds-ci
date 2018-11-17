@@ -6,10 +6,6 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-export DIR
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$DIR/../_common.sh"
-
 # Build macOS editor
 scons platform=osx tools=yes target=release_debug \
       "${SCONS_FLAGS[@]}"
@@ -26,6 +22,6 @@ git clone "https://github.com/andreyvit/create-dmg.git" --depth=1
       --volname "Godot" \
       --volicon "../godot_dmg/Godot.app/Contents/Resources/Godot.icns" \
       --hide-extension "Godot.app" \
-      "$ARTIFACTS_DIR/editor/godot-macos-nightly-x86_64.dmg" \
+      "$BUILD_ARTIFACTSTAGINGDIRECTORY/editor/godot-macos-nightly-x86_64.dmg" \
       "../godot_dmg/"
 )

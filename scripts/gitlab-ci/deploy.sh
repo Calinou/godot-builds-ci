@@ -12,10 +12,12 @@ source "$DIR/_common.sh"
 
 # Create an export templates TPZ
 cp "$CI_PROJECT_DIR/resources/version.txt" "$ARTIFACTS_DIR/templates/version.txt"
-cd "$ARTIFACTS_DIR/"
-zip -mr0 "$ARTIFACTS_DIR/templates/godot-templates-android-html5-linux-windows-nightly.tpz" "templates/"
-advzip --recompress --shrink-insane "$ARTIFACTS_DIR/templates/godot-templates-android-html5-linux-windows-nightly.tpz"
-cd "$CI_PROJECT_DIR/"
+(
+  cd "$ARTIFACTS_DIR/"
+  7z a -r -mx9 \
+      "$ARTIFACTS_DIR/templates/godot-templates-android-html5-linux-windows-nightly.tpz" \
+      "templates/"
+)
 
 # Deploy to server using SCP
 # `$SSH_PRIVATE_KEY` is a secret variable defined in the GitLab CI settings

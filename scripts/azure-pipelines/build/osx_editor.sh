@@ -17,7 +17,7 @@ mkdir -p "godot_dmg/Godot.app/Contents/MacOS/"
 cp "bin/godot.osx.opt.tools.64" "godot_dmg/Godot.app/Contents/MacOS/Godot"
 git clone "https://github.com/andreyvit/create-dmg.git" --depth=1
 (
-  cd "create-dmg/" &&
+  cd "create-dmg/"
   ./create-dmg \
       --volname "Godot" \
       --volicon "../godot_dmg/Godot.app/Contents/Resources/Godot.icns" \

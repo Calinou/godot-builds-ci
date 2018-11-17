@@ -9,7 +9,7 @@ IFS=$'\n\t'
 # Create an export templates TPZ
 cp "resources/version.txt" "$SYSTEM_ARTIFACTSDIRECTORY/templates/version.txt"
 (
-  cd "$SYSTEM_ARTIFACTSDIRECTORY" &&
+  cd "$SYSTEM_ARTIFACTSDIRECTORY"
   7z a -r -sdel -mx9 \
       "$SYSTEM_ARTIFACTSDIRECTORY/templates/godot-templates-ios-macos-nightly.tpz" \
       "templates/"

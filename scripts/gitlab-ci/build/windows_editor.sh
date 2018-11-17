@@ -37,7 +37,7 @@ cp "$CI_PROJECT_DIR/resources/innosetup"/* "."
 strip "godot.windows.opt.tools.$bits.exe"
 
 mv "godot.windows.opt.tools.$bits.exe" "godot.exe"
-advzip --add --shrink-insane "godot-windows-nightly-$suffix.zip" "godot.exe"
+7z a -r -mx9 "godot-windows-nightly-$suffix.zip" "godot.exe"
 
 if [[ "$bits" == "64" ]]; then
   wine "$ISCC" "godot.iss"

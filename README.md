@@ -1,6 +1,6 @@
 # Godot Builds (using CI services)
 
-This repository contains files for usage by GitLab CI and Travis CI.
+This repository contains files for usage by GitLab CI and Azure Pipelines.
 
 ## [Download builds](https://hugo.pro/projects/godot-builds/)
 

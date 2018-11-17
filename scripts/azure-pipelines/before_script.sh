@@ -8,7 +8,7 @@ IFS=$'\n\t'
 
 # Install dependencies and upgrade to Bash 4
 brew update
-brew install bash scons yasm
+brew install p7zip bash scons yasm
 echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells
 sudo chsh -s "$(brew --prefix)/bin/bash"
 "$(brew --prefix)/bin/bash" -c "cd $PWD"

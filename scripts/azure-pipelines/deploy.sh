@@ -9,13 +9,13 @@ IFS=$'\n\t'
 brew install p7zip
 
 # Create an export templates TPZ
-cp "resources/version.txt" "$SYSTEM_ARTIFACTSDIRECTORY/templates/version.txt"
+cp "resources/version.txt" "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/version.txt"
 (
-  cd "$SYSTEM_ARTIFACTSDIRECTORY"
+  cd "$SYSTEM_ARTIFACTSDIRECTORY/godot/"
   7z a -r -sdel -mx9 \
-      "$SYSTEM_ARTIFACTSDIRECTORY/templates/godot-templates-ios-macos-nightly.tpz" \
+      "templates/godot-templates-ios-macos-nightly.tpz" \
       "templates/"
 )
 
 # Deploy to server using SCP
-scp -r "$SYSTEM_ARTIFACTSDIRECTORY"/* hugo@hugo.pro:/var/www/archive.hugo.pro/builds/godot/
+scp -r "$SYSTEM_ARTIFACTSDIRECTORY/godot"/* hugo@hugo.pro:/var/www/archive.hugo.pro/builds/godot/

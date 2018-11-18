@@ -14,7 +14,7 @@ source "$DIR/_common.sh"
 cp "$CI_PROJECT_DIR/resources/version.txt" "$ARTIFACTS_DIR/templates/version.txt"
 (
   cd "$ARTIFACTS_DIR/"
-  7z a -r -mx9 \
+  zip -mr9 \
       "$ARTIFACTS_DIR/templates/godot-templates-android-html5-linux-windows-nightly.tpz" \
       "templates/"
 )

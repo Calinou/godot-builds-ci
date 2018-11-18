@@ -206,7 +206,7 @@ deploy:
   image: fedora:29
   when: always
   before_script:
-    - dnf install -yq openssh-clients p7zip-plugins
+    - dnf install -yq openssh-clients zip
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/deploy.sh"
   retry: *retry

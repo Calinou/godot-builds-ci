@@ -6,8 +6,6 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-brew install p7zip
-
 # Create an export templates TPZ
 cp "resources/version.txt" "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/version.txt"
 (

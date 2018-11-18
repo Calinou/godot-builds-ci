@@ -19,7 +19,7 @@ done
 mv "bin/libgodot.iphone.opt.debug.arm64.a" "libgodot.iphone.debug.fat.a"
 mv "bin/libgodot.iphone.opt.arm64.a" "libgodot.iphone.release.fat.a"
 touch "data.pck"
-7z a -r -mx9 \
+zip -r9 \
     "$BUILD_ARTIFACTSTAGINGDIRECTORY/templates/iphone.zip" \
     "libgodot.iphone.debug.fat.a" \
     "libgodot.iphone.release.fat.a" \

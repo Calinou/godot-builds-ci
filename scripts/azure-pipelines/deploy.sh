@@ -16,4 +16,6 @@ cp "resources/version.txt" "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/version.t
 )
 
 # Deploy to server using SCP
+mkdir -p "$HOME/.ssh"
+cp "resources/known_hosts" "$HOME/.ssh/"
 scp -r "$SYSTEM_ARTIFACTSDIRECTORY/godot"/* hugo@hugo.pro:/var/www/archive.hugo.pro/builds/godot/

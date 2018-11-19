@@ -205,6 +205,8 @@ deploy:
   stage: deploy
   image: fedora:29
   when: always
+  only:
+    - master@Calinou/godot-builds-ci
   before_script:
     - dnf install -yq openssh-clients zip
   script:

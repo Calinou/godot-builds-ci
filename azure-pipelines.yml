@@ -7,10 +7,10 @@ jobs:
       vmImage: macOS-10.13
     timeoutInMinutes: 0
     variables:
-        build_name: calinou
-        build_threads: "3"
-        scons_flags: '("progress=no" "debug_symbols=no" "-j$BUILD_THREADS")'
-        godot_repo_url: https://github.com/godotengine/godot
+      build_name: calinou
+      build_threads: "3"
+      scons_flags: '("progress=no" "debug_symbols=no" "-j$BUILD_THREADS")'
+      godot_repo_url: https://github.com/godotengine/godot
     strategy:
       matrix:
         osx_editor:

@@ -45,7 +45,7 @@ jobs:
     dependsOn: build
     condition: >-
       and(
-        eq(variables['Build.SourceBranch'], 'refs/heads/master'),
+        eq(variables['Build.SourceBranchName'], 'master'),
         ne(variables['Build.Reason'], 'PullRequest')
       )
     pool:

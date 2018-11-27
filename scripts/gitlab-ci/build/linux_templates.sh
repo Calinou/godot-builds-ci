@@ -26,7 +26,7 @@ fi
 # Build Linux export templates
 # Link libpng statically to avoid dependency issues
 scons platform=x11 tools=no target="$scons_target" \
-        builtin_libpng=yes use_static_cpp=yes \
+        udev=yes builtin_libpng=yes use_static_cpp=yes \
         LINKFLAGS="-fuse-ld=gold" \
         "${SCONS_FLAGS[@]}"
 

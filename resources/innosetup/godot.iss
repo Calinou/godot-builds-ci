@@ -24,13 +24,11 @@ UninstallDisplayIcon={app}\{#MyAppExeName}
   OutputBaseFilename=godot-setup-nightly-x86
 #else
   OutputBaseFilename=godot-setup-nightly-x86_64
-#endif
-Compression=lzma
-SolidCompression=yes
-#ifdef App32Bit
   ArchitecturesAllowed=x64
   ArchitecturesInstallIn64BitMode=x64
 #endif
+Compression=lzma
+SolidCompression=yes
 PrivilegesRequired=lowest
 
 [Languages]

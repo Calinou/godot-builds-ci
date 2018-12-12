@@ -41,8 +41,10 @@ export ANDROID_NDK_ROOT="$ANDROID_HOME/ndk"
 cd "$GODOT_DIR/"
 
 # Build Android export template
-scons platform=android tools=no target="$scons_target" \
+for arch in "armv7" "arm64v8" "x86"; do
+scons platform=android tools=no target="$scons_target" android_arch="$arch" \
       "${SCONS_FLAGS[@]}"
+done
 
 # Create an APK and move it to the artifacts directory
 cd "$GODOT_DIR/platform/android/java/"

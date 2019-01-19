@@ -33,7 +33,7 @@ cp "$CI_PROJECT_DIR/resources/android-sdk-license" "licenses/"
 export ANDROID_HOME="$CI_PROJECT_DIR/android"
 
 # Install the Android NDK
-curl -fsSLO "https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip"
+curl -fsSLO "https://dl.google.com/android/repository/android-ndk-r19-linux-x86_64.zip"
 unzip -q ./*.zip
 rm ./*.zip
 mv ./*ndk* ndk/

@@ -24,12 +24,20 @@ fi
 scons platform=windows bits="$bits" tools=yes target=release_debug use_lto=no \
       "${SCONS_FLAGS[@]}"
 
-# Install Inno Setup and set the path to the Inno Setup compiler
+# Install innoextract (used to extract Inno Setup without using a virtual X display)
+tmp="$(mktemp)"
+curl -fsSL \
+    "http://constexpr.org/innoextract/files/snapshots/innoextract-1.8-dev-2018-09-09/innoextract-1.8-dev-2018-09-09-linux.tar.xz" \
+    -o "$tmp"
+tar xf "$tmp"
+mv innoextract* /opt/innoextract/
+
+# Install Inno Setup and create a launcher script
 curl -fsSLO "http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe"
-# Create a virtual X display (required to install Inno Setup)
-Xvfb :0 & export DISPLAY=":0"
-wine "innosetup-5.6.1-unicode.exe" "/VERYSILENT"
-export ISCC="$HOME/.wine/drive_c/Program Files (x86)/Inno Setup 5/ISCC.exe"
+/opt/innoextract/innoextract -md "/opt/innosetup" "innosetup-5.6.1-unicode.exe"
+echo "wine \"/opt/innosetup/app/ISCC.exe\" \"\$@\"" \
+    > "/usr/local/bin/iscc"
+chmod +x "/usr/local/bin/iscc"
 
 # Create Windows editor installers and ZIP archives
 cd "$GODOT_DIR/bin/"
@@ -40,9 +48,9 @@ mv "godot.windows.opt.tools.$bits.exe" "godot.exe"
 zip -r9 "godot-windows-nightly-$suffix.zip" "godot.exe"
 
 if [[ "$bits" == "64" ]]; then
-  wine "$ISCC" "godot.iss"
+  iscc "godot.iss"
 else
-  wine "$ISCC" "godot.iss" /DApp32Bit
+  iscc "godot.iss" /DApp32Bit
 fi
 
 mv \

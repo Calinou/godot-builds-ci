@@ -40,6 +40,13 @@ mv ./*ndk* ndk/
 export ANDROID_NDK_ROOT="$ANDROID_HOME/ndk"
 cd "$GODOT_DIR/"
 
+# Install base Android SDK components
+mkdir -p "$HOME/.android" && echo "count=0" > "$HOME/.android/repositories.cfg"
+yes | "$ANDROID_HOME/tools/bin/sdkmanager" --licenses > /dev/null
+yes | "$ANDROID_HOME/tools/bin/sdkmanager" "tools" > /dev/null
+yes | "$ANDROID_HOME/tools/bin/sdkmanager" "platform-tools" > /dev/null
+yes | "$ANDROID_HOME/tools/bin/sdkmanager" "build-tools;28.0.1" > /dev/null
+
 # Build Android export template
 for arch in "armv7" "arm64v8" "x86"; do
 scons platform=android tools=no target="$scons_target" android_arch="$arch" \

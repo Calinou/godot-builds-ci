@@ -21,7 +21,7 @@ if [[ "$bits" == "64" ]]; then
 fi
 
 # Build Windows editor
-scons platform=windows bits="$bits" tools=yes target=release_debug use_lto=no \
+scons platform=windows bits="$bits" tools=yes target=release_debug use_lto=yes \
       "${SCONS_FLAGS[@]}"
 
 # Install innoextract (used to extract Inno Setup without using a virtual X display)

@@ -26,26 +26,25 @@ dnf install -yq java-1.8.0-openjdk-devel
 mkdir -p "$CI_PROJECT_DIR/android/"
 cd "$CI_PROJECT_DIR/android/"
 curl -fsSLO "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip"
-unzip -q ./*.zip
-rm ./*.zip
-mkdir -p "licenses/"
-cp "$CI_PROJECT_DIR/resources/android-sdk-license" "licenses/"
+unzip -q sdk-tools-linux-*.zip
+rm sdk-tools-linux-*.zip
 export ANDROID_HOME="$CI_PROJECT_DIR/android"
+
+# Install Android SDK components
+
+mkdir -p "$HOME/.android"
+echo "count=0" > "$HOME/.android/repositories.cfg"
+{ yes | "$ANDROID_HOME/tools/bin/sdkmanager" --licenses || true; } > /dev/null
+{ yes | "$ANDROID_HOME/tools/bin/sdkmanager" "tools" "platform-tools" "build-tools;28.0.3" || true; } > /dev/null
 
 # Install the Android NDK
 curl -fsSLO "https://dl.google.com/android/repository/android-ndk-r19-linux-x86_64.zip"
-unzip -q ./*.zip
-rm ./*.zip
+unzip -q android-ndk-*-linux-x86_64.zip
+rm android-ndk-*-linux-x86_64.zip
 mv ./*ndk* ndk/
 export ANDROID_NDK_ROOT="$ANDROID_HOME/ndk"
-cd "$GODOT_DIR/"
 
-# Install base Android SDK components
-mkdir -p "$HOME/.android" && echo "count=0" > "$HOME/.android/repositories.cfg"
-yes | "$ANDROID_HOME/tools/bin/sdkmanager" --licenses > /dev/null
-yes | "$ANDROID_HOME/tools/bin/sdkmanager" "tools" > /dev/null
-yes | "$ANDROID_HOME/tools/bin/sdkmanager" "platform-tools" > /dev/null
-yes | "$ANDROID_HOME/tools/bin/sdkmanager" "build-tools;28.0.1" > /dev/null
+cd "$GODOT_DIR/"
 
 # Build Android export template
 for arch in "armv7" "arm64v8" "x86"; do

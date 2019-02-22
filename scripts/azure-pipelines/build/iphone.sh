@@ -11,7 +11,7 @@ IFS=$'\n\t'
 # OpenGL ES 3.0 have 64-bit ARM processors anyway
 # An empty `data.pck` file must be included in the export template ZIP as well
 for target in "release_debug" "release"; do
-  scons platform=iphone arch=arm64 tools=no target=$target \
+  scons platform=iphone arch=arm64 tools=no target="$target" use_lto=yes \
         "${SCONS_FLAGS[@]}"
 done
 

@@ -10,8 +10,14 @@ export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/_common.sh"
 
+# Generate `version.txt` from `version.py`
+curl -LO "https://raw.githubusercontent.com/godotengine/godot/master/version.py"
+major=$(grep "major" version.py | cut -d" " -f3)
+minor=$(grep "minor" version.py | cut -d" " -f3)
+status=$(grep "status" version.py | cut -d" " -f3 | tr -d '"')
+echo "$major.$minor.$status" > "$ARTIFACTS_DIR/templates/version.txt"
+
 # Create an export templates TPZ
-cp "$CI_PROJECT_DIR/resources/version.txt" "$ARTIFACTS_DIR/templates/version.txt"
 (
   cd "$ARTIFACTS_DIR/"
   zip -mr9 \

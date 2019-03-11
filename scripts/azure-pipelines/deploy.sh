@@ -6,8 +6,14 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# Generate `version.txt` from `version.py`
+curl -LO "https://raw.githubusercontent.com/godotengine/godot/master/version.py"
+major=$(grep "major" version.py | cut -d" " -f3)
+minor=$(grep "minor" version.py | cut -d" " -f3)
+status=$(grep "status" version.py | cut -d" " -f3 | tr -d '"')
+echo "$major.$minor.$status" > "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/version.txt"
+
 # Create an export templates TPZ
-cp "resources/version.txt" "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/version.txt"
 (
   cd "$SYSTEM_ARTIFACTSDIRECTORY/godot/"
   zip -mr9 \

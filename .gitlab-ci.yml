@@ -34,9 +34,25 @@ variables:
   # The Godot Git repository clone URL
   GODOT_REPO_URL: https://github.com/godotengine/godot.git
 
+# Building documentation has a different set of dependencies,
+# so it has its own "before" script
 before_script:
-  - "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script.sh"
-  - cd "godot/"
+  - if [[ "$CI_JOB_NAME" == "build:docs" ]]; then
+      "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script_docs.sh";
+      cd "godot-docs/";
+    else
+      "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script.sh";
+      cd "godot/";
+    fi;
+
+# Documentation in HTML format
+build:docs:
+  stage: build
+  image: fedora:29
+  script:
+    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/docs.sh"
+  artifacts: *artifacts
+  retry: *retry
 
 # Linux editor
 # Built on Ubuntu 14.04 so that binaries run on old distributions as well

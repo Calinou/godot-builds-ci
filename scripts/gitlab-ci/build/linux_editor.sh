@@ -28,12 +28,9 @@ cp "misc/dist/linux/org.godotengine.Godot.desktop" "appdir/godot.desktop"
 cp "icon.svg" "appdir/usr/share/icons/godot.svg"
 curl -fsSLO "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod +x "linuxdeployqt-continuous-x86_64.AppImage"
-./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
-
-# Workaround for <https://github.com/probonopd/linuxdeployqt/issues/355>
-export PATH
-PATH=$(readlink -e squashfs-root/usr/bin):$PATH
-squashfs-root/usr/bin/linuxdeployqt "appdir/godot.desktop" -appimage
+./linuxdeployqt-continuous-x86_64.AppImage \
+    --appimage-extract-and-run \
+    "appdir/godot.desktop" -appimage
 
 mv \
     "Godot_Engine-"*"-x86_64.AppImage" \

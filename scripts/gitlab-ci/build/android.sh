@@ -55,5 +55,5 @@ done
 # Create an APK and move it to the artifacts directory
 cd "$GODOT_DIR/platform/android/java/"
 ./gradlew build
-mv "$GODOT_DIR/bin/android_$target.apk" \
-    "$ARTIFACTS_DIR/templates/"
+mv "$GODOT_DIR/platform/android/java/build/outputs/apk/$target/java-$target-unsigned.apk" \
+    "$ARTIFACTS_DIR/templates/android_$target.apk"

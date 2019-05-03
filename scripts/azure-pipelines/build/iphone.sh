@@ -6,6 +6,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+export DIR
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DIR/../_common.sh"
+
 # Build iOS export templates
 # Compile only 64-bit ARM binaries, as all Apple devices supporting
 # OpenGL ES 3.0 have 64-bit ARM processors anyway

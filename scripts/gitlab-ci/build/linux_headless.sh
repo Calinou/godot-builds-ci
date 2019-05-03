@@ -25,3 +25,5 @@ cd "$GODOT_DIR/bin/"
 strip "godot_server.x11.opt.tools.64"
 mv "godot_server.x11.opt.tools.64" "godot-headless"
 tar cfJ "$ARTIFACTS_DIR/server/godot-linux-headless-nightly-x86_64.tar.xz" "godot-headless"
+
+make_manifest "$ARTIFACTS_DIR/server/godot-linux-headless-nightly-x86_64.tar.xz"

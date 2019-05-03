@@ -13,3 +13,5 @@ source "$DIR/../_common.sh"
 make html SPHINXBUILD="$HOME/.local/bin/sphinx-build"
 mv "_build/html/" "godot-docs/"
 zip -r9 "$ARTIFACTS_DIR/docs/godot-docs-html-nightly.zip" "godot-docs/"
+
+make_manifest "$ARTIFACTS_DIR/docs/godot-docs-html-nightly.zip"

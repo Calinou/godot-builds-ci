@@ -6,6 +6,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+export DIR
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DIR/_common.sh"
+
 # Generate `version.txt` from `version.py`
 curl -LO "https://raw.githubusercontent.com/godotengine/godot/master/version.py"
 major=$(grep "major" version.py | cut -d" " -f3)
@@ -17,9 +21,11 @@ echo "$major.$minor.$status" > "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/versi
 (
   cd "$SYSTEM_ARTIFACTSDIRECTORY/godot/"
   zip -mr9 \
-      "templates/godot-templates-ios-macos-nightly.tpz" \
+      "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/godot-templates-ios-macos-nightly.tpz" \
       "templates/"
 )
+
+make_manifest "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/godot-templates-ios-macos-nightly.tpz"
 
 # Deploy to server using SCP
 mkdir -p "$HOME/.ssh"

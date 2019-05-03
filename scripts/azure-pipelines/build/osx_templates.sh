@@ -6,6 +6,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+export DIR
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DIR/../_common.sh"
+
 # Build macOS export templates
 for target in "release_debug" "release"; do
   scons platform=osx tools=no target=$target \

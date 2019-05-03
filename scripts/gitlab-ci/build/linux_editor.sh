@@ -35,3 +35,5 @@ chmod +x "linuxdeployqt-continuous-x86_64.AppImage"
 mv \
     "Godot_Engine-"*"-x86_64.AppImage" \
     "$ARTIFACTS_DIR/editor/godot-linux-nightly-x86_64.AppImage"
+
+make_manifest "$ARTIFACTS_DIR/editor/godot-linux-nightly-x86_64.AppImage"

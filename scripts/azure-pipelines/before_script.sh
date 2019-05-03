@@ -6,6 +6,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+export DIR
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DIR/_common.sh"
+
 # Install dependencies and upgrade to Bash 4
 brew update
 brew install bash scons yasm

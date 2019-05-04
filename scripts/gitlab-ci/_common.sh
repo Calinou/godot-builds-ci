@@ -22,11 +22,12 @@ mkdir -p "$ARTIFACTS_DIR/"
 # Writes a JSON manifest containing build information such as the commit hash
 # the file was built from.
 # NOTE: This function should be called in a Git repository for the
-# commit hash retrieval to work.
+# commit hash and date retrieval to work.
 make_manifest() {
   cat > "$1.manifest.json" << EOF
 {
   "commit": "$(git rev-parse HEAD)",
+  "date": "$(git log -1 --format=%cd --date=short)",
   "sha256": "$(sha256sum "$1" | cut -d ' ' -f 1)"
 }
 EOF

@@ -10,6 +10,11 @@ export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/_common.sh"
 
+# coreutils is needed to compute SHA-256 checksums
+# (will be installed as `gsha256sum`)
+brew update
+brew install coreutils
+
 # Generate `version.txt` from `version.py`
 curl -LO "https://raw.githubusercontent.com/godotengine/godot/master/version.py"
 major=$(grep "major" version.py | cut -d" " -f3)

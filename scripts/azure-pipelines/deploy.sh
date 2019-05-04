@@ -25,7 +25,7 @@ echo "$major.$minor.$status" > "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/versi
       "templates/"
 )
 
-make_manifest "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/godot-templates-ios-macos-nightly.tpz"
+make_template_manifest "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/godot-templates-ios-macos-nightly.tpz"
 
 # Deploy to server using SCP
 mkdir -p "$HOME/.ssh"

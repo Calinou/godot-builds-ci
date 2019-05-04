@@ -58,4 +58,5 @@ mv \
     "Output/godot-setup-nightly-$suffix.exe" \
     "$ARTIFACTS_DIR/editor/"
 
+make_manifest "$ARTIFACTS_DIR/editor/godot-windows-nightly-$suffix.zip"
 make_manifest "$ARTIFACTS_DIR/editor/godot-setup-nightly-$suffix.exe"

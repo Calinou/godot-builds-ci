@@ -11,8 +11,10 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/_common.sh"
 
 # Install dependencies and upgrade to Bash 4
+# coreutils is needed to compute SHA-256 checksums
+# (will be installed as `gsha256sum`)
 brew update
-brew install bash scons yasm
+brew install bash coreutils scons yasm
 echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells
 sudo chsh -s "$(brew --prefix)/bin/bash"
 "$(brew --prefix)/bin/bash" -c "cd $PWD"

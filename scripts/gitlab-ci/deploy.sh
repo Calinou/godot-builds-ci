@@ -25,7 +25,7 @@ echo "$major.$minor.$status" > "$ARTIFACTS_DIR/templates/version.txt"
       "templates/"
 )
 
-make_manifest "$ARTIFACTS_DIR/templates/godot-templates-android-html5-linux-windows-nightly.tpz"
+make_template_manifest "$ARTIFACTS_DIR/templates/godot-templates-android-html5-linux-windows-nightly.tpz"
 
 # Deploy to server using SCP
 # `$SSH_PRIVATE_KEY` is a secret variable defined in the GitLab CI settings

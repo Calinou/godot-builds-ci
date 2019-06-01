@@ -19,7 +19,7 @@ if [[ -f "/etc/redhat-release" ]]; then
       alsa-lib-devel pulseaudio-libs-devel freetype-devel \
       libudev-devel mesa-libGLU-devel mingw32-gcc-c++ mingw64-gcc-c++ \
       mingw32-winpthreads-static mingw64-winpthreads-static yasm openssh-clients \
-      zip unzip ncurses-compat-libs wine xz
+      zip unzip ncurses-compat-libs wine xz lbzip2 libXi-devel
 else
   # Ubuntu
   apt-get update -qq

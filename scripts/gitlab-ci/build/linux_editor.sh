@@ -22,10 +22,10 @@ scons platform=x11 tools=yes target=release_debug \
 
 # Create Linux editor AppImage
 strip "bin/godot.x11.opt.tools.64"
-mkdir -p "appdir/usr/bin/" "appdir/usr/share/icons"
+mkdir -p "appdir/usr/bin/" "appdir/usr/share/icons/hicolor/scalable/apps/"
 cp "bin/godot.x11.opt.tools.64" "appdir/usr/bin/godot"
 cp "misc/dist/linux/org.godotengine.Godot.desktop" "appdir/godot.desktop"
-cp "icon.svg" "appdir/usr/share/icons/godot.svg"
+cp "icon.svg" "appdir/usr/share/icons/hicolor/scalable/apps/godot.svg"
 curl -fsSLO "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod +x "linuxdeployqt-continuous-x86_64.AppImage"
 ./linuxdeployqt-continuous-x86_64.AppImage \

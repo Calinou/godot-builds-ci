@@ -27,7 +27,6 @@ fi
 # Link libpng statically to avoid dependency issues
 scons platform=x11 tools=no target="$scons_target" \
         udev=yes builtin_libpng=yes use_static_cpp=yes \
-        LINKFLAGS="-fuse-ld=gold" \
         "${SCONS_FLAGS[@]}"
 
 strip bin/godot.x11.*.64

@@ -17,7 +17,6 @@ export CXX="g++-8"
 # Build Linux headless editor
 scons platform=server tools=yes target=release_debug \
       use_static_cpp=yes \
-      LINKFLAGS="-fuse-ld=gold" \
       "${SCONS_FLAGS[@]}"
 
 # Create Linux headless editor .tar.xz archive

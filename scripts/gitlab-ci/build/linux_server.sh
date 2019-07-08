@@ -17,7 +17,6 @@ export CXX="g++-8"
 # Build Linux dedicated server
 scons platform=server tools=no target=release \
       use_static_cpp=yes \
-      LINKFLAGS="-fuse-ld=gold" \
       "${SCONS_FLAGS[@]}"
 
 # Create Linux dedicated server .tar.xz archive

@@ -17,7 +17,6 @@ export CXX="g++-8"
 # Build Linux editor
 scons platform=x11 tools=yes target=release_debug \
       udev=yes use_static_cpp=yes \
-      LINKFLAGS="-fuse-ld=gold" \
       "${SCONS_FLAGS[@]}"
 
 # Create Linux editor AppImage

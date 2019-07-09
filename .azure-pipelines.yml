@@ -11,6 +11,7 @@ jobs:
       build_threads: "3"
       scons_flags: '("progress=no" "debug_symbols=no" "-j$BUILD_THREADS")'
       godot_repo_url: https://github.com/godotengine/godot
+      godot_repo_branch: master
     strategy:
       matrix:
         osx_editor:

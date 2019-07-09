@@ -34,7 +34,7 @@ else
       gcc-8 g++-8
 fi
 
-git clone --depth=1 "$GODOT_REPO_URL"
+git clone --depth 1 --branch "$GODOT_REPO_BRANCH" "$GODOT_REPO_URL"
 mkdir -p "$ARTIFACTS_DIR/"{editor,server,templates}/
 
 # Copy user-supplied modules into the Godot directory

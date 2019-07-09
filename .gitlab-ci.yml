@@ -33,6 +33,8 @@ variables:
   SCONS_FLAGS: '("debug_symbols=no" "progress=no" "-j$BUILD_THREADS")'
   # The Godot Git repository clone URL
   GODOT_REPO_URL: https://github.com/godotengine/godot.git
+  # The Godot Git repository clone branch
+  GODOT_REPO_BRANCH: master
 
 # Building documentation has a different set of dependencies,
 # so it has its own "before" script

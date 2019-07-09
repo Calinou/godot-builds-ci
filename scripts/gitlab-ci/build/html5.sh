@@ -24,7 +24,6 @@ git clone --depth=1 "https://github.com/juj/emsdk.git" "$GODOT_DIR/emsdk/"
 cd "$GODOT_DIR/emsdk/"
 ./emsdk install latest
 ./emsdk activate latest
-source ./emsdk_env.sh
 export EMSCRIPTEN_ROOT
 EMSCRIPTEN_ROOT="$(em-config EMSCRIPTEN_ROOT || true)"
 cd "$GODOT_DIR/"

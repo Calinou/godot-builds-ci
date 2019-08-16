@@ -38,7 +38,7 @@ echo "count=0" > "$HOME/.android/repositories.cfg"
 { yes | "$ANDROID_HOME/tools/bin/sdkmanager" "tools" "platform-tools" "build-tools;28.0.3" || true; } > /dev/null
 
 # Install the Android NDK
-curl -fsSLO "https://dl.google.com/android/repository/android-ndk-r19-linux-x86_64.zip"
+curl -fsSLO "https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip"
 unzip -q android-ndk-*-linux-x86_64.zip
 rm android-ndk-*-linux-x86_64.zip
 mv ./*ndk* ndk/

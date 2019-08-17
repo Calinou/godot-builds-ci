@@ -47,7 +47,7 @@ export ANDROID_NDK_ROOT="$ANDROID_HOME/ndk"
 cd "$GODOT_DIR/"
 
 # Build Android export template
-for arch in "armv7" "arm64v8" "x86"; do
+for arch in "armv7" "arm64v8"; do
 scons platform=android tools=no target="$scons_target" android_arch="$arch" \
       "${SCONS_FLAGS[@]}"
 done

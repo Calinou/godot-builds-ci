@@ -57,3 +57,7 @@ cd "$GODOT_DIR/platform/android/java/"
 ./gradlew generateGodotTemplates
 mv "$GODOT_DIR/platform/android/java/app/build/outputs/apk/$target/android_$target.apk" \
     "$ARTIFACTS_DIR/templates/android_$target.apk"
+
+# Move the generated Android source ZIP (for the new exporting method)
+mv "$GODOT_DIR/bin/android_source.zip" \
+   "$ARTIFACTS_DIR/templates/android_source.zip"

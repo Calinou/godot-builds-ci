@@ -68,5 +68,5 @@ mv "$GODOT_DIR/bin/android_source.zip" \
 # Move the generated Android AAR to a temporary location, so that both AARs
 # can be added to the final `android_source.zip`
 mkdir -p "$ARTIFACTS_DIR/libs/$target/"
-mv "$GODOT_DIR/platform/android/java/app/build/outputs/apk/$target/android_$target.apk" \
+mv "$GODOT_DIR/platform/android/java/app/libs/$target/godot-lib.$target.aar" \
     "$ARTIFACTS_DIR/libs/$target/"

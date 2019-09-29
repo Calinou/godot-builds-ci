@@ -18,14 +18,13 @@ status=$(grep "status" version.py | cut -d" " -f3 | tr -d '"')
 echo "$major.$minor.$status" > "$ARTIFACTS_DIR/templates/version.txt"
 
 # Add both Android AARs to `android_source.zip`
-# (see bottom of `build/android.sh` for details)
-zip -r \
-    "$ARTIFACTS_DIR/templates/android_source.zip" \
-    "$ARTIFACTS_DIR/libs/"
-
-# Create an export templates TPZ
+# (see bottom of `build/android.sh` for details),
+# then create an export templates TPZ
 (
   cd "$ARTIFACTS_DIR/"
+  zip -r \
+    "$ARTIFACTS_DIR/templates/android_source.zip" \
+    "libs/"
   zip -mr9 \
       "$ARTIFACTS_DIR/templates/godot-templates-android-html5-linux-windows-nightly.tpz" \
       "templates/"

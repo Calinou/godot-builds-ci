@@ -55,15 +55,15 @@ done
 # Create an APK and move it to the artifacts directory
 cd "$GODOT_DIR/platform/android/java/"
 ./gradlew generateGodotTemplates
-mv "$GODOT_DIR/platform/android/java/app/build/outputs/apk/$target/android_$target.apk" \
-    "$ARTIFACTS_DIR/templates/android_$target.apk"
+mv "$GODOT_DIR/bin/android_$target.apk" \
+    "$ARTIFACTS_DIR/templates/"
 
 # Move the generated Android source ZIP (for the new exporting method).
 # This one will contain only one AAR depending on the current target,
 # so we have to copy the current AAR to a temporary location for merging
 # in the `deploy` job.
 mv "$GODOT_DIR/bin/android_source.zip" \
-   "$ARTIFACTS_DIR/templates/android_source.zip"
+   "$ARTIFACTS_DIR/templates/"
 
 # Move the generated Android AAR to a temporary location, so that both AARs
 # can be added to the final `android_source.zip`

@@ -35,4 +35,4 @@ make_template_manifest "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/godot-templat
 # Deploy to server using SCP
 mkdir -p "$HOME/.ssh"
 cp "resources/known_hosts" "$HOME/.ssh/"
-scp -r "$SYSTEM_ARTIFACTSDIRECTORY/godot"/* hugo@hugo.pro:/var/www/archive.hugo.pro/builds/godot/
+scp -r "$SYSTEM_ARTIFACTSDIRECTORY/godot"/* hugo@hugo.pro:"/var/www/archive.hugo.pro/builds/godot/$GODOT_REPO_BRANCH/"

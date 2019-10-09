@@ -19,9 +19,7 @@ echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells
 sudo chsh -s "$(brew --prefix)/bin/bash"
 "$(brew --prefix)/bin/bash" -c "cd $PWD"
 git clone --depth 1 --branch "$GODOT_REPO_BRANCH" "$GODOT_REPO_URL"
-mkdir -p \
-    "$BUILD_ARTIFACTSTAGINGDIRECTORY/editor" \
-    "$BUILD_ARTIFACTSTAGINGDIRECTORY/templates"
+mkdir -p "$BUILD_ARTIFACTSTAGINGDIRECTORY"/{editor,templates}/
 
 # Copy user-supplied modules into the Godot directory
 # (don't fail in case no modules are present)

@@ -16,7 +16,7 @@ brew update
 brew install coreutils
 
 # Generate `version.txt` from `version.py`
-curl -LO "https://raw.githubusercontent.com/godotengine/godot/master/version.py"
+curl -LO "https://raw.githubusercontent.com/godotengine/godot/3.1/version.py"
 major=$(grep "major" version.py | cut -d" " -f3)
 minor=$(grep "minor" version.py | cut -d" " -f3)
 status=$(grep "status" version.py | cut -d" " -f3 | tr -d '"')
@@ -35,4 +35,4 @@ make_template_manifest "$SYSTEM_ARTIFACTSDIRECTORY/godot/templates/godot-templat
 # Deploy to server using SCP
 mkdir -p "$HOME/.ssh"
 cp "resources/known_hosts" "$HOME/.ssh/"
-scp -r "$SYSTEM_ARTIFACTSDIRECTORY/godot"/* hugo@hugo.pro:/var/www/archive.hugo.pro/builds/godot/
+scp -r "$SYSTEM_ARTIFACTSDIRECTORY/godot"/* hugo@hugo.pro:"/var/www/archive.hugo.pro/builds/godot/$GODOT_REPO_BRANCH/"

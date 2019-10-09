@@ -52,21 +52,12 @@ scons platform=android tools=no target="$scons_target" android_arch="$arch" \
       "${SCONS_FLAGS[@]}"
 done
 
-# Create an APK and move it to the artifacts directory
 cd "$GODOT_DIR/platform/android/java/"
-./gradlew generateGodotTemplates
+
+# The `3.1` (stable) branch uses an older method to build Android export templates.
+# Only an APK is generated in this branch (no AAR).
+./gradlew build
+
+# Move the generated APK to the artifacts directory
 mv "$GODOT_DIR/bin/android_$target.apk" \
-    "$ARTIFACTS_DIR/templates/"
-
-# Move the generated Android source ZIP (for the new exporting method).
-# This one will contain only one AAR depending on the current target,
-# so we have to copy the current AAR to a temporary location for merging
-# in the `deploy` job.
-mv "$GODOT_DIR/bin/android_source.zip" \
-   "$ARTIFACTS_DIR/templates/"
-
-# Move the generated Android AAR to a temporary location, so that both AARs
-# can be added to the final `android_source.zip`
-mkdir -p "$ARTIFACTS_DIR/libs/$target/"
-mv "$GODOT_DIR/platform/android/java/app/libs/$target/godot-lib.$target.aar" \
-    "$ARTIFACTS_DIR/libs/$target/"
+      "$ARTIFACTS_DIR/templates/"

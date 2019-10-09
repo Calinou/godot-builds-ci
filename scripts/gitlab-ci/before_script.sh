@@ -35,7 +35,7 @@ else
 fi
 
 git clone --depth 1 --branch "$GODOT_REPO_BRANCH" "$GODOT_REPO_URL"
-mkdir -p "$ARTIFACTS_DIR/"{editor,server,templates}/
+mkdir -p "$ARTIFACTS_DIR"/{editor,server,templates}/
 
 # Copy user-supplied modules into the Godot directory
 # (don't fail in case no modules are present)

@@ -19,7 +19,7 @@ dnf install -yq \
 
 pip3 install --user sphinx sphinx_rtd_theme
 
-git clone --depth=1 "https://github.com/godotengine/godot-docs.git"
+git clone --depth 1 --branch 3.1 "https://github.com/godotengine/godot-docs.git"
 mkdir -p "$ARTIFACTS_DIR/docs"
 
 # Print information about the commit to build

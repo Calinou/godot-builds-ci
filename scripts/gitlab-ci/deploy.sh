@@ -19,12 +19,14 @@ echo "$major.$minor.$status" > "$ARTIFACTS_DIR/templates/version.txt"
 
 # Add both Android AARs to `android_source.zip`
 # (see bottom of `build/android.sh` for details),
-# then create an export templates TPZ
+# then create an export templates TPZ.
+# Allow failure for the Android libs ZIP, as it may not be present if the Android
+# build failed.
 (
   cd "$ARTIFACTS_DIR/"
   zip -r \
     "$ARTIFACTS_DIR/templates/android_source.zip" \
-    "libs/"
+    "libs/" || true
   zip -mr9 \
       "$ARTIFACTS_DIR/templates/godot-templates-android-html5-linux-windows-nightly.tpz" \
       "templates/"

@@ -57,10 +57,10 @@ build:docs:
   retry: *retry
 
 # Linux editor
-# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+# Built on Ubuntu 16.04 so that binaries run on old distributions as well
 build:linux_editor:
   stage: build
-  image: ubuntu:14.04
+  image: ubuntu:16.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:
@@ -69,10 +69,10 @@ build:linux_editor:
   retry: *retry
 
 # Linux export templates (debug)
-# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+# Built on Ubuntu 16.04 so that binaries run on old distributions as well
 build:linux_templates_debug:
   stage: build
-  image: ubuntu:14.04
+  image: ubuntu:16.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:
@@ -81,10 +81,10 @@ build:linux_templates_debug:
   retry: *retry
 
 # Linux export templates (release)
-# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+# Built on Ubuntu 16.04 so that binaries run on old distributions as well
 build:linux_templates_release:
   stage: build
-  image: ubuntu:14.04
+  image: ubuntu:16.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:
@@ -93,10 +93,10 @@ build:linux_templates_release:
   retry: *retry
 
 # Linux headless editor (for exporting projects and automation)
-# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+# Built on Ubuntu 16.04 so that binaries run on old distributions as well
 build:linux_headless:
   stage: build
-  image: ubuntu:14.04
+  image: ubuntu:16.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:
@@ -105,10 +105,10 @@ build:linux_headless:
   retry: *retry
 
 # Linux dedicated server (for running projects)
-# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+# Built on Ubuntu 16.04 so that binaries run on old distributions as well
 build:linux_server:
   stage: build
-  image: ubuntu:14.04
+  image: ubuntu:16.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:

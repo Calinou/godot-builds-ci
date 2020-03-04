@@ -11,14 +11,11 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "$DIR/../_common.sh"
 
-# Use recent GCC provided by the Ubuntu Toolchain PPA
-export CC="gcc-8"
-export CXX="g++-8"
-
 # Build Linux editor
+# Use recent GCC provided by the Ubuntu Toolchain PPA.
 scons platform=x11 tools=yes target=release_debug \
       udev=yes use_static_cpp=yes \
-      "${SCONS_FLAGS[@]}"
+      CC="gcc-9" CXX="g++-9" "${SCONS_FLAGS[@]}"
 
 # Create Linux editor AppImage
 strip "bin/godot.x11.opt.tools.64"

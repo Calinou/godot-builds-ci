@@ -17,7 +17,7 @@ variables:
 jobs:
   - job: build
     pool:
-      vmImage: macOS-10.14
+      vmImage: macOS-10.15
     timeoutInMinutes: 0
     strategy:
       matrix:
@@ -57,7 +57,7 @@ jobs:
         ne(variables['Build.Reason'], 'PullRequest')
       )
     pool:
-      vmImage: macOS-10.14
+      vmImage: macOS-10.15
     steps:
       - task: DownloadBuildArtifacts@0
         inputs:

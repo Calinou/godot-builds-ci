@@ -7,6 +7,7 @@ set -euo pipefail
 
 export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
 source "$DIR/../_common.sh"
 
 # Build documentation in HTML format

@@ -10,14 +10,11 @@ export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
-# Use recent GCC provided by the Ubuntu Toolchain PPA
-export CC="gcc-8"
-export CXX="g++-8"
-
 # Build Linux dedicated server
+# Use recent GCC provided by the Ubuntu Toolchain PPA.
 scons platform=server tools=no target=release \
       use_static_cpp=yes \
-      "${SCONS_FLAGS[@]}"
+      CC="gcc-9" CXX="g++-9" "${SCONS_FLAGS[@]}"
 
 # Create Linux dedicated server .tar.xz archive
 cd "$GODOT_DIR/bin/"

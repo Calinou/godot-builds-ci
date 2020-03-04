@@ -31,7 +31,7 @@ else
       libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libcairo2 \
       libglu-dev libasound2-dev libpulse-dev libfreetype6-dev \
       libssl-dev libudev-dev libxrandr-dev libxi-dev curl yasm \
-      gcc-8 g++-8
+      gcc-9 g++-9
 fi
 
 git clone --depth 1 --branch "$GODOT_REPO_BRANCH" "$GODOT_REPO_URL"

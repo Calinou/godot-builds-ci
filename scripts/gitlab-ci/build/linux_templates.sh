@@ -10,10 +10,6 @@ export DIR
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
-# Use recent GCC provided by the Ubuntu Toolchain PPA
-export CC="gcc-8"
-export CXX="g++-8"
-
 # The target type ("debug" or "release")
 target="$1"
 
@@ -24,10 +20,11 @@ else
 fi
 
 # Build Linux export templates
-# Link libpng statically to avoid dependency issues
+# Link libpng statically to avoid dependency issues.
+# Use recent GCC provided by the Ubuntu Toolchain PPA.
 scons platform=x11 tools=no target="$scons_target" \
-        udev=yes builtin_libpng=yes use_static_cpp=yes \
-        "${SCONS_FLAGS[@]}"
+      udev=yes builtin_libpng=yes use_static_cpp=yes \
+      CC="gcc-9" CXX="g++-9" "${SCONS_FLAGS[@]}"
 
 strip bin/godot.x11.*.64
 

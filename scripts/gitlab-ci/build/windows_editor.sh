@@ -28,7 +28,7 @@ scons platform=windows bits="$bits" tools=yes target=release_debug \
 # Install innoextract (used to extract Inno Setup without using a virtual X display)
 tmp="$(mktemp)"
 curl -fsSL \
-    "https://constexpr.org/innoextract/files/snapshots/innoextract-1.8-dev-2019-01-13/innoextract-1.8-dev-2019-01-13-linux.tar.xz" \
+    "https://constexpr.org/innoextract/files/innoextract-1.8-linux.tar.xz" \
     -o "$tmp"
 tar xf "$tmp"
 mv innoextract* /opt/innoextract/

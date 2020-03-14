@@ -32,8 +32,8 @@ scons platform=x11 tools=no target="$scons_target" \
 
 strip bin/godot.x11.*.64
 
-# Move Linux export templates to the artifacts directory
-# Pretend 64-bit binaries are 32-bit binaries for now, to avoid errors
-# in the editor's Export dialog
+# Move Linux export templates to the artifacts directory.
+# Pretend 64-bit binaries are 32-bit binaries to avoid errors in the editor's Export dialog.
+# (There are no plans to add 32-bit Linux binaries to the build roster.)
 cp "$GODOT_DIR/bin"/godot.x11.* "$ARTIFACTS_DIR/templates/linux_x11_64_${target}"
 mv "$GODOT_DIR/bin"/godot.x11.* "$ARTIFACTS_DIR/templates/linux_x11_32_${target}"

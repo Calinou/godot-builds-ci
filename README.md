@@ -6,7 +6,7 @@ This repository contains files for usage by GitLab CI and Azure Pipelines.
 
 ## License
 
-Copyright © 2017-2019 Hugo Locurcio and contributors
+Copyright © 2017-2020 Hugo Locurcio and contributors
 
 - Unless otherwise specified, files in this repository are licensed under
   CC0 1.0 Universal, see [LICENSE.md](LICENSE.md) for more information.

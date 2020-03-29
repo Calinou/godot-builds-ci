@@ -22,8 +22,8 @@ scons platform=server tools=no target=release \
 
 # Create Linux dedicated server .tar.xz archive
 cd "$GODOT_DIR/bin/"
-strip "godot_server.x11.opt.64"
-mv "godot_server.x11.opt.64" "godot-server"
+strip "godot_server.linuxbsd.opt.64"
+mv "godot_server.linuxbsd.opt.64" "godot-server"
 tar cfJ "$ARTIFACTS_DIR/server/godot-linux-server-nightly-x86_64.tar.xz" "godot-server"
 
 make_manifest "$ARTIFACTS_DIR/server/godot-linux-server-nightly-x86_64.tar.xz"

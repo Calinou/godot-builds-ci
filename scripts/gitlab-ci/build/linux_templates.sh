@@ -11,6 +11,9 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "$DIR/../_common.sh"
 
+# Required to find pip-installed SCons
+export PATH="$HOME/.local/bin:$PATH"
+
 # The target type ("debug" or "release")
 target="$1"
 

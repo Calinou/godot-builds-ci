@@ -28,11 +28,15 @@ else
   add-apt-repository -y ppa:ubuntu-toolchain-r/test
   apt-get update -qq
 
-  apt-get install -qqq git cmake zip unzip build-essential scons pkg-config \
+  # SCons will be installed using pip so it can use Python 3.
+  apt-get install -qqq git cmake zip unzip build-essential pkg-config \
       libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libcairo2 \
       libglu-dev libasound2-dev libpulse-dev libfreetype6-dev \
       libssl-dev libudev-dev libxrandr-dev libxi-dev curl yasm \
-      gcc-9 g++-9
+      gcc-9 g++-9 python3-pip
+  pip3 install --user scons
+  # Ensure SCons uses Python 3 by replacing the shebang.
+  sed -i "s:#! /usr/bin/env python:#! /usr/bin/python3:" "$HOME/.local/bin/scons"
 fi
 
 git clone --depth 1 --branch "$GODOT_REPO_BRANCH" "$GODOT_REPO_URL"

@@ -11,6 +11,9 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "$DIR/../_common.sh"
 
+# Required to find pip-installed SCons
+export PATH="$HOME/.local/bin:$PATH"
+
 # Build Linux editor
 # Use recent GCC provided by the Ubuntu Toolchain PPA.
 scons platform=x11 tools=yes target=release_debug \

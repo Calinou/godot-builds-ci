@@ -11,6 +11,9 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "$DIR/../_common.sh"
 
+# Required to find pip-installed SCons
+export PATH="$HOME/.local/bin:$PATH"
+
 # Build Linux headless editor
 # Use recent GCC provided by the Ubuntu Toolchain PPA.
 scons platform=server tools=yes target=release_debug \

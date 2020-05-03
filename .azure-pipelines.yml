@@ -12,12 +12,12 @@ variables:
   # The Godot Git repository clone URL
   godot_repo_url: https://github.com/godotengine/godot.git
   # The Godot Git repository clone branch
-  godot_repo_branch: "3.1"
+  godot_repo_branch: "3.2"
 
 jobs:
   - job: build
     pool:
-      vmImage: macOS-10.13
+      vmImage: macOS-10.14
     timeoutInMinutes: 0
     strategy:
       matrix:
@@ -53,11 +53,11 @@ jobs:
     dependsOn: build
     condition: >-
       and(
-        eq(variables['Build.SourceBranchName'], '3.1'),
+        eq(variables['Build.SourceBranchName'], '3.2'),
         ne(variables['Build.Reason'], 'PullRequest')
       )
     pool:
-      vmImage: macOS-10.13
+      vmImage: macOS-10.14
     steps:
       - task: DownloadBuildArtifacts@0
         inputs:

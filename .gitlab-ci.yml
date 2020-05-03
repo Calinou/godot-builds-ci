@@ -34,7 +34,7 @@ variables:
   # The Godot Git repository clone URL
   GODOT_REPO_URL: https://github.com/godotengine/godot.git
   # The Godot Git repository clone branch
-  GODOT_REPO_BRANCH: "3.1"
+  GODOT_REPO_BRANCH: "3.2"
 
 # Building documentation has a different set of dependencies,
 # so it has its own "before" script
@@ -224,7 +224,7 @@ deploy:
   image: fedora:30
   when: always
   only:
-    - 3.1@Calinou/godot-builds-ci
+    - 3.2@Calinou/godot-builds-ci
   before_script:
     - dnf install -yq openssh-clients zip
   script:

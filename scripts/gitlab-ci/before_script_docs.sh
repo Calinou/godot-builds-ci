@@ -18,8 +18,6 @@ dnf install -yq \
     git wget zip unzip python3-pip make curl texlive-latex-bin \
     texlive-dvipng-bin which
 
-pip3 install --user sphinx sphinx_rtd_theme
-
 git clone --depth=1 "https://github.com/godotengine/godot-docs.git"
 mkdir -p "$ARTIFACTS_DIR/docs"
 

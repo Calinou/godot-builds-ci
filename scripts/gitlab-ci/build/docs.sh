@@ -10,6 +10,9 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "$DIR/../_common.sh"
 
+# Install Python dependencies
+pip3 install --user -r requirements.txt
+
 # Build documentation in HTML format
 make html SPHINXBUILD="$HOME/.local/bin/sphinx-build"
 mv "_build/html/" "godot-docs/"

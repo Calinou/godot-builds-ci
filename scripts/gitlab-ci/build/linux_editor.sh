@@ -16,14 +16,14 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Build Linux editor
 # Use recent GCC provided by the Ubuntu Toolchain PPA.
-scons platform=linuxbsd tools=yes target=release_debug \
+scons platform=linuxbsd tools=yes target=debug \
       udev=yes use_static_cpp=yes \
       CC="gcc-9" CXX="g++-9" "${SCONS_FLAGS[@]}"
 
 # Create Linux editor AppImage
-strip "bin/godot.linuxbsd.opt.tools.64"
+strip "bin/godot.linuxbsd.tools.64"
 mkdir -p "appdir/usr/bin/" "appdir/usr/share/icons/hicolor/scalable/apps/"
-cp "bin/godot.linuxbsd.opt.tools.64" "appdir/usr/bin/godot"
+cp "bin/godot.linuxbsd.tools.64" "appdir/usr/bin/godot"
 cp "misc/dist/linux/org.godotengine.Godot.desktop" "appdir/godot.desktop"
 cp "icon.svg" "appdir/usr/share/icons/hicolor/scalable/apps/godot.svg"
 curl -fsSLO "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"

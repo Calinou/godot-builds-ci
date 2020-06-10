@@ -16,14 +16,14 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Build Linux headless editor
 # Use recent GCC provided by the Ubuntu Toolchain PPA.
-scons platform=server tools=yes target=release_debug \
+scons platform=server tools=yes target=debug \
       use_static_cpp=yes \
       CC="gcc-9" CXX="g++-9" "${SCONS_FLAGS[@]}"
 
 # Create Linux headless editor .tar.xz archive
 cd "$GODOT_DIR/bin/"
-strip "godot_server.linuxbsd.opt.tools.64"
-mv "godot_server.linuxbsd.opt.tools.64" "godot-headless"
+strip "godot_server.linuxbsd.tools.64"
+mv "godot_server.linuxbsd.tools.64" "godot-headless"
 tar cfJ "$ARTIFACTS_DIR/server/godot-linux-headless-nightly-x86_64.tar.xz" "godot-headless"
 
 make_manifest "$ARTIFACTS_DIR/server/godot-linux-headless-nightly-x86_64.tar.xz"

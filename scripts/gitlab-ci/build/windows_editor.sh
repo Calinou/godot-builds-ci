@@ -22,7 +22,7 @@ if [[ "$bits" == "64" ]]; then
 fi
 
 # Build Windows editor
-scons platform=windows bits="$bits" tools=yes target=release_debug \
+scons platform=windows bits="$bits" tools=yes target=debug \
       "${SCONS_FLAGS[@]}"
 
 # Install innoextract (used to extract Inno Setup without using a virtual X display)
@@ -43,9 +43,9 @@ chmod +x "/usr/local/bin/iscc"
 # Create Windows editor installers and ZIP archives
 cd "$GODOT_DIR/bin/"
 cp "$CI_PROJECT_DIR/resources/innosetup"/* "."
-strip "godot.windows.opt.tools.$bits.exe"
+strip "godot.windows.tools.$bits.exe"
 
-mv "godot.windows.opt.tools.$bits.exe" "godot.exe"
+mv "godot.windows.tools.$bits.exe" "godot.exe"
 zip -r9 "godot-windows-nightly-$suffix.zip" "godot.exe"
 
 if [[ "$bits" == "64" ]]; then

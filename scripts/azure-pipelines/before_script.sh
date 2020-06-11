@@ -22,10 +22,6 @@ sudo chsh -s "$(brew --prefix)/bin/bash"
 git clone --depth 1 --branch "$GODOT_REPO_BRANCH" "$GODOT_REPO_URL"
 mkdir -p "$BUILD_ARTIFACTSTAGINGDIRECTORY"/{editor,templates}/
 
-# Copy user-supplied modules into the Godot directory
-# (don't fail in case no modules are present)
-cp "modules"/* "godot/modules/" || true
-
 # Print information about the commit to build
 printf -- "-%.0s" {0..72}
 echo ""

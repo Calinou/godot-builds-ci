@@ -42,10 +42,6 @@ fi
 git clone --depth 1 --branch "$GODOT_REPO_BRANCH" "$GODOT_REPO_URL"
 mkdir -p "$ARTIFACTS_DIR"/{editor,server,templates}/
 
-# Copy user-supplied modules into the Godot directory
-# (don't fail in case no modules are present)
-cp "$CI_PROJECT_DIR"/modules/* "$GODOT_DIR/modules/" || true
-
 # Print information about the commit to build
 printf -- "-%.0s" {0..72}
 echo ""

@@ -22,4 +22,7 @@ mkdir -p godot_dmg/Godot.app/Contents/MacOS/
 cp bin/godot.osx.tools.64 godot_dmg/Godot.app/Contents/MacOS/Godot
 hdiutil create -volname Godot -srcfolder godot_dmg/Godot.app/ -ov "$BUILD_ARTIFACTSTAGINGDIRECTORY/editor/godot-macos-nightly-x86_64.dmg"
 
+# Remove temporary uncompressed DMG image created by hdiutil.
+rm "$BUILD_ARTIFACTSTAGINGDIRECTORY/editor/rw.godot-macos-nightly-x86_64.dmg"
+
 make_manifest "$BUILD_ARTIFACTSTAGINGDIRECTORY/editor/godot-macos-nightly-x86_64.dmg"

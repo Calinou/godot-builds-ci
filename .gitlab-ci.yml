@@ -50,7 +50,7 @@ before_script:
 # Documentation in HTML format
 build:docs:
   stage: build
-  image: fedora:31
+  image: fedora:32
   script:
     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/docs.sh"
   artifacts: *artifacts
@@ -119,7 +119,7 @@ build:linux_server:
 # HTML5/WebAssembly (debug)
 build:html5_debug:
   stage: build
-  image: fedora:31
+  image: fedora:32
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" debug'
   artifacts: *artifacts
@@ -128,7 +128,7 @@ build:html5_debug:
 # HTML5/WebAssembly (release)
 build:html5_release:
   stage: build
-  image: fedora:31
+  image: fedora:32
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" release'
   artifacts: *artifacts
@@ -155,7 +155,7 @@ build:android_release:
 # Windows editor (64-bit)
 build:windows_editor_64:
   stage: build
-  image: fedora:31
+  image: fedora:32
   variables:
     # Use only 1 thread for building
     # (required to compile LTO-enabled builds successfully)
@@ -168,7 +168,7 @@ build:windows_editor_64:
 # Windows editor (32-bit)
 build:windows_editor_32:
   stage: build
-  image: fedora:31
+  image: fedora:32
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_editor.sh" 32'
   artifacts: *artifacts
@@ -177,7 +177,7 @@ build:windows_editor_32:
 # Windows export templates (debug, 64-bit)
 build:windows_templates_debug_64:
   stage: build
-  image: fedora:31
+  image: fedora:32
   variables:
     # Use only 1 thread for building
     # (required to compile LTO-enabled builds successfully)
@@ -190,7 +190,7 @@ build:windows_templates_debug_64:
 # Windows export templates (debug, 32-bit)
 build:windows_templates_debug_32:
   stage: build
-  image: fedora:31
+  image: fedora:32
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh" debug 32'
   artifacts: *artifacts
@@ -199,7 +199,7 @@ build:windows_templates_debug_32:
 # Windows export templates (release, 64-bit)
 build:windows_templates_release_64:
   stage: build
-  image: fedora:31
+  image: fedora:32
   variables:
     # Use only 1 thread for building
     # (required to compile LTO-enabled builds successfully)
@@ -212,7 +212,7 @@ build:windows_templates_release_64:
 # Windows export templates (release, 32-bit)
 build:windows_templates_release_32:
   stage: build
-  image: fedora:31
+  image: fedora:32
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh" release 32'
   artifacts: *artifacts
@@ -221,7 +221,7 @@ build:windows_templates_release_32:
 # Deploys all artifacts (currently via SFTP)
 deploy:
   stage: deploy
-  image: fedora:31
+  image: fedora:32
   when: always
   only:
     - master@Calinou/godot-builds-ci

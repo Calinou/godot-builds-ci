@@ -22,7 +22,8 @@ if [[ "$bits" == "64" ]]; then
 fi
 
 # Build Windows editor
-scons platform=windows bits="$bits" tools=yes target=debug \
+# Use the "console" subsystem so people can copy error logs more easily.
+scons platform=windows bits="$bits" tools=yes target=debug windows_subsystem=console \
       "${SCONS_FLAGS[@]}"
 
 # Install innoextract (used to extract Inno Setup without using a virtual X display)

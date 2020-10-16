@@ -29,14 +29,14 @@ scons platform=windows bits="$bits" tools=yes target=debug windows_subsystem=con
 # Install innoextract (used to extract Inno Setup without using a virtual X display)
 tmp="$(mktemp)"
 curl -fsSL \
-    "https://constexpr.org/innoextract/files/innoextract-1.8-linux.tar.xz" \
+    "https://constexpr.org/innoextract/files/innoextract-1.9-linux.tar.xz" \
     -o "$tmp"
 tar xf "$tmp"
 mv innoextract* /opt/innoextract/
 
 # Install Inno Setup and create a launcher script
-curl -fsSLO "http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe"
-/opt/innoextract/innoextract -md "/opt/innosetup" "innosetup-5.6.1-unicode.exe"
+curl -fsSLO "https://files.jrsoftware.org/is/6/innosetup-6.0.5.exe"
+/opt/innoextract/innoextract -md "/opt/innosetup" "innosetup-6.0.5.exe"
 echo "wine \"/opt/innosetup/app/ISCC.exe\" \"\$@\"" \
     > "/usr/local/bin/iscc"
 chmod +x "/usr/local/bin/iscc"

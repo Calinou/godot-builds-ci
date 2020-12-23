@@ -1,0 +1,134 @@
+name: Build and deploy Godot binaries
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    name: Build Godot
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # `release_debug` and `release` are currently partly broken in `master`,
+          # so use the `debug` target for now.
+
+          # Use an older supported Ubuntu LTS version for greater Linux binary compatibility.
+          - os: ubuntu-18.04
+            platform: linuxbsd
+            tools: 'yes'
+            target: debug
+
+          # Cross-compiling using MinGW is faster than compiling natively using MinGW.
+          # Also, MinGW provides the smallest and most optimized Godot binaries possible
+          # when link-time optimization is enabled.
+          # Use a Fedora Docker image as it provides a more recent MinGW setup than Ubuntu 20.04.
+          - os: ubuntu-20.04
+            container: fedora:33
+            platform: windows
+            tools: 'yes'
+            target: debug
+
+          - os: macos-11.0
+            platform: osx
+            tools: 'yes'
+            target: debug
+
+          # Use an older supported Ubuntu LTS version for greater Linux binary compatibility.
+          - os: ubuntu-18.04
+            platform: linuxbsd
+            tools: 'no'
+            target: debug
+
+          # Cross-compiling using MinGW is faster than compiling natively using MinGW.
+          # Also, MinGW provides the smallest and most optimized Godot binaries possible
+          # when link-time optimization is enabled.
+          # Use a Fedora Docker image as it provides a more recent MinGW setup than Ubuntu 20.04.
+          - os: ubuntu-20.04
+            container: fedora:33
+            platform: windows
+            tools: 'no'
+            target: debug
+
+          - os: macos-11.0
+            platform: osx
+            tools: 'no'
+            target: debug
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Install all packages except SCons, as we install SCons using pip later.
+      # Also, the install step depends on the *target* platform (not the host platform).
+      - name: Install dependencies to build for Linux
+        if: matrix.platform == 'linuxbsd'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -qqq \
+              build-essential pkg-config libx11-dev libxcursor-dev \
+              libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev \
+              libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm
+
+      - name: Install dependencies to build for Windows
+        if: matrix.platform == 'windows'
+        # Configure for POSIX threads. Otherwise, we get a build error due to `recursive_mutex`.
+        run: |
+          dnf install -yq \
+              git cmake scons pkgconfig gcc-c++ curl libxml2-devel libX11-devel \
+              libXcursor-devel libXrandr-devel libXinerama-devel mesa-libGL-devel \
+              alsa-lib-devel pulseaudio-libs-devel freetype-devel \
+              libudev-devel mesa-libGLU-devel mingw32-gcc-c++ mingw64-gcc-c++ \
+              mingw32-winpthreads-static mingw64-winpthreads-static yasm \
+              zip unzip ncurses-compat-libs wine xz lbzip2 libXi-devel python
+
+      - name: Install dependencies to build for macOS
+        if: matrix.platform == 'osx'
+        run: |
+          brew install yasm
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          # Use an exact version to be more predictable.
+          python-version: '3.9.1'
+
+      # Setup SCons then print the Python version and SCons version.
+      # If anything is broken, it won't run the build.
+      - name: Install SCons
+        run: |
+          python -c "import sys; print(sys.version)"
+          python -m pip install scons
+          python --version
+          scons --version
+
+      - name: Build Godot
+        env:
+          PLATFORM: ${{ matrix.platform }}
+          TOOLS: ${{ matrix.tools }}
+          TARGET: ${{ matrix.target }}
+        shell: bash
+        # `udev=yes` allows controller hotplugging and is only used on Linux.
+        run: |
+          git clone --depth=1 https://github.com/godotengine/godot.git
+          cd godot
+          scons platform=$PLATFORM tools=$TOOLS target=$TARGET udev=yes -j3
+          ls -lh bin/
+
+      # Only used for sharing files across jobs.
+      # Editor builds are also uploaded for convenience and easier testing.
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.platform }}-${{ matrix.tools == 'yes' && 'editor' || 'template'}}
+          path: godot/bin/*
+          retention-days: 1
+
+  deploy:
+    name: Deploy to Web server using SFTP
+    needs: build
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2

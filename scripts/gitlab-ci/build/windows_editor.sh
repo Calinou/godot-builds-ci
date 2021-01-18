@@ -21,9 +21,15 @@ if [[ "$bits" == "64" ]]; then
   suffix="${suffix}_64"
 fi
 
+# Install llvm-mingw.
+# This is required to build the `master` branch as MinGW 8.0 or later is now needed.
+curl -LO https://github.com/mstorsjo/llvm-mingw/releases/download/20201020/llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
+tar xvf llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
+mv llvm-mingw-20201020-ucrt-ubuntu-18.04 /opt/llvm-mingw
+export PATH="/opt/llvm-mingw/bin:$PATH"
+
 # Build Windows editor
-# Use the "console" subsystem so people can copy error logs more easily.
-scons platform=windows bits="$bits" tools=yes target=debug windows_subsystem=console \
+scons platform=windows bits="$bits" tools=yes target=debug use_llvm=yes \
       "${SCONS_FLAGS[@]}"
 
 # Install innoextract (used to extract Inno Setup without using a virtual X display)

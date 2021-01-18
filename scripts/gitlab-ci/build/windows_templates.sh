@@ -23,8 +23,15 @@ fi
 # The target x86 architecture (can be "64" or "32")
 bits="$2"
 
+# Install llvm-mingw.
+# This is required to build the `master` branch as MinGW 8.0 or later is now needed.
+curl -LO https://github.com/mstorsjo/llvm-mingw/releases/download/20201020/llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
+tar xvf llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
+mv llvm-mingw-20201020-ucrt-ubuntu-18.04 /opt/llvm-mingw
+export PATH="/opt/llvm-mingw/bin:$PATH"
+
 # Build Windows export templates
-scons platform=windows bits="$bits" tools=no target="$scons_target" \
+scons platform=windows bits="$bits" tools=no target="$scons_target" use_llvm=yes \
       "${SCONS_FLAGS[@]}"
 
 strip bin/godot.windows.*.exe

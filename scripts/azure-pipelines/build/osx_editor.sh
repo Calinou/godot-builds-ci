@@ -21,7 +21,7 @@ cp -r misc/dist/osx_tools.app/ godot_dmg/Godot.app/
 mkdir -p godot_dmg/Godot.app/Contents/{Frameworks,MacOS}/
 
 # Download and include MoltenVK into the DMG
-VULKAN_SDK_VERSION="1.2.148.1"
+VULKAN_SDK_VERSION="1.2.170.0"
 curl -LO "https://sdk.lunarg.com/sdk/download/$VULKAN_SDK_VERSION/mac/vulkansdk-macos-$VULKAN_SDK_VERSION.dmg"
 hdiutil attach "vulkansdk-macos-$VULKAN_SDK_VERSION.dmg"
 cp \

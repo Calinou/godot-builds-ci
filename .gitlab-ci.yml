@@ -78,63 +78,69 @@ build:linux_templates_release:
 
 # Linux headless editor (for exporting projects and automation)
 # Built on Ubuntu 16.04 so that binaries run on old distributions as well
-build:linux_headless:
-  stage: build
-  image: ubuntu:16.04
-  variables:
-    DEBIAN_FRONTEND: noninteractive
-  script:
-    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_headless.sh"
-  artifacts: *artifacts
-  retry: *retry
+# Temporarily disabled as build is currently broken upstream.
+# build:linux_headless:
+#   stage: build
+#   image: ubuntu:16.04
+#   variables:
+#     DEBIAN_FRONTEND: noninteractive
+#   script:
+#     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_headless.sh"
+#   artifacts: *artifacts
+#   retry: *retry
 
 # Linux dedicated server (for running projects)
 # Built on Ubuntu 16.04 so that binaries run on old distributions as well
-build:linux_server:
-  stage: build
-  image: ubuntu:16.04
-  variables:
-    DEBIAN_FRONTEND: noninteractive
-  script:
-    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_server.sh"
-  artifacts: *artifacts
-  retry: *retry
+# Temporarily disabled as build is currently broken upstream.
+# build:linux_server:
+#   stage: build
+#   image: ubuntu:16.04
+#   variables:
+#     DEBIAN_FRONTEND: noninteractive
+#   script:
+#     - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_server.sh"
+#   artifacts: *artifacts
+#   retry: *retry
 
 # HTML5/WebAssembly (debug)
-build:html5_debug:
-  stage: build
-  image: fedora:32
-  script:
-    - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" debug'
-  artifacts: *artifacts
-  retry: *retry
+# Temporarily disabled as build is currently broken upstream.
+# build:html5_debug:
+#   stage: build
+#   image: fedora:32
+#   script:
+#     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" debug'
+#   artifacts: *artifacts
+#   retry: *retry
 
 # HTML5/WebAssembly (release)
-build:html5_release:
-  stage: build
-  image: fedora:32
-  script:
-    - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" release'
-  artifacts: *artifacts
-  retry: *retry
+# Temporarily disabled as build is currently broken upstream.
+# build:html5_release:
+#   stage: build
+#   image: fedora:32
+#   script:
+#     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" release'
+#   artifacts: *artifacts
+#   retry: *retry
 
 # Android (debug)
-build:android_debug:
-  stage: build
-  image: fedora:28
-  script:
-    - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh" debug'
-  artifacts: *artifacts
-  retry: *retry
+# Temporarily disabled as build is currently broken upstream.
+# build:android_debug:
+#   stage: build
+#   image: fedora:28
+#   script:
+#     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh" debug'
+#   artifacts: *artifacts
+#   retry: *retry
 
 # Android (release)
-build:android_release:
-  stage: build
-  image: fedora:28
-  script:
-    - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh" release'
-  artifacts: *artifacts
-  retry: *retry
+# Temporarily disabled as build is currently broken upstream.
+# build:android_release:
+#   stage: build
+#   image: fedora:28
+#   script:
+#     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/android.sh" release'
+#   artifacts: *artifacts
+#   retry: *retry
 
 # Windows editor (64-bit)
 build:windows_editor_64:

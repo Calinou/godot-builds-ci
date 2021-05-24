@@ -106,7 +106,7 @@ build:linux_templates_release:
 # Temporarily disabled as build is currently broken upstream.
 # build:html5_debug:
 #   stage: build
-#   image: fedora:32
+#   image: fedora:34
 #   script:
 #     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" debug'
 #   artifacts: *artifacts
@@ -116,7 +116,7 @@ build:linux_templates_release:
 # Temporarily disabled as build is currently broken upstream.
 # build:html5_release:
 #   stage: build
-#   image: fedora:32
+#   image: fedora:34
 #   script:
 #     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh" release'
 #   artifacts: *artifacts
@@ -145,7 +145,7 @@ build:linux_templates_release:
 # Windows editor (64-bit)
 build:windows_editor_64:
   stage: build
-  image: fedora:32
+  image: fedora:34
   variables:
     # Use only 1 thread for building
     # (required to compile LTO-enabled builds successfully)
@@ -158,7 +158,7 @@ build:windows_editor_64:
 # Windows editor (32-bit)
 build:windows_editor_32:
   stage: build
-  image: fedora:32
+  image: fedora:34
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_editor.sh" 32'
   artifacts: *artifacts
@@ -167,7 +167,7 @@ build:windows_editor_32:
 # Windows export templates (debug, 64-bit)
 build:windows_templates_debug_64:
   stage: build
-  image: fedora:32
+  image: fedora:34
   variables:
     # Use only 1 thread for building
     # (required to compile LTO-enabled builds successfully)
@@ -180,7 +180,7 @@ build:windows_templates_debug_64:
 # Windows export templates (debug, 32-bit)
 build:windows_templates_debug_32:
   stage: build
-  image: fedora:32
+  image: fedora:34
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh" debug 32'
   artifacts: *artifacts
@@ -189,7 +189,7 @@ build:windows_templates_debug_32:
 # Windows export templates (release, 64-bit)
 build:windows_templates_release_64:
   stage: build
-  image: fedora:32
+  image: fedora:34
   variables:
     # Use only 1 thread for building
     # (required to compile LTO-enabled builds successfully)
@@ -202,7 +202,7 @@ build:windows_templates_release_64:
 # Windows export templates (release, 32-bit)
 build:windows_templates_release_32:
   stage: build
-  image: fedora:32
+  image: fedora:34
   script:
     - '"$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh" release 32'
   artifacts: *artifacts
@@ -211,7 +211,7 @@ build:windows_templates_release_32:
 # Deploys all artifacts (currently via SFTP)
 deploy:
   stage: deploy
-  image: fedora:32
+  image: fedora:34
   when: always
   only:
     - master@Calinou/godot-builds-ci

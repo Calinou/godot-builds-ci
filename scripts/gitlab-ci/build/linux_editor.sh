@@ -22,7 +22,6 @@ scons platform=linuxbsd tools=yes target=debug \
 
 # Create Linux editor ZIP archive.
 cd "$GODOT_DIR/bin/"
-strip "godot.linuxbsd.tools.64"
 mv "godot.linuxbsd.tools.64" "godot"
 zip -r9 "$ARTIFACTS_DIR/editor/godot-linux-nightly-x86_64.zip" "godot"
 

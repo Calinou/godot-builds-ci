@@ -11,10 +11,16 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "$DIR/../_common.sh"
 
+# Download and mount the MoltenVK DMG to link it statically in the binaries compiled below.
+VULKAN_SDK_VERSION="1.2.182.0"
+curl -LO "https://sdk.lunarg.com/sdk/download/$VULKAN_SDK_VERSION/mac/vulkansdk-macos-$VULKAN_SDK_VERSION.dmg"
+hdiutil attach "vulkansdk-macos-$VULKAN_SDK_VERSION.dmg"
+
 # Build macOS export templates
 for target in "release_debug" "release"; do
   scons platform=osx tools=no target=$target \
-        "${SCONS_FLAGS[@]}"
+      use_static_mvk=yes VULKAN_SDK_PATH="/Volumes/vulkansdk-macos-$VULKAN_SDK_VERSION/" \
+      "${SCONS_FLAGS[@]}"
 done
 
 strip bin/godot.osx.*.64

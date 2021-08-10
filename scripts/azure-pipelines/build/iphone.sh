@@ -11,6 +11,16 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "$DIR/../_common.sh"
 
+# Download and install the MoltenVK DMG to link it statically in the binaries compiled below.
+VULKAN_SDK_VERSION="1.2.182.0"
+curl -LO "https://sdk.lunarg.com/sdk/download/$VULKAN_SDK_VERSION/mac/vulkansdk-macos-$VULKAN_SDK_VERSION.dmg"
+hdiutil attach "vulkansdk-macos-$VULKAN_SDK_VERSION.dmg"
+sudo "/Volumes/vulkansdk-macos-$VULKAN_SDK_VERSION/InstallVulkan.app/Contents/MacOS/InstallVulkan" \
+    --root "$HOME/VulkanSDK" --accept-licenses --default-answer --confirm-command install
+
+cp -r "$HOME/VulkanSDK/MoltenVK/MoltenVK.xcframework" misc/dist/ios_xcode/
+rm -rf misc/dist/ios_xcode/MoltenVK.xcframework/{macos,tvos}*
+
 # Build iOS export templates
 # Compile only 64-bit ARM binaries, as all Apple devices supporting
 # OpenGL ES 3.0 have 64-bit ARM processors anyway

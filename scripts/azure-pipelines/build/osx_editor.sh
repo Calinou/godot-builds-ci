@@ -11,14 +11,16 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "$DIR/../_common.sh"
 
-# Download and mount the MoltenVK DMG to link it statically in the binaries compiled below.
+# Download and install the MoltenVK DMG to link it statically in the binaries compiled below.
 VULKAN_SDK_VERSION="1.2.182.0"
 curl -LO "https://sdk.lunarg.com/sdk/download/$VULKAN_SDK_VERSION/mac/vulkansdk-macos-$VULKAN_SDK_VERSION.dmg"
 hdiutil attach "vulkansdk-macos-$VULKAN_SDK_VERSION.dmg"
+sudo "/Volumes/vulkansdk-macos-$VULKAN_SDK_VERSION/InstallVulkan.app/Contents/MacOS/InstallVulkan" \
+    --root "$HOME/VulkanSDK" --accept-licenses --default-answer --confirm-command install
 
 # Build macOS editor
 scons platform=osx tools=yes target=debug \
-    use_static_mvk=yes VULKAN_SDK_PATH="/Volumes/vulkansdk-macos-$VULKAN_SDK_VERSION/" \
+    use_static_mvk=yes VULKAN_SDK_PATH="$HOME/VulkanSDK" \
     "${SCONS_FLAGS[@]}"
 
 # Create macOS editor DMG image

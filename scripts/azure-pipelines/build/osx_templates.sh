@@ -21,7 +21,7 @@ sudo "/Volumes/vulkansdk-macos-$VULKAN_SDK_VERSION/InstallVulkan.app/Contents/Ma
 # Build macOS export templates
 for target in "release_debug" "release"; do
   scons platform=osx tools=no target=$target \
-      use_static_mvk=yes VULKAN_SDK_PATH="$HOME/VulkanSDK" \
+      use_volk=no VULKAN_SDK_PATH="$HOME/VulkanSDK" \
       "${SCONS_FLAGS[@]}"
 done
 

@@ -20,7 +20,7 @@ sudo "/Volumes/vulkansdk-macos-$VULKAN_SDK_VERSION/InstallVulkan.app/Contents/Ma
 
 # Build macOS editor
 scons platform=osx tools=yes target=debug \
-    use_static_mvk=yes VULKAN_SDK_PATH="$HOME/VulkanSDK" \
+    use_volk=no VULKAN_SDK_PATH="$HOME/VulkanSDK" \
     "${SCONS_FLAGS[@]}"
 
 # Create macOS editor DMG image

@@ -12,7 +12,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/_common.sh"
 
 # Generate `version.txt` from `version.py`
-curl -LO "https://raw.githubusercontent.com/godotengine/godot/3.2/version.py"
+curl -LO "https://raw.githubusercontent.com/godotengine/godot/3.x/version.py"
 major=$(grep "major" version.py | cut -d" " -f3)
 minor=$(grep "minor" version.py | cut -d" " -f3)
 status=$(grep "status" version.py | cut -d" " -f3 | tr -d '"')

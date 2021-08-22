@@ -12,7 +12,7 @@ variables:
   # The Godot Git repository clone URL
   godot_repo_url: https://github.com/godotengine/godot.git
   # The Godot Git repository clone branch
-  godot_repo_branch: "3.2"
+  godot_repo_branch: "3.x"
 
 jobs:
   - job: build
@@ -53,7 +53,7 @@ jobs:
     dependsOn: build
     condition: >-
       and(
-        eq(variables['Build.SourceBranchName'], '3.2'),
+        eq(variables['Build.SourceBranchName'], '3.x'),
         ne(variables['Build.Reason'], 'PullRequest')
       )
     pool:

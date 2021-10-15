@@ -15,7 +15,7 @@ source "$DIR/_common.sh"
 # coreutils is needed to compute SHA-256 checksums
 # (will be installed as `gsha256sum`)
 brew update
-brew install bash coreutils scons yasm
+brew install bash coreutils scons
 echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells
 sudo chsh -s "$(brew --prefix)/bin/bash"
 "$(brew --prefix)/bin/bash" -c "cd $PWD"

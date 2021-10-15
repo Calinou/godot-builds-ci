@@ -18,7 +18,7 @@ if [[ -f "/etc/redhat-release" ]]; then
   dnf install -yq git cmake scons pkgconfig gcc-c++ curl libxml2-devel libX11-devel \
       libXcursor-devel libXrandr-devel libXinerama-devel mesa-libGL-devel \
       alsa-lib-devel pulseaudio-libs-devel freetype-devel \
-      libudev-devel mesa-libGLU-devel yasm openssh-clients \
+      libudev-devel mesa-libGLU-devel openssh-clients \
       zip unzip ncurses-compat-libs wine xz lbzip2 libXi-devel python
 else
   # Ubuntu
@@ -31,7 +31,7 @@ else
   apt-get install -qqq git cmake zip unzip build-essential pkg-config \
       libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libcairo2 \
       libglu-dev libasound2-dev libpulse-dev libfreetype6-dev \
-      libssl-dev libudev-dev libxrandr-dev libxi-dev curl yasm \
+      libssl-dev libudev-dev libxrandr-dev libxi-dev curl \
       gcc-9 g++-9 python3-pip
   pip3 install --user scons
   # Ensure SCons uses Python 3 by replacing the shebang.

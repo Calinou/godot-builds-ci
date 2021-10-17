@@ -41,10 +41,10 @@ before_script:
   - cd "godot/"
 
 # Linux editor
-# Built on Ubuntu 16.04 so that binaries run on old distributions as well
+# Built on Ubuntu 18.04 so that binaries run on old distributions as well
 build:linux_editor:
   stage: build
-  image: ubuntu:16.04
+  image: ubuntu:18.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:
@@ -53,10 +53,10 @@ build:linux_editor:
   retry: *retry
 
 # Linux export templates (debug)
-# Built on Ubuntu 16.04 so that binaries run on old distributions as well
+# Built on Ubuntu 18.04 so that binaries run on old distributions as well
 build:linux_templates_debug:
   stage: build
-  image: ubuntu:16.04
+  image: ubuntu:18.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:
@@ -65,10 +65,10 @@ build:linux_templates_debug:
   retry: *retry
 
 # Linux export templates (release)
-# Built on Ubuntu 16.04 so that binaries run on old distributions as well
+# Built on Ubuntu 18.04 so that binaries run on old distributions as well
 build:linux_templates_release:
   stage: build
-  image: ubuntu:16.04
+  image: ubuntu:18.04
   variables:
     DEBIAN_FRONTEND: noninteractive
   script:

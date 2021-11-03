@@ -12,7 +12,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIR/../_common.sh"
 
 # Download and install the MoltenVK DMG to link it statically in the binaries compiled below.
-VULKAN_SDK_VERSION="1.2.182.0"
+VULKAN_SDK_VERSION="1.2.189.0"
 curl -LO "https://sdk.lunarg.com/sdk/download/$VULKAN_SDK_VERSION/mac/vulkansdk-macos-$VULKAN_SDK_VERSION.dmg"
 hdiutil attach "vulkansdk-macos-$VULKAN_SDK_VERSION.dmg"
 sudo "/Volumes/vulkansdk-macos-$VULKAN_SDK_VERSION/InstallVulkan.app/Contents/MacOS/InstallVulkan" \

@@ -25,11 +25,11 @@ for target in "release_debug" "release"; do
       "${SCONS_FLAGS[@]}"
 done
 
-strip bin/godot.osx.*.64
+strip bin/godot.osx.*.x86_64
 
 # Create macOS export templates ZIP archive
 mv "misc/dist/osx_template.app/" "osx_template.app/"
 mkdir -p "osx_template.app/Contents/MacOS/"
-mv "bin/godot.osx.opt.debug.64" "osx_template.app/Contents/MacOS/godot_osx_debug.64"
-mv "bin/godot.osx.opt.64" "osx_template.app/Contents/MacOS/godot_osx_release.64"
+mv "bin/godot.osx.opt.debug.x86_64" "osx_template.app/Contents/MacOS/godot_osx_debug.x86_64"
+mv "bin/godot.osx.opt.x86_64" "osx_template.app/Contents/MacOS/godot_osx_release.x86_64"
 zip -r9 "$BUILD_ARTIFACTSTAGINGDIRECTORY/templates/osx.zip" "osx_template.app/"

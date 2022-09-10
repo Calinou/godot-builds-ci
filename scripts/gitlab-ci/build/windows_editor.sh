@@ -51,7 +51,7 @@ chmod +x "/usr/local/bin/iscc"
 cd "$GODOT_DIR/bin/"
 cp "$CI_PROJECT_DIR/resources/innosetup"/* "."
 
-mv "godot.windows.tools.$bits.exe" "godot.exe"
+mv "godot.windows.tools.x86_$bits.exe" "godot.exe"
 zip -r9 "godot-windows-nightly-$suffix.zip" "godot.exe"
 
 if [[ "$bits" == "64" ]]; then

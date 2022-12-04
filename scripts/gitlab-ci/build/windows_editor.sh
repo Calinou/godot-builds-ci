@@ -29,7 +29,7 @@ mv llvm-mingw-20201020-ucrt-ubuntu-18.04 /opt/llvm-mingw
 export PATH="/opt/llvm-mingw/bin:$PATH"
 
 # Build Windows editor
-scons platform=windows bits="$bits" tools=yes target=debug use_llvm=yes \
+scons platform=windows bits="$bits" target=editor debug_symbols=yes use_llvm=yes \
       "${SCONS_FLAGS[@]}"
 
 # Install innoextract (used to extract Inno Setup without using a virtual X display)
@@ -51,7 +51,7 @@ chmod +x "/usr/local/bin/iscc"
 cd "$GODOT_DIR/bin/"
 cp "$CI_PROJECT_DIR/resources/innosetup"/* "."
 
-mv "godot.windows.tools.x86_$bits.exe" "godot.exe"
+mv "godot.windows.editor.x86_$bits.exe" "godot.exe"
 zip -r9 "godot-windows-nightly-$suffix.zip" "godot.exe"
 
 if [[ "$bits" == "64" ]]; then

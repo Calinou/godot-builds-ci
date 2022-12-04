@@ -18,15 +18,15 @@ export PATH="$HOME/.local/bin:$PATH"
 target="$1"
 
 if [[ "$target" == "debug" ]]; then
-  scons_target="release_debug"
+  scons_target="template_debug"
 else
-  scons_target="release"
+  scons_target="template_release"
 fi
 
 # Build Linux export templates
 # Link libpng statically to avoid dependency issues.
 # Use recent GCC provided by the Ubuntu Toolchain PPA.
-scons platform=linuxbsd tools=no target="$scons_target" \
+scons platform=linuxbsd target="$scons_target" \
       udev=yes builtin_libpng=yes use_static_cpp=yes \
       CC="gcc-9" CXX="g++-9" "${SCONS_FLAGS[@]}"
 

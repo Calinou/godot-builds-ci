@@ -16,13 +16,13 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Build Linux editor
 # Use recent GCC provided by the Ubuntu Toolchain PPA.
-scons platform=linuxbsd tools=yes target=debug \
+scons platform=linuxbsd target=editor debug_symbols=yes \
       udev=yes use_static_cpp=yes \
       CC="gcc-9" CXX="g++-9" "${SCONS_FLAGS[@]}"
 
 # Create Linux editor ZIP archive.
 cd "$GODOT_DIR/bin/"
-mv "godot.linuxbsd.tools.x86_64" "godot"
+mv "godot.linuxbsd.editor.x86_64" "godot"
 zip -r9 "$ARTIFACTS_DIR/editor/godot-linux-nightly-x86_64.zip" "godot"
 
 make_manifest "$ARTIFACTS_DIR/editor/godot-linux-nightly-x86_64.zip"

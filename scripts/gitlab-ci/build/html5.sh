@@ -15,9 +15,9 @@ source "$DIR/../_common.sh"
 target="$1"
 
 if [[ "$target" == "debug" ]]; then
-  scons_target="release_debug"
+  scons_target="template_debug"
 else
-  scons_target="release"
+  scons_target="template_release"
 fi
 
 # Install the Emscripten SDK
@@ -30,7 +30,7 @@ EMSCRIPTEN_ROOT="$(em-config EMSCRIPTEN_ROOT || true)"
 cd "$GODOT_DIR/"
 
 # Build HTML5 export template
-scons platform=javascript tools=no target="$scons_target" \
+scons platform=javascript target="$scons_target" \
       "${SCONS_FLAGS[@]}"
 
 # Move HTML5 export template to the artifacts directory

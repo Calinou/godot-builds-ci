@@ -15,9 +15,9 @@ source "$DIR/../_common.sh"
 target="$1"
 
 if [[ "$target" == "debug" ]]; then
-  scons_target="release_debug"
+  scons_target="template_debug"
 else
-  scons_target="release"
+  scons_target="template_release"
 fi
 
 # The target x86 architecture (can be "64" or "32")
@@ -31,7 +31,7 @@ mv llvm-mingw-20201020-ucrt-ubuntu-18.04 /opt/llvm-mingw
 export PATH="/opt/llvm-mingw/bin:$PATH"
 
 # Build Windows export templates
-scons platform=windows bits="$bits" tools=no target="$scons_target" use_llvm=yes \
+scons platform=windows bits="$bits" target="$scons_target" use_llvm=yes \
       "${SCONS_FLAGS[@]}"
 
 strip bin/godot.windows.*.exe

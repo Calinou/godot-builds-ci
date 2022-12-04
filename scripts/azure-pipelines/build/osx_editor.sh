@@ -19,7 +19,7 @@ sudo "/Volumes/vulkansdk-macos-$VULKAN_SDK_VERSION/InstallVulkan.app/Contents/Ma
     --root "$HOME/VulkanSDK" --accept-licenses --default-answer --confirm-command install
 
 # Build macOS editor
-scons platform=osx tools=yes target=debug \
+scons platform=osx target=editor debug_symbols=yes \
     use_volk=no VULKAN_SDK_PATH="$HOME/VulkanSDK" \
     "${SCONS_FLAGS[@]}"
 
@@ -28,7 +28,7 @@ mkdir -p godot_dmg/
 cp -r misc/dist/osx_tools.app/ godot_dmg/Godot.app/
 mkdir -p godot_dmg/Godot.app/Contents/MacOS/
 
-cp bin/godot.osx.tools.x86_64 godot_dmg/Godot.app/Contents/MacOS/Godot
+cp bin/godot.osx.editor.x86_64 godot_dmg/Godot.app/Contents/MacOS/Godot
 hdiutil create -volname Godot -srcfolder godot_dmg/Godot.app/ -ov "$BUILD_ARTIFACTSTAGINGDIRECTORY/editor/godot-macos-nightly-x86_64.dmg"
 
 make_manifest "$BUILD_ARTIFACTSTAGINGDIRECTORY/editor/godot-macos-nightly-x86_64.dmg"

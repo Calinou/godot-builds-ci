@@ -25,14 +25,14 @@ rm -rf misc/dist/ios_xcode/MoltenVK.xcframework/{macos,tvos}*
 # Compile only 64-bit ARM binaries, as all Apple devices supporting
 # OpenGL ES 3.0 have 64-bit ARM processors anyway
 # An empty `data.pck` file must be included in the export template ZIP as well
-for target in "release_debug" "release"; do
-  scons platform=iphone arch=arm64 tools=no target=$target \
+for target in "template_debug" "template_release"; do
+  scons platform=iphone arch=arm64 target=$target \
         "${SCONS_FLAGS[@]}"
 done
 
 # Create iOS export templates ZIP archive
-mv "bin/libgodot.iphone.opt.debug.arm64.a" "libgodot.iphone.debug.fat.a"
-mv "bin/libgodot.iphone.opt.arm64.a" "libgodot.iphone.release.fat.a"
+mv "bin/libgodot.iphone.template_debug.arm64.a" "libgodot.iphone.debug.fat.a"
+mv "bin/libgodot.iphone.template_release.arm64.a" "libgodot.iphone.release.fat.a"
 touch "data.pck"
 zip -r9 \
     "$BUILD_ARTIFACTSTAGINGDIRECTORY/templates/iphone.zip" \

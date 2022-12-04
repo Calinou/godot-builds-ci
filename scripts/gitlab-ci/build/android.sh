@@ -15,9 +15,9 @@ source "$DIR/../_common.sh"
 target="$1"
 
 if [[ "$target" == "debug" ]]; then
-  scons_target="release_debug"
+  scons_target="template_debug"
 else
-  scons_target="release"
+  scons_target="template_release"
 fi
 
 # Install OpenJDK
@@ -49,7 +49,7 @@ cd "$GODOT_DIR/"
 
 # Build Android export template
 for arch in "armv7" "arm64v8"; do
-scons platform=android tools=no target="$scons_target" android_arch="$arch" \
+scons platform=android target="$scons_target" android_arch="$arch" \
       "${SCONS_FLAGS[@]}"
 done
 
